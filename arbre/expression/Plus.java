@@ -17,4 +17,11 @@ public class Plus extends BinaireArithmetique {
         return " + " ;
     }
 
+	@Override
+	public String toMIPS() {
+		StringBuilder sb = new StringBuilder();
+		
+		return null;
+	}
+
 }

@@ -17,4 +17,10 @@ public class MoinsUnaire extends Unaire {
         return "- " ;
     }
 
+	@Override
+	public String toMIPS() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

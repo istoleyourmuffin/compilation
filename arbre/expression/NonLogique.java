@@ -17,4 +17,10 @@ public class NonLogique extends Unaire {
         return " non " ;
     }
 
+	@Override
+	public String toMIPS() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

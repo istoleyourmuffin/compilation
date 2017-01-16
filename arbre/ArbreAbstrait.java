@@ -20,6 +20,6 @@ public abstract class ArbreAbstrait {
     }
 
     // public abstract void verifier() ;   à écrire pour plic0
-    // public abstract String toMIPS() ;   à écrire pour plic0
+    public abstract String toMIPS() ; 
 
 }
