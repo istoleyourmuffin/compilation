@@ -22,5 +22,11 @@ public class Egal extends Comparaison {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void verifier() {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

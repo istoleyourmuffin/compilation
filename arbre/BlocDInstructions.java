@@ -29,4 +29,10 @@ public class BlocDInstructions extends ArbreAbstrait {
 		return null;
 	}
 
+	@Override
+	public void verifier() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

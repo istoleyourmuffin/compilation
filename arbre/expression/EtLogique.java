@@ -23,4 +23,10 @@ public class EtLogique extends BinaireLogique {
 		return null;
 	}
 
+	@Override
+	public void verifier() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

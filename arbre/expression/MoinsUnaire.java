@@ -23,4 +23,10 @@ public class MoinsUnaire extends Unaire {
 		return null;
 	}
 
+	@Override
+	public void verifier() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

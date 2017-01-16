@@ -18,4 +18,10 @@ public class ConstanteEntiere extends Constante {
 		return null;
 	}
 
+	@Override
+	public void verifier() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
