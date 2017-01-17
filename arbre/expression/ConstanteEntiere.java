@@ -14,8 +14,10 @@ public class ConstanteEntiere extends Constante {
 
 	@Override
 	public String toMIPS() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("#Chargement de " + this.cste + " dans $v0\n");
+		sb.append("li $v0, " + this.cste + "\n");
+		return sb.toString();
 	}
 
 	@Override

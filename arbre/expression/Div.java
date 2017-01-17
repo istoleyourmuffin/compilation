@@ -25,7 +25,7 @@ public class Div extends BinaireArithmetique {
 
 	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
+		
 		
 	}
     
