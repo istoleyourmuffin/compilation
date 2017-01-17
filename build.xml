@@ -7,7 +7,7 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="Plic-Compiler" default="-pre-compile" basedir=".">
+<project name="Compilation" default="-pre-compile" basedir=".">
     <description>Builds, tests, and runs the project Compilation.</description>
     <property name="excludes" value="**/*.cup,**/*.jflex,**/*.odt,**/*.pdf"/>
 	<property name="src" value="src/plic/analyse"/>
