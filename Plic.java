@@ -21,7 +21,8 @@ public class Plic {
         try {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
-            System.err.println("expression stockée dans l'arbre : " + arbre);
+            System.err.println("Expression stockée dans l'arbre : " + arbre);
+            arbre.verifier();
             System.out.println("Code MIPS stocké dans l'arbre \n: " + arbre.toMIPS());
             
         } 

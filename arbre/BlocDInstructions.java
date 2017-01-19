@@ -30,7 +30,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 
 	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
+		expr.verifier();
 		
 	}
 

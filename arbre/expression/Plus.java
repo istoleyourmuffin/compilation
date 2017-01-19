@@ -23,7 +23,6 @@ public class Plus extends BinaireArithmetique {
 	@Override
 	public String toMIPS() {
 		
-		this.verifier();
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("# ----- Somme ----- \n");
@@ -42,7 +41,7 @@ public class Plus extends BinaireArithmetique {
 	}
 
 	@Override
-	public void verifier() throws AnalyseSyntaxiqueException{
+	public void verifier() throws AnalyseSyntaxiqueException {
 		String g = gauche.getClass().getSimpleName();
 		String d = droite.getClass().getSimpleName();
 		if(g.equals("ConstanteBool") && d.equals("ConstanteEntiere")
