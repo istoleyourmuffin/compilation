@@ -19,8 +19,22 @@ public class Egal extends Comparaison {
 
 	@Override
 	public String toMIPS() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("# ----- Egalité ----- \n");
+		sb.append("# Ranger operande gauche dans $v0 \n");
+		sb.append(gauche.toMIPS());
+		sb.append("sw $v0, 0($sp) \n");
+		sb.append("add $sp, $sp, -4 \n");
+		sb.append("# Ranger operande droite dans $v0 \n");
+		sb.append(droite.toMIPS());
+		sb.append("add $sp, $sp, 4 \n");
+		sb.append("lw $t8, ($sp) \n");
+		sb.append("seq $v0, $t8, $v0 \n");
+		sb.append("# ---- Fin Egalité ---- \n\n");
+		
+		return sb.toString();
 	}
 
 	@Override

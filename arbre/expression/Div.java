@@ -21,6 +21,7 @@ public class Div extends BinaireArithmetique {
 
 	@Override
 	public String toMIPS() {
+		
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("# ----- Somme ----- \n");
