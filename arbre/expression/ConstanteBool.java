@@ -1,5 +1,7 @@
 package plic.arbre.expression;
 
+import plic.exceptions.AnalyseSyntaxiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -16,7 +18,7 @@ public class ConstanteBool extends Constante {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("#Chargement de " + this.cste + " dans $v0\n");
-		if (this.cste.equals("true")){
+		if (this.cste.equals("vrai")){
 			sb.append("li $v0, 1\n");
 		} else {
 			sb.append("li $v0, 0\n");
@@ -26,7 +28,9 @@ public class ConstanteBool extends Constante {
 
 	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
+		if (!(this.cste.equals("vrai")) || !(this.cste.equals("faux"))){
+			throw new AnalyseSyntaxiqueException("Paramètres incorrects (constante booleene)");
+		}
 		
 	}
 

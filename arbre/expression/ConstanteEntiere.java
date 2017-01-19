@@ -1,5 +1,7 @@
 package plic.arbre.expression;
 
+import plic.exceptions.AnalyseSyntaxiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -22,8 +24,11 @@ public class ConstanteEntiere extends Constante {
 
 	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
-		
+		try {
+			int i = Integer.parseInt(this.cste);
+		} catch (Exception e) {
+			throw new AnalyseSyntaxiqueException("Paramètres incorrects (constante entiere)");
+		}	
 	}
 
 }
