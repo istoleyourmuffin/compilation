@@ -14,8 +14,14 @@ public class ConstanteBool extends Constante {
 
 	@Override
 	public String toMIPS() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("#Chargement de " + this.cste + " dans $v0\n");
+		if (this.cste.equals("true")){
+			sb.append("li $v0, 1\n");
+		} else {
+			sb.append("li $v0, 0\n");
+		}
+		return sb.toString();
 	}
 
 	@Override
