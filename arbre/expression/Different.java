@@ -21,8 +21,21 @@ public class Different extends Comparaison {
 
 	@Override
 	public String toMIPS() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("# ----- Différent ----- \n");
+		sb.append("# Ranger operande gauche dans $v0 \n");
+		sb.append(gauche.toMIPS());
+		sb.append("sw $v0, 0($sp) \n");
+		sb.append("add $sp, $sp, -4 \n");
+		sb.append("# Ranger operande droite dans $v0 \n");
+		sb.append(droite.toMIPS());
+		sb.append("add $sp, $sp, 4 \n");
+		sb.append("lw $t8, ($sp) \n");
+		sb.append("sne $v0, $t8, $v0 \n");
+		sb.append("# ---- Fin Différent ---- \n\n");
+		
+		return sb.toString();
 	}
 
 	public void verifier() {

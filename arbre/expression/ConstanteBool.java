@@ -1,5 +1,7 @@
 package plic.arbre.expression;
 
+import plic.exceptions.AnalyseSyntaxiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -14,8 +16,14 @@ public class ConstanteBool extends Constante {
 
 	@Override
 	public String toMIPS() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("#Chargement de " + this.cste + " dans $v0\n");
+		if (this.cste.equals("vrai")){
+			sb.append("li $v0, 1\n");
+		} else {
+			sb.append("li $v0, 0\n");
+		}
+		return sb.toString();
 	}
 
 	public void verifier() {

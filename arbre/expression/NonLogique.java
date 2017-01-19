@@ -21,8 +21,20 @@ public class NonLogique extends Unaire {
 
 	@Override
 	public String toMIPS() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("# ----- Non Logique ----- \n");
+		sb.append("# Ranger expression dans $v0 \n");
+		sb.append(expression.toMIPS());
+		sb.append("si : beqz $v0, sinon\n");
+		sb.append("alors : li $v0, 0 \n");
+		sb.append("j finsi \n");
+		sb.append("sinon: li $v0, 1 \n");
+		sb.append("finsi: \n");
+		sb.append("# ---- Fin Non Logique ---- \n\n");
+		
+		return sb.toString();
 	}
 
 	@Override
