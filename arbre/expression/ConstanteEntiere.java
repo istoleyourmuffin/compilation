@@ -20,10 +20,11 @@ public class ConstanteEntiere extends Constante {
 		return sb.toString();
 	}
 
-	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
-		
+	}
+
+	protected String getType() {
+		return "int";
 	}
 
 }

@@ -38,15 +38,8 @@ public class Moins extends BinaireArithmetique {
 		
 		return sb.toString();
 	}
-
-	@Override
-	public void verifier() {
-		String g = gauche.getClass().getSimpleName();
-		String d = droite.getClass().getSimpleName();
-		if(g.equals("ConstanteBool") && d.equals("ConstanteEntiere")
-		|| d.equals("ConstanteBool") && g.equals("ConstanteEntiere")) {
-			throw new AnalyseSyntaxiqueException("Paramètres incorrects (Soustraction)");
-		}
-	}
     
+	protected String getType() {
+		return "int";
+	}
 }

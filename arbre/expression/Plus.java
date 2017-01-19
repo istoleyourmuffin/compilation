@@ -39,15 +39,9 @@ public class Plus extends BinaireArithmetique {
 		
 		return sb.toString();
 	}
-
-	@Override
-	public void verifier() throws AnalyseSyntaxiqueException {
-		String g = gauche.getClass().getSimpleName();
-		String d = droite.getClass().getSimpleName();
-		if(g.equals("ConstanteBool") && d.equals("ConstanteEntiere")
-		|| d.equals("ConstanteBool") && g.equals("ConstanteEntiere")) {
-			throw new AnalyseSyntaxiqueException("Paramètres incorrects (somme)");
-		}
+	
+	protected String getType() {
+		return "int";
 	}
 
 }

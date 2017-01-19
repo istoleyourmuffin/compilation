@@ -18,10 +18,11 @@ public class ConstanteBool extends Constante {
 		return null;
 	}
 
-	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
-		
+	}
+
+	protected String getType() {
+		return "bool";
 	}
 
 }

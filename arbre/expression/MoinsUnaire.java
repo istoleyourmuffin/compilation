@@ -1,5 +1,7 @@
 package plic.arbre.expression;
 
+import plic.exceptions.AnalyseSyntaxiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -38,8 +40,14 @@ public class MoinsUnaire extends Unaire {
 
 	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
+		super.verifier();
+		if (!expression.getType().equals("int")) {
+			throw new AnalyseSyntaxiqueException ("l'expression n'est pas un entier");
+		}
 		
 	}
 
+	protected String getType() {
+		return "int";
+	}
 }

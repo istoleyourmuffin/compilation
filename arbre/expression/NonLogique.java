@@ -1,5 +1,7 @@
 package plic.arbre.expression;
 
+import plic.exceptions.AnalyseSyntaxiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -25,8 +27,14 @@ public class NonLogique extends Unaire {
 
 	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
-		
+		super.verifier();
+		if (!expression.getType().equals("bool")) {
+			throw new AnalyseSyntaxiqueException ("l'expression n'est pas un booléen");
+		}
+	}
+	
+	protected String getType() {
+		return "bool";
 	}
 
 }

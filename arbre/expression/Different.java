@@ -1,5 +1,7 @@
 package plic.arbre.expression;
 
+import plic.exceptions.AnalyseSyntaxiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -23,10 +25,16 @@ public class Different extends Comparaison {
 		return null;
 	}
 
-	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
-		
+		super.verifier();
+		String g = gauche.getType(), d = droite.getType();
+		if (!g.equals(d)) {
+			throw new AnalyseSyntaxiqueException ("l'expression ne peut pas être comparée");
+		}	
+	}
+
+	protected String getType() {
+		return "bool";
 	}
   
 }

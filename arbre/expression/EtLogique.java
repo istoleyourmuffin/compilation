@@ -1,5 +1,7 @@
 package plic.arbre.expression;
 
+import plic.exceptions.AnalyseSyntaxiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -25,8 +27,15 @@ public class EtLogique extends BinaireLogique {
 
 	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
-		
+		super.verifier();
+		if (!gauche.getType().equals("bool")
+			|| !droite.getType().equals("bool")) {
+			throw new AnalyseSyntaxiqueException ("l'expression n'est pas composée de booléens");
+		}
+	}
+	
+	protected String getType() {
+		return "bool";
 	}
 
 }

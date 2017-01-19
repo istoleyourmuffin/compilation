@@ -19,5 +19,4 @@ public abstract class Constante extends Expression {
     public String toString() {
         return cste ;
     }
-
 }

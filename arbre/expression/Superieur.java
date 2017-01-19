@@ -1,5 +1,7 @@
 package plic.arbre.expression;
 
+import plic.exceptions.AnalyseSyntaxiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -23,10 +25,16 @@ public class Superieur extends Comparaison {
 		return null;
 	}
 
-	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
-		
+		super.verifier();
+		if (!gauche.getType().equals("int")
+			|| !droite.getType().equals("int")) {
+			throw new AnalyseSyntaxiqueException ("l'expression n'est pas composée d'entiers");
+		}
+	}
+	
+	protected String getType() {
+		return "bool";
 	}
     
 }
