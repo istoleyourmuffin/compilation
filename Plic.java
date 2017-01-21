@@ -2,6 +2,7 @@ package plic ;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import plic.analyse.AnalyseurLexical;
@@ -24,7 +25,15 @@ public class Plic {
             System.err.println("Expression stockée dans l'arbre : " + arbre);
             arbre.verifier();
             System.out.println("Code MIPS stocké dans l'arbre \n: " + arbre.toMIPS());
+            System.out.println("Fichier : " + fichier);
             
+            
+            String[] name = fichier.split(".plic"); 
+            
+            FileWriter fw = new FileWriter(name[0] + ".mips");
+            fw.write(arbre.toMIPS());
+            fw.flush();
+            fw.close();
         } 
         catch (FileNotFoundException ex) {
             System.err.println("Fichier " + fichier + " inexistant") ;

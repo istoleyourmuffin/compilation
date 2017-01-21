@@ -25,7 +25,11 @@ public class BlocDInstructions extends ArbreAbstrait {
 
 	@Override
 	public String toMIPS() {
-		return expr.toMIPS();
+		return expr.toMIPS() 
+				+ "end :\n"
+				+ "move $v1, $v0	# copie de v0 dans v1 pour permettre les tests de plic0\n"
+				+ "li $v0, 10		# retour au système\n"
+				+ "syscall\n";
 	}
 
 	@Override
