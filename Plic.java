@@ -25,15 +25,15 @@ public class Plic {
             System.err.println("Expression stockée dans l'arbre : " + arbre);
             arbre.verifier();
             System.out.println("Code MIPS stocké dans l'arbre \n: " + arbre.toMIPS());
-            System.out.println("Fichier : " + fichier);
-            
-            
+            /* récupération du no du fichier */
             String[] name = fichier.split(".plic"); 
-            
+            /* ecriture dans le fichier .mips */
             FileWriter fw = new FileWriter(name[0] + ".mips");
             fw.write(arbre.toMIPS());
             fw.flush();
             fw.close();
+            
+            System.out.println("Fichier généré : " + name[0] + ".mips\n");
         } 
         catch (FileNotFoundException ex) {
             System.err.println("Fichier " + fichier + " inexistant") ;
