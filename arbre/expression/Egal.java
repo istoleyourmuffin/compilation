@@ -48,7 +48,7 @@ public class Egal extends Comparaison {
 	}
 
 	protected String getType() {
-		return "int";
+		return "bool";
 	}
     
 }
