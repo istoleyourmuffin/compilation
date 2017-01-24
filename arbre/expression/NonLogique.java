@@ -9,7 +9,7 @@ import plic.exceptions.AnalyseSyntaxiqueException;
  */
 
 public class NonLogique extends Unaire {
-    
+	
     public NonLogique(Expression expr) {
         super(expr);
     }
@@ -21,7 +21,7 @@ public class NonLogique extends Unaire {
 
 	@Override
 	public String toMIPS() {
-		
+
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("# ----- Non Logique ----- \n");

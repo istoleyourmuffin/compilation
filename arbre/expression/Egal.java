@@ -9,6 +9,7 @@ import plic.exceptions.AnalyseSyntaxiqueException;
  */
 
 public class Egal extends Comparaison {
+	
 
     public Egal(Expression gauche, Expression droite) {
         super(gauche, droite);
@@ -21,7 +22,7 @@ public class Egal extends Comparaison {
 
 	@Override
 	public String toMIPS() {
-		
+
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("# ----- Egalité ----- \n");
