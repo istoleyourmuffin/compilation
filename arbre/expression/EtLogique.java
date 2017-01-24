@@ -22,27 +22,7 @@ public class EtLogique extends BinaireLogique {
 
 	@Override
 	public String toMIPS() {
-		
-		/*Plic.incrementSi();
-		int compteurActuel1 = Plic.getCompteurSi();
-		Plic.incrementSi();
-		int compteurActuel2 = Plic.getCompteurSi();*/
-		
 		StringBuilder sb = new StringBuilder();
-		
-		/*sb.append("# ----- Et Logique ----- \n");
-		sb.append("# Ranger operande gauche dans $v0 \n");
-		sb.append(gauche.toMIPS());
-		sb.append("si"+compteurActuel1+" : beqz $v0, sinon"+compteurActuel2+" \n");
-		sb.append("# Ranger operande droite dans $v0 \n");
-		sb.append(droite.toMIPS());
-		
-		sb.append("si"+compteurActuel2+" : beqz $v0, sinon"+compteurActuel2+" \n");
-		sb.append("alors"+compteurActuel2+" : li $v0, 1 \n");
-		sb.append("j fin"+compteurActuel1+" \n");
-		sb.append("sinon"+compteurActuel2+" : li $v0, 0 \n");
-		sb.append("fin"+compteurActuel1+" : \n");
-		sb.append("# ---- Fin Et Logique ---- \n\n");*/
 		
 		sb.append("# ----- Egalité ----- \n");
 		sb.append("# Ranger operande gauche dans $v0 \n");
