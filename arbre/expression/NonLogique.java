@@ -23,19 +23,19 @@ public class NonLogique extends Unaire {
 	@Override
 	public String toMIPS() {
 
-		Plic.incrementSi();
-		int compteurActuel = Plic.getCompteurSi();
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("# ----- Non Logique ----- \n");
-		sb.append("# Ranger expression dans $v0 \n");
+		sb.append("# Ranger exp dans $v0 \n");
 		sb.append(expression.toMIPS());
-		sb.append("si"+compteurActuel+" : beqz $v0, sinon"+compteurActuel+"\n");
-		sb.append("alors"+compteurActuel+" : li $v0, 0 \n");
-		sb.append("j finsi"+compteurActuel+" \n");
-		sb.append("sinon"+compteurActuel+": li $v0, 1 \n");
-		sb.append("finsi"+compteurActuel+": \n");
-		sb.append("# ---- Fin Non Logique ---- \n\n");
+		sb.append("sw $v0, 0($sp) \n");
+		sb.append("add $sp, $sp, -4 \n");
+		sb.append("# Ranger 1 dans $v0 \n");
+		sb.append("li $v0, 1 \n");
+		sb.append("add $sp, $sp, 4 \n");
+		sb.append("lw $t8, ($sp) \n");
+		sb.append("xor $v0, $t8, $v0 \n");
+		sb.append("# ---- Fin non logique ---- \n\n");
 		
 		return sb.toString();
 	}

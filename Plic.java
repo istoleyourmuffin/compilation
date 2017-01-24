@@ -17,8 +17,6 @@ import plic.exceptions.AnalyseException;
  */
 
 public class Plic {
-    
-	private static int compteurSi = 0;
 	
     public Plic(String fichier) {
         try {
@@ -48,14 +46,6 @@ public class Plic {
         }
     }
 
-    public static int getCompteurSi() {
-    	return compteurSi;
-    }
-    
-    public static void incrementSi() {
-    	compteurSi++;
-    }
-    
     public static void main(String[] args) {
         if (args.length != 1) {
             System.err.println("Nombre incorrect d'arguments") ;
