@@ -30,7 +30,7 @@ public class NonLogique extends Unaire {
 		sb.append("# ----- Non Logique ----- \n");
 		sb.append("# Ranger expression dans $v0 \n");
 		sb.append(expression.toMIPS());
-		sb.append("si"+compteurActuel+" : beqz $v0, sinon"+this.getNoLigne()+"\n");
+		sb.append("si"+compteurActuel+" : beqz $v0, sinon"+compteurActuel+"\n");
 		sb.append("alors"+compteurActuel+" : li $v0, 0 \n");
 		sb.append("j finsi"+compteurActuel+" \n");
 		sb.append("sinon"+compteurActuel+": li $v0, 1 \n");

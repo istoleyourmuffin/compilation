@@ -23,26 +23,38 @@ public class EtLogique extends BinaireLogique {
 	@Override
 	public String toMIPS() {
 		
+		/*Plic.incrementSi();
+		int compteurActuel1 = Plic.getCompteurSi();
 		Plic.incrementSi();
-		int compteurActuel = Plic.getCompteurSi();
+		int compteurActuel2 = Plic.getCompteurSi();*/
+		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("# ----- Et Logique ----- \n");
+		/*sb.append("# ----- Et Logique ----- \n");
 		sb.append("# Ranger operande gauche dans $v0 \n");
 		sb.append(gauche.toMIPS());
-		sb.append("si"+compteurActuel+" : beqz $v0, sinon2 \n");
+		sb.append("si"+compteurActuel1+" : beqz $v0, sinon"+compteurActuel2+" \n");
 		sb.append("# Ranger operande droite dans $v0 \n");
 		sb.append(droite.toMIPS());
 		
-		Plic.incrementSi();
-		compteurActuel = Plic.getCompteurSi();
+		sb.append("si"+compteurActuel2+" : beqz $v0, sinon"+compteurActuel2+" \n");
+		sb.append("alors"+compteurActuel2+" : li $v0, 1 \n");
+		sb.append("j fin"+compteurActuel1+" \n");
+		sb.append("sinon"+compteurActuel2+" : li $v0, 0 \n");
+		sb.append("fin"+compteurActuel1+" : \n");
+		sb.append("# ---- Fin Et Logique ---- \n\n");*/
 		
-		sb.append("si"+compteurActuel+" : beqz $v0, sinon2 \n");
-		sb.append("alors"+compteurActuel+" : li $v0, 1 \n");
-		sb.append("j fin"+compteurActuel+" \n");
-		sb.append("sinon"+compteurActuel+" : li $v0, 0 \n");
-		sb.append("fin"+compteurActuel+" : \n");
-		sb.append("# ---- Fin Et Logique ---- \n\n");
+		sb.append("# ----- Egalité ----- \n");
+		sb.append("# Ranger operande gauche dans $v0 \n");
+		sb.append(gauche.toMIPS());
+		sb.append("sw $v0, 0($sp) \n");
+		sb.append("add $sp, $sp, -4 \n");
+		sb.append("# Ranger operande droite dans $v0 \n");
+		sb.append(droite.toMIPS());
+		sb.append("add $sp, $sp, 4 \n");
+		sb.append("lw $t8, ($sp) \n");
+		sb.append("and $v0, $t8, $v0 \n");
+		sb.append("# ---- Fin Egalité ---- \n\n");
 		
 		return sb.toString();
 	}
