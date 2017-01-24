@@ -22,12 +22,9 @@ public class NonLogique extends Unaire {
 
 	@Override
 	public String toMIPS() {
-<<<<<<< HEAD
 
-=======
 		Plic.incrementSi();
 		int compteurActuel = Plic.getCompteurSi();
->>>>>>> ea65f2d94c1707dff66b07c3079573efa3d5f726
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("# ----- Non Logique ----- \n");
