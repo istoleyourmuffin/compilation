@@ -1,9 +1,9 @@
 package plic.analyse ;
 
 import java.util.*;
+import java_cup.runtime.*;
 import plic.arbre.* ;
-import plic.arbre.expression.* ;
-import plic.exceptions.AnalyseSyntaxiqueException;
+import plic.exceptions.*;
 
 import java_cup.runtime.*;
 
@@ -70,9 +70,17 @@ terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, VIRGULE, POINTVIRGULE ;
 terminal Symbol	   CLASS, ENTIER, FIN, EGAL ;
 terminal String    CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, IDF;
-non terminal ArbreAbstrait SYSTEME ;
-non terminal Expression CLASSE, LISTDECLARATION, DECLARATION, DECL_CHAMP, STATUT, TYPE, DECL_CONST ;
-non terminal Expression LISTINSTRUCTION, INSTRUCTION, AFFECT, ACCES, ECRIRE, EXPR, CSTE, LISTIDF ;
+
+non terminal ArbreAbstrait SYSTEME;
+non terminal Classe CLASSE;
+non terminal ListeDeclaration LISTDECLARATION;
+non terminal Declaration DECLARATION;
+non terminal DeclarationChamps DECL_CHAMP;
+non terminal ListeIdentifiant LISTIDF;
+non terminal DeclarationConstantes DECL_CONST;
+non terminal Affectation AFFECT;
+non terminal Expression EXP;
+non terminal DeclarationConstantes ECRIRE;
 
 
 precedence left INF, SUP ;
@@ -94,57 +102,63 @@ SYSTEME ::= CLASSE:c
                    RESULT = arbre ; :}
 		;
 			
-CLASSE	::= CLASS:c IDF:i LISTDECLARATION FIN
+CLASSE	::= CLASS:c IDF:i LISTDECLARATION:l FIN
+		{: RESULT = new Classe(l, i); :}
 		;
 
-LISTDECLARATION ::= LISTDECLARATION DECLARATION
+LISTDECLARATION ::= LISTDECLARATION:l DECLARATION:d
+				{: 	ld.ajouter(d); 
+					RESULT = ld ; :}
 				|
-					DECLARATION
+				{:	DECLARATION:d
+					ListeDeclaration ld = new ListeDeclaration();
+					ld.ajouter(d);
+					RESULT = ld; :}
 				;
 				
 				
-DECLARATION ::= DECL_CHAMP
+DECLARATION ::= DECL_CHAMP:d
+			{: RESULT = d ; :}
 			|
-				DECL_CONST
+				DECL_CONST:d
+			{: RESULT = d ; :}
 			;
 			
 			
 DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:i POINTVIRGULE
+			{: 	DeclarationChamp dc = new DeclarationChamp(s,t,i);
+				RESULT = dc ; :}
 			;
 			
-LISTIDF 	::= LISTIDF VIRGULE IDF
+LISTIDF 	::= LISTIDF:l VIRGULE IDF:i
+			{: 	li.ajouter(i);
+				RESULT = li ; :}
 			|
-				IDF
+				IDF:i
+			{: 	ListeIdentifiant li = new ListeIdentifiant();
+				li.ajouter(i);
+				RESULT = li ; :}
 			;
 			
-TYPE		::= ENTIER
-			;
-			
-			
-DECL_CONST	::= LISTINSTRUCTION
-			;
-			
-LISTINSTRUCTION ::= LISTINSTRUCTION INSTRUCTION
-				|
-					INSTRUCTION
-				;
-				
-INSTRUCTION	::= AFFECT
+DECL_CONST	::= AFFECT:a
+			{: RESULT = a ; :}
 			|
-				ECRIRE
+				ECRIRE:d
+			{: RESULT = e ; :}
 			;
 			
-AFFECT		::= ACCES EGAL EXPR POINTVIRGULE
+AFFECT		::= IDF:i EGAL EXPR:e POINTVIRGULE
+			{: 	Affectation af = new Affectation(i, e);
+				RESULT = af ; :}
 			;
-			
 		
-			
-ACCES	::=  IDF
-		;
-		
-ECRIRE 	::= ECR EXPR POINTVIRGULE
+ECRIRE 	::= ECR EXPR:e POINTVIRGULE
+		{: 	EcrireExpression ee= new EcrireExpression(e);
+			RESULT = ee ; :}	
 		|
-			ECR CONSTANTECHAINE POINTVIRGULE
+			ECR CONSTANTECHAINE:c POINTVIRGULE
+		{: 	EcrireChaine ec= new EcrireChaine(c);
+			RESULT = ec ; :}	
 		;		
                 
     

@@ -10,17 +10,16 @@ import plic.exceptions.AnalyseSyntaxiqueException;
 
 public abstract class ArbreAbstrait {
     
-    // numéro de ligne du début de l'instruction
-    protected int noLigne ;
-    
+	protected int noLigne;
+	
     protected ArbreAbstrait(int no) {
-        noLigne = no ;
+    	noLigne = no;
     }
     
     public int getNoLigne() {
-            return noLigne ;
-    }
-
+        return noLigne ;
+}
+    
     public abstract void verifier() throws AnalyseSyntaxiqueException ;
     public abstract String toMIPS() ; 
 
