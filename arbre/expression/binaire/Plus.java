@@ -1,5 +1,7 @@
-package plic.arbre.expression;
+package plic.arbre.expression.binaire;
 
+import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseLexicaleException;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**
@@ -8,15 +10,15 @@ import plic.exceptions.AnalyseSyntaxiqueException;
  * @author brigitte wrobel-dautcourt
  */
 
-public class Div extends BinaireArithmetique {
+public class Plus extends BinaireArithmetique {
 
-    public Div(Expression gauche, Expression droite) {
+    public Plus(Expression gauche, Expression droite) {
         super(gauche, droite);
     }
-
+    
     @Override
     public String operateur() {
-        return " / ";
+        return " + " ;
     }
 
 	@Override
@@ -33,14 +35,14 @@ public class Div extends BinaireArithmetique {
 		sb.append(droite.toMIPS());
 		sb.append("add $sp, $sp, 4 \n");
 		sb.append("lw $t8, ($sp) \n");
-		sb.append("div $v0, $t8, $v0 \n");
+		sb.append("add $v0, $t8, $v0 \n");
 		sb.append("# ---- Fin Somme ---- \n\n");
 		
 		return sb.toString();
 	}
-
-	protected String getType() {
+	
+	public String getType() {
 		return "int";
 	}
-    
+
 }

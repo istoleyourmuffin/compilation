@@ -1,5 +1,6 @@
-package plic.arbre.expression;
+package plic.arbre.expression.binaire;
 
+import plic.arbre.expression.Expression;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**

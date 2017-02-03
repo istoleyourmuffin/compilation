@@ -22,9 +22,7 @@ public class Plic {
         try {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
-            System.err.println("Expression stockée dans l'arbre : " + arbre);
             arbre.verifier();
-            System.out.println("Code MIPS stocké dans l'arbre \n: " + arbre.toMIPS());
             /* récupération du no du fichier */
             String[] name = fichier.split(".plic"); 
             /* ecriture dans le fichier .mips */
@@ -33,7 +31,7 @@ public class Plic {
             fw.flush();
             fw.close();
             
-            System.out.println("Fichier généré : " + name[0] + ".mips\n");
+            System.out.println("COMPILATION OK");
         } 
         catch (FileNotFoundException ex) {
             System.err.println("Fichier " + fichier + " inexistant") ;

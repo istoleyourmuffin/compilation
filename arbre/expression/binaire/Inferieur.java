@@ -1,5 +1,6 @@
-package plic.arbre.expression;
+package plic.arbre.expression.binaire;
 
+import plic.arbre.expression.Expression;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**
@@ -8,23 +9,22 @@ import plic.exceptions.AnalyseSyntaxiqueException;
  * @author brigitte wrobel-dautcourt
  */
 
-public class Moins extends BinaireArithmetique {
+public class Inferieur extends Comparaison {
 
-    public Moins(Expression gauche, Expression droite) {
+    public Inferieur(Expression gauche, Expression droite) {
         super(gauche, droite);
     }
 
     @Override
     public String operateur() {
-        return " - ";
+        return " < ";
     }
 
 	@Override
 	public String toMIPS() {
-		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("# ----- Soustraction ----- \n");
+		sb.append("# ----- Inférieur ----- \n");
 		sb.append("# Ranger operande gauche dans $v0 \n");
 		sb.append(gauche.toMIPS());
 		sb.append("sw $v0, 0($sp) \n");
@@ -33,13 +33,22 @@ public class Moins extends BinaireArithmetique {
 		sb.append(droite.toMIPS());
 		sb.append("add $sp, $sp, 4 \n");
 		sb.append("lw $t8, ($sp) \n");
-		sb.append("sub $v0, $t8, $v0 \n");
-		sb.append("# ---- Fin soustraction ---- \n\n");
+		sb.append("slt $v0, $t8, $v0 \n");
+		sb.append("# ---- Fin Inférieur ---- \n\n");
 		
 		return sb.toString();
 	}
-    
-	protected String getType() {
-		return "int";
+
+	public void verifier() {
+		super.verifier();
+		if (!gauche.getType().equals("int")
+			|| !droite.getType().equals("int")) {
+			throw new AnalyseSyntaxiqueException ("l'expression n'est pas composée d'entiers");
+		}	
 	}
+	
+	public String getType() {
+		return "bool";
+	}
+    
 }

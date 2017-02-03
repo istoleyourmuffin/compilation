@@ -1,5 +1,6 @@
-package plic.arbre.expression;
+package plic.arbre.expression.binaire;
 
+import plic.arbre.expression.Expression;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**
@@ -8,15 +9,15 @@ import plic.exceptions.AnalyseSyntaxiqueException;
  * @author brigitte wrobel-dautcourt
  */
 
-public class Mult extends BinaireArithmetique {
+public class Superieur extends Comparaison {
 
-    public Mult(Expression gauche, Expression droite) {
+    public Superieur(Expression gauche, Expression droite) {
         super(gauche, droite);
     }
-  
+
     @Override
     public String operateur() {
-        return " * ";
+        return " > ";
     }
 
 	@Override
@@ -24,7 +25,7 @@ public class Mult extends BinaireArithmetique {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("# ----- Multiplication ----- \n");
+		sb.append("# ----- Supérieur ----- \n");
 		sb.append("# Ranger operande gauche dans $v0 \n");
 		sb.append(gauche.toMIPS());
 		sb.append("sw $v0, 0($sp) \n");
@@ -33,14 +34,22 @@ public class Mult extends BinaireArithmetique {
 		sb.append(droite.toMIPS());
 		sb.append("add $sp, $sp, 4 \n");
 		sb.append("lw $t8, ($sp) \n");
-		sb.append("mul $v0, $t8, $v0 \n");
-		sb.append("# ---- Fin Multiplication ---- \n\n");
+		sb.append("sgt $v0, $t8, $v0 \n");
+		sb.append("# ---- Fin Supérieur ---- \n\n");
 		
 		return sb.toString();
 	}
 
-	protected String getType() {
-		return "int";
+	public void verifier() {
+		super.verifier();
+		if (!gauche.getType().equals("int")
+			|| !droite.getType().equals("int")) {
+			throw new AnalyseSyntaxiqueException ("l'expression n'est pas composée d'entiers");
+		}
 	}
 	
+	public String getType() {
+		return "bool";
+	}
+    
 }

@@ -1,4 +1,4 @@
-package plic.arbre.expression;
+package plic.arbre.expression.constante;
 
 import plic.exceptions.AnalyseSyntaxiqueException;
 
@@ -29,7 +29,7 @@ public class ConstanteBool extends Constante {
 	public void verifier() {
 	}
 
-	protected String getType() {
+	public String getType() {
 		return "bool";
 	}
 

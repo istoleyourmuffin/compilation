@@ -1,5 +1,6 @@
-package plic.arbre.expression;
+package plic.arbre.expression.binaire;
 
+import plic.arbre.expression.Expression;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**
@@ -8,22 +9,24 @@ import plic.exceptions.AnalyseSyntaxiqueException;
  * @author brigitte wrobel-dautcourt
  */
 
-public class Different extends Comparaison {
+public class Egal extends Comparaison {
+	
 
-    public Different(Expression gauche, Expression droite) {
+    public Egal(Expression gauche, Expression droite) {
         super(gauche, droite);
     }
-
+    
     @Override
     public String operateur() {
-        return " != ";
+        return " == ";
     }
 
 	@Override
 	public String toMIPS() {
+
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("# ----- Différent ----- \n");
+		sb.append("# ----- Egalité ----- \n");
 		sb.append("# Ranger operande gauche dans $v0 \n");
 		sb.append(gauche.toMIPS());
 		sb.append("sw $v0, 0($sp) \n");
@@ -32,8 +35,8 @@ public class Different extends Comparaison {
 		sb.append(droite.toMIPS());
 		sb.append("add $sp, $sp, 4 \n");
 		sb.append("lw $t8, ($sp) \n");
-		sb.append("sne $v0, $t8, $v0 \n");
-		sb.append("# ---- Fin Différent ---- \n\n");
+		sb.append("seq $v0, $t8, $v0 \n");
+		sb.append("# ---- Fin Egalité ---- \n\n");
 		
 		return sb.toString();
 	}
@@ -46,8 +49,8 @@ public class Different extends Comparaison {
 		}	
 	}
 
-	protected String getType() {
+	public String getType() {
 		return "bool";
 	}
-  
+    
 }

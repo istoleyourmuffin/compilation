@@ -67,13 +67,13 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
-terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
-terminal String    CONSTANTEINT, CONSTANTEBOOL ;
-   
-/* Non terminals used in the grammar section.  */
+terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, VIRGULE, POINTVIRGULE ;
+terminal Symbol	   CLASS, ENTIER, FIN, EGAL ;
+terminal String    CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, IDF;
+non terminal ArbreAbstrait SYSTEME ;
+non terminal Expression CLASSE, LISTDECLARATION, DECLARATION, DECL_CHAMP, STATUT, TYPE, DECL_CONST ;
+non terminal Expression LISTINSTRUCTION, INSTRUCTION, AFFECT, ACCES, ECRIRE, EXPR, CSTE, LISTIDF ;
 
-non terminal ArbreAbstrait PROG ;
-non terminal Expression EXPR, CSTE ;
 
 precedence left INF, SUP ;
 precedence left EGALEGAL, DIFF;
@@ -82,16 +82,71 @@ precedence left MULT, DIV ;
 precedence left OU ;
 precedence left ET ;
 precedence left NON ;
+precedence left EGAL ;
 
 /* ----------------------------Grammar Section-------------------- */
  
-start with PROG ;
+start with SYSTEME ;
 
-PROG    ::=     EXPR:e 
-                {: BlocDInstructions arbre = new BlocDInstructions(eleft+1) ;
-                   arbre.ajouter(e) ;
+SYSTEME ::= CLASSE:c
+		{: BlocDInstructions arbre = new BlocDInstructions(eleft+1) ;
+                   arbre.ajouter(c) ;
                    RESULT = arbre ; :}
-                ;
+		;
+			
+CLASSE	::= CLASS:c IDF:i LISTDECLARATION FIN
+		;
+
+LISTDECLARATION ::= LISTDECLARATION DECLARATION
+				|
+					DECLARATION
+				;
+				
+				
+DECLARATION ::= DECL_CHAMP
+			|
+				DECL_CONST
+			;
+			
+			
+DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:i POINTVIRGULE
+			;
+			
+LISTIDF 	::= LISTIDF VIRGULE IDF
+			|
+				IDF
+			;
+			
+TYPE		::= ENTIER
+			;
+			
+			
+DECL_CONST	::= LISTINSTRUCTION
+			;
+			
+LISTINSTRUCTION ::= LISTINSTRUCTION INSTRUCTION
+				|
+					INSTRUCTION
+				;
+				
+INSTRUCTION	::= AFFECT
+			|
+				ECRIRE
+			;
+			
+AFFECT		::= ACCES EGAL EXPR POINTVIRGULE
+			;
+			
+		
+			
+ACCES	::=  IDF
+		;
+		
+ECRIRE 	::= ECR EXPR POINTVIRGULE
+		|
+			ECR CONSTANTECHAINE POINTVIRGULE
+		;		
+                
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 {: RESULT = new Plus(g, d) ; :}

@@ -1,6 +1,6 @@
-package plic.arbre.expression;
+package plic.arbre.expression.binaire;
 
-import plic.Plic;
+import plic.arbre.expression.Expression;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**
@@ -9,22 +9,23 @@ import plic.exceptions.AnalyseSyntaxiqueException;
  * @author brigitte wrobel-dautcourt
  */
 
-public class EtLogique extends BinaireLogique {
+public class Mult extends BinaireArithmetique {
 
-    public EtLogique(Expression gauche, Expression droite) {
+    public Mult(Expression gauche, Expression droite) {
         super(gauche, droite);
     }
-    
+  
     @Override
     public String operateur() {
-        return " et " ;
+        return " * ";
     }
 
 	@Override
 	public String toMIPS() {
+		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("# ----- Egalité ----- \n");
+		sb.append("# ----- Multiplication ----- \n");
 		sb.append("# Ranger operande gauche dans $v0 \n");
 		sb.append(gauche.toMIPS());
 		sb.append("sw $v0, 0($sp) \n");
@@ -33,23 +34,14 @@ public class EtLogique extends BinaireLogique {
 		sb.append(droite.toMIPS());
 		sb.append("add $sp, $sp, 4 \n");
 		sb.append("lw $t8, ($sp) \n");
-		sb.append("and $v0, $t8, $v0 \n");
-		sb.append("# ---- Fin Egalité ---- \n\n");
+		sb.append("mul $v0, $t8, $v0 \n");
+		sb.append("# ---- Fin Multiplication ---- \n\n");
 		
 		return sb.toString();
 	}
 
-	@Override
-	public void verifier() {
-		super.verifier();
-		if (!gauche.getType().equals("bool")
-			|| !droite.getType().equals("bool")) {
-			throw new AnalyseSyntaxiqueException ("l'expression n'est pas composée de booléens");
-		}
+	public String getType() {
+		return "int";
 	}
 	
-	protected String getType() {
-		return "bool";
-	}
-
 }

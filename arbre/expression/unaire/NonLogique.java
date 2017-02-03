@@ -1,6 +1,7 @@
-package plic.arbre.expression;
+package plic.arbre.expression.unaire;
 
 import plic.Plic;
+import plic.arbre.expression.Expression;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**
@@ -48,7 +49,7 @@ public class NonLogique extends Unaire {
 		}
 	}
 	
-	protected String getType() {
+	public String getType() {
 		return "bool";
 	}
 
