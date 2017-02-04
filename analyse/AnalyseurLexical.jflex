@@ -30,10 +30,15 @@ import plic.exceptions.AnalyseLexicaleException;
 
 %state commentaire
 
-csteE = [0-9]+
+
+chiffre = [0-9]
+csteE = {chiffre}+
 csteB = "vrai" | "faux"
-idf = [a-zA-Z]+
+char = [a-zA-Z]
+charNum = {char} | {chiffre}
+idf = {char}{charNum}*
 statut = "publique" | "privee"
+chaine = ["].*["]
 
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
@@ -51,19 +56,21 @@ commentaireEtoileSlash = [*][/]
 <YYINITIAL> ","					{ return symbol(CodesLexicaux.VIRGULE); }
 <YYINITIAL> ";"					{ return symbol(CodesLexicaux.POINTVIRGULE); }
 
+<YYINITIAL> ">"                	{ return symbol(CodesLexicaux.SUP); }
+<YYINITIAL> "<"                	{ return symbol(CodesLexicaux.INF); }
 <YYINITIAL> "=="                    { return symbol(CodesLexicaux.EGALEGAL); }
 <YYINITIAL> "!="                    { return symbol(CodesLexicaux.DIFF); }
-<YYINITIAL> "<"                	{ return symbol(CodesLexicaux.INF); }
-<YYINITIAL> ">"                	{ return symbol(CodesLexicaux.SUP); }
-<YYINITIAL> "="                	{ return symbol(CodesLexicaux.EGAL); }
 
 <YYINITIAL> "et"                	{ return symbol(CodesLexicaux.ET); }
 <YYINITIAL> "ou"                	{ return symbol(CodesLexicaux.OU); }
 <YYINITIAL> "non"                	{ return symbol(CodesLexicaux.NON); }
 
+<YYINITIAL> "="                	{ return symbol(CodesLexicaux.EGAL); }
+
 <YYINITIAL> "classe"				{ return symbol(CodesLexicaux.CLASS); }
 <YYINITIAL> "entier"                { return symbol(CodesLexicaux.ENTIER); }
 <YYINITIAL> "fin"					{ return symbol(CodesLexicaux.FIN); }
+<YYINITIAL> "ecrire"				{ return symbol(CodesLexicaux.ECR); }
 
 <YYINITIAL> "("                	{ return symbol(CodesLexicaux.PAROUV); }
 <YYINITIAL> ")"                	{ return symbol(CodesLexicaux.PARFER); }
@@ -74,10 +81,9 @@ commentaireEtoileSlash = [*][/]
 
 <YYINITIAL> {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 <YYINITIAL> {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
-<YYINITIAL> {class}					{ return symbol(CodesLexicaux.CLASS, yytext()); }
-<YYINITIAL> {idf}  					{ return symbol(CodesLexicaux.IDF, yytext()); }
-<YYINITIAL> {fin} 					{ return symbol(CodesLexicaux.FFIN, yytext()); }
+<YYINITIAL> {chaine} 				{ return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
 <YYINITIAL> {statut} 				{ return symbol(CodesLexicaux.STATUT, yytext()); }
+<YYINITIAL> {idf}  					{ return symbol(CodesLexicaux.IDF, yytext()); }
 <YYINITIAL> {espace}                { }
 
 <commentaire> {commentaireEtoileSlash} { yybegin(YYINITIAL) ; }

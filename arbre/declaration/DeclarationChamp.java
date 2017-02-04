@@ -8,17 +8,11 @@ public class DeclarationChamp extends Declaration {
 
 	
 	
-	public DeclarationChamp(String s, String t, ListeIdentifiant li) {
-		super(0); // ????
-		Symbole s2;
-		if(s.equals("publique")) {
-			s2 = new Symbole(Symbole.Statut.PUBLIQUE, Symbole.Type.ENTIER);
-		} else {
-			s2 = new Symbole(Symbole.Statut.PRIVEE, Symbole.Type.ENTIER);
-		}
+	public DeclarationChamp(String s, String t, ListeIdentifiant li, int n) {
+		super(n);
 		for(String i : li) {
 			try {
-				TDS.getInstance().ajouter(i, s2);
+				TDS.getInstance().ajouter(s, t, i);
 			} catch (DoubleDeclarationException e) {
 				e.printStackTrace();
 			}
@@ -26,8 +20,6 @@ public class DeclarationChamp extends Declaration {
 		
 	}
 	
-	public String toMIPS() {
-		return "";
-	}
+	/* Pas besoin de toMIPS comme c'est des déclarations, il faut juste ajouter les variables à la TDS */
 
 }

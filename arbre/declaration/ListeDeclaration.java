@@ -10,7 +10,7 @@ public class ListeDeclaration extends ArbreAbstrait {
 	protected ArrayList<Declaration> ald;
 	
 	public ListeDeclaration(int n) {
-		super(n); // ???
+		super(n);
 		this.ald = new ArrayList<Declaration>();
 	}
 	
@@ -21,15 +21,16 @@ public class ListeDeclaration extends ArbreAbstrait {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
+		
 		for(Declaration d : ald) {
 			sb.append(d.toMIPS());
 		}
+		
 		return sb.toString();
 	}
 
 	@Override
 	public void verifier() throws AnalyseSyntaxiqueException {
-		// TODO Auto-generated method stub
 		
 	}
 }

@@ -3,34 +3,50 @@ package plic.tds;
 import java.util.HashMap;
 
 import plic.exceptions.DoubleDeclarationException;
+import plic.exceptions.NonDeclarationException;
 
 public class TDS {
 	
 	private static TDS instance = new TDS();
 	protected HashMap<String,Symbole> table;
-	protected int tailleZoneVariables;
+	protected int tailleZone; // Pour savoir ou se trouve la variable la plus haute dans la "pile" S7
+	
 	
 	public static TDS getInstance() {
 		return instance;
 	}
 	
-	public void ajouter(String e, Symbole s) throws DoubleDeclarationException {
-		if(table.containsKey(e)) {
+	public void ajouter(String statut, String type, String idf) throws DoubleDeclarationException {
+		if(table.containsKey(idf)) {
 			throw new DoubleDeclarationException("Double declaration");
 		}
-		table.put(e, s);
+		Symbole s = new Symbole(type, statut, tailleZone);
+		table.put(idf, s);
+		tailleZone += 4;
 	}
 	
-	public Symbole identifier(String e) {
+	public void ajouter(String type, String idf) throws DoubleDeclarationException {
+		if(table.containsKey(idf)) {
+			throw new DoubleDeclarationException("Double declaration");
+		}
+		Symbole s = new Symbole("privee", type, tailleZone);
+		table.put(idf, s);
+		tailleZone += 4;
+	}
+	
+	public Symbole identifier(String e) throws NonDeclarationException {
+		if(!table.containsKey(e)) {
+			throw new NonDeclarationException(e +" n'est pas déclaré"); 
+		}
 		return table.get(e);
 	}
 	
-	public int getTailleZoneVariables() {
-		return table.size()*4;
+	public int getSize() {
+		return table.size();
 	}
 	
 	private TDS() {
-		this.tailleZoneVariables = 0;
+		this.tailleZone = 0;
 		this.table = new HashMap<String,Symbole>();
 		
 	}

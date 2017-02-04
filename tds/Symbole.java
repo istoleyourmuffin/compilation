@@ -1,22 +1,26 @@
 package plic.tds;
 
 public class Symbole {
-
-	public static enum Type {ENTIER;};
-	public static enum Statut {PRIVEE, PUBLIQUE;};
 	
-	protected Type type;
-	protected Statut statut;
+	protected String type;
+	protected String statut;
 	protected int deplacement;
 	
-	public Symbole(Statut s, Type t) {
-		this.statut = s;
+	public Symbole(String s, String t, int d) {
 		this.type = t;
-		this.deplacement = 0;
+		this.statut = s;
+		this.deplacement = d;
 	}
 
 	public String getDeplacement() {
 		return String.valueOf(deplacement);
 	}
 	
+	public String getType() {
+		return type;
+	}
+	
+	public String getStatut() {
+		return statut;
+	}
 }

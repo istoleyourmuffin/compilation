@@ -66,9 +66,12 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
-terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, VIRGULE, POINTVIRGULE ;
-terminal Symbol	   CLASS, ENTIER, FIN, EGAL ;
+terminal Symbol    PLUS, MOINS, MULT, DIV, VIRGULE, POINTVIRGULE ;
+terminal Symbol    SUP, INF, EGALEGAL, DIFF ;
+terminal Symbol	   ET, OU, NON ;
+terminal Symbol    EGAL ;
+terminal Symbol	   CLASS, ENTIER, FIN, ECR ;
+terminal Symbol    PAROUV, PARFER ;
 terminal String    CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, IDF;
 
 non terminal ArbreAbstrait SYSTEME;
@@ -80,7 +83,7 @@ non terminal ListeIdentifiant LISTIDF;
 non terminal DeclarationConstantes DECL_CONST;
 non terminal Affectation AFFECT;
 non terminal Expression EXP;
-non terminal DeclarationConstantes ECRIRE;
+non terminal Ecrire ECRIRE;
 
 
 precedence left INF, SUP ;
@@ -126,7 +129,7 @@ DECLARATION ::= DECL_CHAMP:d
 			
 			
 DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:i POINTVIRGULE
-			{: 	DeclarationChamp dc = new DeclarationChamp(s,t,i);
+			{: 	DeclarationChamp dc = new DeclarationChamp(s,t,i, eleft+1);
 				RESULT = dc ; :}
 			;
 			
@@ -148,16 +151,16 @@ DECL_CONST	::= AFFECT:a
 			;
 			
 AFFECT		::= IDF:i EGAL EXPR:e POINTVIRGULE
-			{: 	Affectation af = new Affectation(i, e);
+			{: 	Affectation af = new Affectation(i, e, eleft+1);
 				RESULT = af ; :}
 			;
 		
 ECRIRE 	::= ECR EXPR:e POINTVIRGULE
-		{: 	EcrireExpression ee= new EcrireExpression(e);
+		{: 	EcrireExpression ee= new EcrireExpression(e, eleft+1);
 			RESULT = ee ; :}	
 		|
 			ECR CONSTANTECHAINE:c POINTVIRGULE
-		{: 	EcrireChaine ec= new EcrireChaine(c);
+		{: 	EcrireChaine ec= new EcrireChaine(c, eleft+1);
 			RESULT = ec ; :}	
 		;		
                 
