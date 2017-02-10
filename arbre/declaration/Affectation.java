@@ -6,7 +6,7 @@ import plic.exceptions.NonDeclarationException;
 import plic.tds.Symbole;
 import plic.tds.TDS;
 
-public class Affectation extends Declaration {
+public class Affectation extends DeclarationConstantes {
 
 	protected String identifiant;
 	protected Expression expression;

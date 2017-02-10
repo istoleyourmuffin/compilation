@@ -1,10 +1,14 @@
 package plic.analyse ;
-
 import java.util.*;
 import java_cup.runtime.*;
-import plic.arbre.* ;
+import plic.arbre.*;
+import plic.arbre.expression.*;
+import plic.arbre.declaration.*;
+import plic.arbre.expression.binaire.*;
+import plic.arbre.expression.constante.*;
+import plic.arbre.expression.unaire.*;
+import plic.tds.*;
 import plic.exceptions.*;
-
 import java_cup.runtime.*;
 
 action code {: 
@@ -72,18 +76,19 @@ terminal Symbol	   ET, OU, NON ;
 terminal Symbol    EGAL ;
 terminal Symbol	   CLASS, ENTIER, FIN, ECR ;
 terminal Symbol    PAROUV, PARFER ;
-terminal String    CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, IDF;
+terminal String    CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, TYPE,IDF;
 
 non terminal ArbreAbstrait SYSTEME;
 non terminal Classe CLASSE;
 non terminal ListeDeclaration LISTDECLARATION;
 non terminal Declaration DECLARATION;
-non terminal DeclarationChamps DECL_CHAMP;
+non terminal DeclarationChamp DECL_CHAMP;
 non terminal ListeIdentifiant LISTIDF;
 non terminal DeclarationConstantes DECL_CONST;
 non terminal Affectation AFFECT;
-non terminal Expression EXP;
+non terminal Expression EXPR;
 non terminal Ecrire ECRIRE;
+non terminal Constante CSTE;
 
 
 precedence left INF, SUP ;
@@ -100,21 +105,21 @@ precedence left EGAL ;
 start with SYSTEME ;
 
 SYSTEME ::= CLASSE:c
-		{: BlocDInstructions arbre = new BlocDInstructions(eleft+1) ;
+		{: BlocDInstructions arbre = new BlocDInstructions(cleft+1) ;
                    arbre.ajouter(c) ;
                    RESULT = arbre ; :}
 		;
 			
 CLASSE	::= CLASS:c IDF:i LISTDECLARATION:l FIN
-		{: RESULT = new Classe(l, i); :}
+		{: RESULT = new Classe(l, i, ileft+1); :}
 		;
 
-LISTDECLARATION ::= LISTDECLARATION:l DECLARATION:d
+LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d
 				{: 	ld.ajouter(d); 
 					RESULT = ld ; :}
 				|
 				{:	DECLARATION:d
-					ListeDeclaration ld = new ListeDeclaration();
+					ListeDeclaration ld = new ListeDeclaration(dleft+1);
 					ld.ajouter(d);
 					RESULT = ld; :}
 				;
@@ -129,11 +134,11 @@ DECLARATION ::= DECL_CHAMP:d
 			
 			
 DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:i POINTVIRGULE
-			{: 	DeclarationChamp dc = new DeclarationChamp(s,t,i, eleft+1);
+			{: 	DeclarationChamp dc = new DeclarationChamp(s,t,i, sleft+1);
 				RESULT = dc ; :}
 			;
 			
-LISTIDF 	::= LISTIDF:l VIRGULE IDF:i
+LISTIDF 	::= LISTIDF:li VIRGULE IDF:i
 			{: 	li.ajouter(i);
 				RESULT = li ; :}
 			|
@@ -146,7 +151,7 @@ LISTIDF 	::= LISTIDF:l VIRGULE IDF:i
 DECL_CONST	::= AFFECT:a
 			{: RESULT = a ; :}
 			|
-				ECRIRE:d
+				ECRIRE:e
 			{: RESULT = e ; :}
 			;
 			
@@ -160,7 +165,7 @@ ECRIRE 	::= ECR EXPR:e POINTVIRGULE
 			RESULT = ee ; :}	
 		|
 			ECR CONSTANTECHAINE:c POINTVIRGULE
-		{: 	EcrireChaine ec= new EcrireChaine(c, eleft+1);
+		{: 	EcrireChaine ec= new EcrireChaine(c, cleft+1);
 			RESULT = ec ; :}	
 		;		
                 

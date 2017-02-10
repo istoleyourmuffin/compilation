@@ -1,7 +1,8 @@
 package plic.analyse ;
 
 import java_cup.runtime.*;
-import plic.exceptions.AnalyseLexicaleException;
+import plic.arbre.* ;
+import plic.exceptions.*;
       
 %%
    
@@ -38,6 +39,7 @@ char = [a-zA-Z]
 charNum = {char} | {chiffre}
 idf = {char}{charNum}*
 statut = "publique" | "privee"
+type = "entier"
 chaine = ["].*["]
 
 finDeLigne = \r|\n
@@ -83,6 +85,7 @@ commentaireEtoileSlash = [*][/]
 <YYINITIAL> {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
 <YYINITIAL> {chaine} 				{ return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
 <YYINITIAL> {statut} 				{ return symbol(CodesLexicaux.STATUT, yytext()); }
+<YYINITIAL> {type}					{ return symbol(CodesLexicaux.TYPE, yytext()); }
 <YYINITIAL> {idf}  					{ return symbol(CodesLexicaux.IDF, yytext()); }
 <YYINITIAL> {espace}                { }
 
