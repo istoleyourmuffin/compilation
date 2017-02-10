@@ -118,8 +118,8 @@ LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d
 				{: 	ld.ajouter(d); 
 					RESULT = ld ; :}
 				|
-				{:	DECLARATION:d
-					ListeDeclaration ld = new ListeDeclaration(dleft+1);
+					DECLARATION:d
+				{:	ListeDeclaration ld = new ListeDeclaration(dleft+1);
 					ld.ajouter(d);
 					RESULT = ld; :}
 				;
@@ -133,7 +133,7 @@ DECLARATION ::= DECL_CHAMP:d
 			;
 			
 			
-DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:i POINTVIRGULE
+DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:i  POINTVIRGULE
 			{: 	DeclarationChamp dc = new DeclarationChamp(s,t,i, sleft+1);
 				RESULT = dc ; :}
 			;
