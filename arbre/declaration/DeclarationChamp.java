@@ -20,6 +20,6 @@ public class DeclarationChamp extends Declaration {
 		
 	}
 	
-	/* Pas besoin de toMIPS comme c'est des déclarations, il faut juste ajouter les variables à la TDS */
+	/* Pas besoin de toMIPS comme ce sont des déclarations, il faut juste ajouter les variables àla TDS */
 
 }
