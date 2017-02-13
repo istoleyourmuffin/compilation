@@ -2,7 +2,7 @@ package plic.arbre.declaration;
 
 public class EcrireChaine extends Ecrire {
 
-	String chaine;
+	protected String chaine;
 	
 	public EcrireChaine(String s, int n) {
 		super(n);
