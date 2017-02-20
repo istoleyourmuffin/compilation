@@ -3,6 +3,7 @@ package plic.arbre.expression.unaire;
 import plic.Plic;
 import plic.arbre.expression.Expression;
 import plic.exceptions.AnalyseSyntaxiqueException;
+import plic.exceptions.NonDeclarationException;
 
 /**
  * 3 déc. 2015
@@ -22,7 +23,7 @@ public class NonLogique extends Unaire {
     }
 
 	@Override
-	public String toMIPS() {
+	public String toMIPS() throws NonDeclarationException {
 
 		StringBuilder sb = new StringBuilder();
 		

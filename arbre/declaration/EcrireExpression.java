@@ -1,6 +1,7 @@
 package plic.arbre.declaration;
 
 import plic.arbre.expression.Expression;
+import plic.exceptions.NonDeclarationException;
 
 public class EcrireExpression extends Ecrire {
 	
@@ -12,7 +13,7 @@ public class EcrireExpression extends Ecrire {
 	}
 
 	
-	public String toMIPS() {
+	public String toMIPS() throws NonDeclarationException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("# ----- EcrireExpression ----- \n");
 		sb.append("#On calcule la valeur de l'expression\n");

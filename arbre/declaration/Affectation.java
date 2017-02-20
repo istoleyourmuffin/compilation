@@ -19,12 +19,10 @@ public class Affectation extends DeclarationConstantes {
 	}
 
 	@Override
-	public String toMIPS() {
+	public String toMIPS() throws NonDeclarationException {
 		StringBuilder sb = new StringBuilder();
-		try {
-			Symbole s = TDS.getInstance().identifier(identifiant);
-			decalage = s.getDeplacement();
-		} catch (NonDeclarationException e) {}
+		Symbole s = TDS.getInstance().identifier(identifiant);
+		decalage = s.getDeplacement();
 		
 		sb.append("# Affectation de " + expression + " dans " + identifiant);
 		sb.append(expression.toMIPS());

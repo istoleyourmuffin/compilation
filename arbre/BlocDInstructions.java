@@ -1,5 +1,6 @@
 package plic.arbre;
 
+import plic.exceptions.NonDeclarationException;
 import plic.tds.TDS;
 
 /**
@@ -26,7 +27,7 @@ public class BlocDInstructions extends ArbreAbstrait {
     }
 
 	@Override
-	public String toMIPS() {
+	public String toMIPS() throws NonDeclarationException {
 		
 		StringBuilder sb = new StringBuilder();
 		

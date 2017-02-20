@@ -1,6 +1,7 @@
 package plic.arbre;
 
 import plic.exceptions.AnalyseSyntaxiqueException;
+import plic.exceptions.NonDeclarationException;
 
 /**
  * 3 déc. 2015
@@ -21,6 +22,6 @@ public abstract class ArbreAbstrait {
 }
     
     public abstract void verifier() throws AnalyseSyntaxiqueException ;
-    public abstract String toMIPS() ; 
+    public abstract String toMIPS() throws NonDeclarationException ; 
 
 }

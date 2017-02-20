@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import plic.arbre.ArbreAbstrait;
 import plic.exceptions.AnalyseSyntaxiqueException;
+import plic.exceptions.NonDeclarationException;
 
 public class ListeDeclaration extends ArbreAbstrait {
 	
@@ -19,7 +20,7 @@ public class ListeDeclaration extends ArbreAbstrait {
 	}
 	
 	@Override
-	public String toMIPS() {
+	public String toMIPS() throws NonDeclarationException {
 		StringBuilder sb = new StringBuilder();
 		
 		for(Declaration d : ald) {

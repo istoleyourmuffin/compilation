@@ -2,6 +2,7 @@ package plic.arbre;
 
 import plic.arbre.declaration.ListeDeclaration;
 import plic.exceptions.AnalyseSyntaxiqueException;
+import plic.exceptions.NonDeclarationException;
 
 public class Classe extends ArbreAbstrait {
 	
@@ -15,7 +16,7 @@ public class Classe extends ArbreAbstrait {
 	}
 
 	@Override
-	public String toMIPS() {
+	public String toMIPS() throws NonDeclarationException {
 		StringBuilder sb = new StringBuilder();
 		sb.append(listeDeclaration.toMIPS());
 		return sb.toString();
