@@ -36,9 +36,9 @@ chiffre = [0-9]
 csteE = {chiffre}+
 csteB = "vrai" | "faux"
 char = [a-zA-Z]
-charNum = {char} | {chiffre}
+charNum = {char} | {chiffre}
 idf = {char}+
-statut = "publique" | "privee"
+statut = "publique" | "privee"
 type = "entier"
 chaine = ["].*["]
 
@@ -90,4 +90,4 @@ commentaireEtoileSlash = [*][/]
 
 <commentaire> {commentaireEtoileSlash} { yybegin(YYINITIAL) ; }
 
-<YYINITIAL> .                       { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
+<YYINITIAL> . { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }

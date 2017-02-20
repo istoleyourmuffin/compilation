@@ -145,12 +145,12 @@ DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:i  POINTVIRGULE
 			;
 			
 LISTIDF 	::= LISTIDF:li VIRGULE IDF:i
-			{: 	li.ajouter(i);
+			{: 	li.ajouter(new Identifiant(i, ileft+1));
 				RESULT = li ; :}
 			|
 				IDF:i
 			{: 	ListeIdentifiant li = new ListeIdentifiant();
-				li.ajouter(i);
+				li.ajouter(new Identifiant(i, ileft+1));
 				RESULT = li ; :}
 			;
 			
@@ -216,7 +216,7 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 {: RESULT = c ; :}
         |
                 IDF:i
-                {: RESULT = /* à compléter */ ; :}
+                {: RESULT = new Identifiant(i, ileft+1) ; :}
         |
                 PAROUV  EXPR:e  PARFER
                 {: RESULT = e ; :}
@@ -226,4 +226,4 @@ CSTE    ::=     CONSTANTEINT:e
                 {: RESULT = new ConstanteEntiere(e, eleft+1) ; :}
         |       CONSTANTEBOOL:e 
                 {: RESULT = new ConstanteBool(e, eleft+1) ; :}
-                ;
+;

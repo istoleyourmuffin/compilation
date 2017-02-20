@@ -10,9 +10,9 @@ public class DeclarationChamp extends Declaration {
 	
 	public DeclarationChamp(String s, String t, ListeIdentifiant li, int n) {
 		super(n);
-		for(String i : li) {
+		for(Identifiant i : li) {
 			try {
-				TDS.getInstance().ajouter(s, t, i);
+				TDS.getInstance().ajouter(s, t, i.getNom());
 			} catch (DoubleDeclarationException e) {
 				e.printStackTrace();
 			}

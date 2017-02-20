@@ -3,15 +3,15 @@ package plic.arbre.declaration;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ListeIdentifiant implements Iterable<String> {
+public class ListeIdentifiant implements Iterable<Identifiant> {
 	
-	protected ArrayList<String> ali;
+	protected ArrayList<Identifiant> ali;
 	
 	public ListeIdentifiant() {
-		ali = new ArrayList<String>();
+		ali = new ArrayList<Identifiant>();
 	}
 	
-	public void ajouter(String s) {
+	public void ajouter(Identifiant s) {
 		ali.add(s);
 	}
 	
@@ -20,7 +20,8 @@ public class ListeIdentifiant implements Iterable<String> {
 	}
 
 	@Override
-	public Iterator<String> iterator() {
+	public Iterator<Identifiant> iterator() {
 		return ali.iterator();
 	}
+
 }

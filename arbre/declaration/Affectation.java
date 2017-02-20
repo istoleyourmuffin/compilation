@@ -27,7 +27,7 @@ public class Affectation extends DeclarationConstantes {
 		
 		sb.append("# Affectation de " + expression + " dans " + identifiant);
 		sb.append(expression.toMIPS());
-		sb.append("sw $v0, (-" + decalage + ")$s7\n");
+		sb.append("sw $v0, -" + decalage + "($s7)\n");
 		sb.append("# Fin Affectation dans "  + identifiant);
 		
 		return sb.toString();
