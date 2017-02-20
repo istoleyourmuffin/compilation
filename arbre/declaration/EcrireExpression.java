@@ -22,7 +22,7 @@ public class EcrireExpression extends Ecrire {
 		sb.append("sw $v0, 0($sp)\n");
 		sb.append("lw $a0, ($sp)\n");
 		sb.append("#On affiche l'entier\n");
-		sb.append("li $v0, 1");
+		sb.append("li $v0, 1\n");
 		sb.append("syscall 	# afficher\n");
 		return sb.toString();
 	}
