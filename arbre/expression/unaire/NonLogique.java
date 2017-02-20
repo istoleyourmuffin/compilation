@@ -2,6 +2,7 @@ package plic.arbre.expression.unaire;
 
 import plic.Plic;
 import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseSemantiqueException;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**
@@ -44,13 +45,13 @@ public class NonLogique extends Unaire {
 	@Override
 	public void verifier() {
 		super.verifier();
-		if (!expression.getType().equals("bool")) {
-			throw new AnalyseSyntaxiqueException ("l'expression n'est pas un booléen");
+		if (!expression.getType().equals("booleen")) {
+			throw new AnalyseSemantiqueException(expression.getNoLigne(),"l'expression n'est pas un booléen");
 		}
 	}
 	
 	public String getType() {
-		return "bool";
+		return "booleen";
 	}
 
 }

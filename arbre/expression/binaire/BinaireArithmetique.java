@@ -1,6 +1,7 @@
 package plic.arbre.expression.binaire;
 
 import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseSemantiqueException;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**
@@ -19,7 +20,7 @@ public abstract class BinaireArithmetique extends Binaire {
     	super.verifier();
 		if (!gauche.getType().equals("int")
 			|| !droite.getType().equals("int")) {
-			throw new AnalyseSyntaxiqueException ("l'expression n'est pas composée d'entiers");
+			throw new AnalyseSemantiqueException(droite.getNoLigne(),"l'expression n'est pas composée d'entiers");
 		}
     }
 }

@@ -2,6 +2,7 @@ package plic.arbre.expression.binaire;
 
 import plic.Plic;
 import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseSemantiqueException;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**
@@ -43,14 +44,14 @@ public class EtLogique extends BinaireLogique {
 	@Override
 	public void verifier() {
 		super.verifier();
-		if (!gauche.getType().equals("bool")
-			|| !droite.getType().equals("bool")) {
-			throw new AnalyseSyntaxiqueException ("l'expression n'est pas composée de booléens");
+		if (!gauche.getType().equals("booleen")
+			|| !droite.getType().equals("booleen")) {
+			throw new AnalyseSemantiqueException(droite.getNoLigne(),"l'expression n'est pas composée de booléens");
 		}
 	}
 	
 	public String getType() {
-		return "bool";
+		return "booleen";
 	}
 
 }

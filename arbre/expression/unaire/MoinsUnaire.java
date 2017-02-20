@@ -1,6 +1,7 @@
 package plic.arbre.expression.unaire;
 
 import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseSemantiqueException;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**
@@ -42,13 +43,13 @@ public class MoinsUnaire extends Unaire {
 	@Override
 	public void verifier() {
 		super.verifier();
-		if (!expression.getType().equals("int")) {
-			throw new AnalyseSyntaxiqueException ("l'expression n'est pas un entier");
+		if (!expression.getType().equals("entier")) {
+			throw new AnalyseSemantiqueException(expression.getNoLigne(),"l'expression n'est pas un entier");
 		}
 		
 	}
 
 	public String getType() {
-		return "int";
+		return "entier";
 	}
 }
