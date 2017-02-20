@@ -36,7 +36,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 		sb.append("move $s7,$sp \n");
 		int size = TDS.getInstance().getSize();
 		sb.append("# réservation de l'espace pour " + size*4 + " variables \n");
-		sb.append("addi $sp, $sp, -" + size + "\n");
+		sb.append("addi $sp, $sp, -" + size*4 + "\n");
 		
 		sb.append(classe.toMIPS());
 		
