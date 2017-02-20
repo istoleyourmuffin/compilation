@@ -142,6 +142,10 @@ DECLARATION ::= DECL_CHAMP:d
 DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:i  POINTVIRGULE
 			{: 	DeclarationChamp dc = new DeclarationChamp(s,t,i, sleft+1);
 				RESULT = dc ; :}
+			|
+				TYPE:t LISTIDF:i POINTVIRGULE
+			{:	DeclarationChamp dc = new DeclarationChamp(t, i, tleft+1);
+				RESULT = dc ; :}
 			;
 			
 LISTIDF 	::= LISTIDF:li VIRGULE IDF:i
