@@ -42,7 +42,7 @@ public class Mult extends BinaireArithmetique {
 	}
 
 	public String getType() {
-		return "int";
+		return "entier";
 	}
 	
 }

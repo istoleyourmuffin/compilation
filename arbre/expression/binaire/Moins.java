@@ -42,6 +42,6 @@ public class Moins extends BinaireArithmetique {
 	}
     
 	public String getType() {
-		return "int";
+		return "entier";
 	}
 }

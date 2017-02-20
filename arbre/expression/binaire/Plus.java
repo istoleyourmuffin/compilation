@@ -43,7 +43,7 @@ public class Plus extends BinaireArithmetique {
 	}
 	
 	public String getType() {
-		return "int";
+		return "entier";
 	}
 
 }

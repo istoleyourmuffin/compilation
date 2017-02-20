@@ -3,6 +3,7 @@ package plic.arbre.declaration;
 import java.util.ArrayList;
 
 import plic.arbre.ArbreAbstrait;
+import plic.exceptions.AnalyseSemantiqueException;
 import plic.exceptions.AnalyseSyntaxiqueException;
 import plic.exceptions.NonDeclarationException;
 
@@ -31,7 +32,7 @@ public class ListeDeclaration extends ArbreAbstrait {
 	}
 
 	@Override
-	public void verifier() throws AnalyseSyntaxiqueException {
+	public void verifier() throws AnalyseSemantiqueException {
 		
 	}
 }

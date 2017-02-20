@@ -1,6 +1,7 @@
 package plic.arbre.expression.binaire;
 
 import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseSemantiqueException;
 import plic.exceptions.AnalyseSyntaxiqueException;
 import plic.exceptions.NonDeclarationException;
 
@@ -44,12 +45,12 @@ public class Different extends Comparaison {
 		super.verifier();
 		String g = gauche.getType(), d = droite.getType();
 		if (!g.equals(d)) {
-			throw new AnalyseSyntaxiqueException ("l'expression ne peut pas être comparée");
+			throw new AnalyseSemantiqueException(droite.getNoLigne(),"l'expression ne peut pas être comparée");
 		}	
 	}
 
 	public String getType() {
-		return "bool";
+		return "booleen";
 	}
   
 }

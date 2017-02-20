@@ -30,7 +30,7 @@ public class ConstanteBool extends Constante {
 	}
 
 	public String getType() {
-		return "bool";
+		return "booleen";
 	}
 
 }

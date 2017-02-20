@@ -1,6 +1,7 @@
 package plic.arbre.declaration;
 
 import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseSemantiqueException;
 import plic.exceptions.AnalyseSyntaxiqueException;
 import plic.exceptions.NonDeclarationException;
 import plic.tds.Symbole;
@@ -33,7 +34,7 @@ public class Affectation extends DeclarationConstantes {
 	}
 	
 	@Override
-	public void verifier() throws AnalyseSyntaxiqueException {
+	public void verifier() throws AnalyseSemantiqueException {
 		
 	}
 

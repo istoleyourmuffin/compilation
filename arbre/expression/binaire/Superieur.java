@@ -1,6 +1,7 @@
 package plic.arbre.expression.binaire;
 
 import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseSemantiqueException;
 import plic.exceptions.AnalyseSyntaxiqueException;
 import plic.exceptions.NonDeclarationException;
 
@@ -43,14 +44,14 @@ public class Superieur extends Comparaison {
 
 	public void verifier() {
 		super.verifier();
-		if (!gauche.getType().equals("int")
-			|| !droite.getType().equals("int")) {
-			throw new AnalyseSyntaxiqueException ("l'expression n'est pas composée d'entiers");
+		if (!gauche.getType().equals("entier")
+			|| !droite.getType().equals("entier")) {
+			throw new AnalyseSemantiqueException(droite.getNoLigne(), "l'expression n'est pas composée d'entiers");
 		}
 	}
 	
 	public String getType() {
-		return "bool";
+		return "booleen";
 	}
     
 }
