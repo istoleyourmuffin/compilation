@@ -37,7 +37,7 @@ csteE = {chiffre}+
 csteB = "vrai" | "faux"
 char = [a-zA-Z]
 charNum = {char} | {chiffre}
-idf = {char}{charNum}*
+idf = {char}+
 statut = "publique" | "privee"
 type = "entier"
 chaine = ["].*["]
@@ -70,7 +70,6 @@ commentaireEtoileSlash = [*][/]
 <YYINITIAL> "="                	{ return symbol(CodesLexicaux.EGAL); }
 
 <YYINITIAL> "classe"				{ return symbol(CodesLexicaux.CLASS); }
-<YYINITIAL> "entier"                { return symbol(CodesLexicaux.ENTIER); }
 <YYINITIAL> "fin"					{ return symbol(CodesLexicaux.FIN); }
 <YYINITIAL> "ecrire"				{ return symbol(CodesLexicaux.ECR); }
 
@@ -91,4 +90,4 @@ commentaireEtoileSlash = [*][/]
 
 <commentaire> {commentaireEtoileSlash} { yybegin(YYINITIAL) ; }
 
-.                       { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
+<YYINITIAL> .                       { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }

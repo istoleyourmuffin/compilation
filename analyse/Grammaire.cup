@@ -33,6 +33,12 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.ET), "et") ;
         lesTerminaux.put(new Integer(CodesLexicaux.OU), "ou") ;
         lesTerminaux.put(new Integer(CodesLexicaux.NON), "non") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.POINTVIRGULE), ";") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.CLASS), "classe") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.VIRGULE), ",") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.EGAL), "=") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.FIN), "fin") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.ECR), "ecrire") ;
 
         StringBuffer m = new StringBuffer() ;
 
@@ -208,6 +214,9 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         |
                 CSTE:c
                 {: RESULT = c ; :}
+        |
+                IDF:i
+                {: RESULT = /* à compléter */ ; :}
         |
                 PAROUV  EXPR:e  PARFER
                 {: RESULT = e ; :}
