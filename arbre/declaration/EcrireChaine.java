@@ -18,13 +18,13 @@ public class EcrireChaine extends Ecrire {
 		sb.append(".data \n");
 		sb.append(nom);
 		sb.append(":	.asciiz ");
-		sb.append('"'+chaine+'"');
+		sb.append(chaine);
 		sb.append("\n#On ecrit maintenant la chaine\n");
 		sb.append(".text\n");
 		sb.append("li $v0, 4 # $v0 <- code du print\n");
 		sb.append("la $a0, ");
 		sb.append(nom);
-		sb.append("# $a0 <- adresse de la chaine à ecrire\n");
+		sb.append("# $a0 <- adresse de la chaine ï¿½ ecrire\n");
 		sb.append("syscall 	# afficher\n");
 		return sb.toString();
 	}
