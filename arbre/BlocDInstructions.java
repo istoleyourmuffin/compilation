@@ -1,6 +1,6 @@
 package plic.arbre;
 
-import plic.exceptions.NonDeclarationException;
+import plic.exceptions.AnalyseSemantiqueException;
 import plic.tds.TDS;
 
 /**
@@ -27,16 +27,16 @@ public class BlocDInstructions extends ArbreAbstrait {
     }
 
 	@Override
-	public String toMIPS() throws NonDeclarationException {
+	public String toMIPS() throws AnalyseSemantiqueException {
 		
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("main : \n");
 		sb.append("# initialiser s7 avec sp (initialisation de la base des variables) \n");
 		sb.append("move $s7,$sp \n");
-		int size = TDS.getInstance().getSize();
-		sb.append("# réservation de l'espace pour " + size*4 + " variables \n");
-		sb.append("addi $sp, $sp, -" + size*4 + "\n");
+		int size = TDS.getInstance().getTailleZoneDesVariables();
+		sb.append("# réservation de l'espace pour " + size/4 + " variables \n");
+		sb.append("addi $sp, $sp, -" + size + "\n");
 		
 		sb.append(classe.toMIPS());
 		

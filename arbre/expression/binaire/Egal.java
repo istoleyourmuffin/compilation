@@ -2,8 +2,6 @@ package plic.arbre.expression.binaire;
 
 import plic.arbre.expression.Expression;
 import plic.exceptions.AnalyseSemantiqueException;
-import plic.exceptions.AnalyseSyntaxiqueException;
-import plic.exceptions.NonDeclarationException;
 
 /**
  * 3 déc. 2015
@@ -24,7 +22,7 @@ public class Egal extends Comparaison {
     }
 
 	@Override
-	public String toMIPS() throws NonDeclarationException {
+	public String toMIPS() throws AnalyseSemantiqueException {
 
 		StringBuilder sb = new StringBuilder();
 		

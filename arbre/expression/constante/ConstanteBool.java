@@ -1,7 +1,5 @@
 package plic.arbre.expression.constante;
 
-import plic.exceptions.AnalyseSyntaxiqueException;
-
 /**
  * 3 déc. 2015
  *

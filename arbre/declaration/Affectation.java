@@ -2,8 +2,6 @@ package plic.arbre.declaration;
 
 import plic.arbre.expression.Expression;
 import plic.exceptions.AnalyseSemantiqueException;
-import plic.exceptions.AnalyseSyntaxiqueException;
-import plic.exceptions.NonDeclarationException;
 import plic.tds.Symbole;
 import plic.tds.TDS;
 
@@ -20,7 +18,7 @@ public class Affectation extends DeclarationConstantes {
 	}
 
 	@Override
-	public String toMIPS() throws NonDeclarationException {
+	public String toMIPS() throws AnalyseSemantiqueException {
 		StringBuilder sb = new StringBuilder();
 		Symbole s = TDS.getInstance().identifier(identifiant);
 		decalage = s.getDeplacement();

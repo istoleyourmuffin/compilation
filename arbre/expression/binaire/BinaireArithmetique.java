@@ -2,7 +2,6 @@ package plic.arbre.expression.binaire;
 
 import plic.arbre.expression.Expression;
 import plic.exceptions.AnalyseSemantiqueException;
-import plic.exceptions.AnalyseSyntaxiqueException;
 
 /**
  * 3 déc. 2015

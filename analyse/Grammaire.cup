@@ -1,15 +1,13 @@
 package plic.analyse ;
+import java_cup.runtime.Symbol;
 import java.util.*;
-import java_cup.runtime.*;
 import plic.arbre.*;
 import plic.arbre.expression.*;
 import plic.arbre.declaration.*;
 import plic.arbre.expression.binaire.*;
 import plic.arbre.expression.constante.*;
 import plic.arbre.expression.unaire.*;
-import plic.tds.*;
 import plic.exceptions.*;
-import java_cup.runtime.*;
 
 action code {: 
              :} ;

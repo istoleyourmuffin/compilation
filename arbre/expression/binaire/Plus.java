@@ -1,9 +1,7 @@
 package plic.arbre.expression.binaire;
 
 import plic.arbre.expression.Expression;
-import plic.exceptions.AnalyseLexicaleException;
-import plic.exceptions.AnalyseSyntaxiqueException;
-import plic.exceptions.NonDeclarationException;
+import plic.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -23,7 +21,7 @@ public class Plus extends BinaireArithmetique {
     }
 
 	@Override
-	public String toMIPS() throws NonDeclarationException {
+	public String toMIPS() throws AnalyseSemantiqueException {
 		
 		StringBuilder sb = new StringBuilder();
 		

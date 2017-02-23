@@ -2,51 +2,50 @@ package plic.tds;
 
 import java.util.HashMap;
 
-import plic.exceptions.DoubleDeclarationException;
-import plic.exceptions.NonDeclarationException;
+import plic.exceptions.AnalyseSemantiqueException;
 
 public class TDS {
 	
 	private static TDS instance = new TDS();
 	protected HashMap<String,Symbole> table;
-	protected int tailleZone; // Pour savoir ou se trouve la variable la plus haute dans la "pile" S7
+	protected int tailleZoneDesVariables; // Pour savoir ou se trouve la variable la plus haute dans la "pile" S7
 	
 	
 	public static TDS getInstance() {
 		return instance;
 	}
 	
-	public void ajouter(String statut, String type, String idf) throws DoubleDeclarationException {
+	public void ajouter(String statut, String type, String idf) throws AnalyseSemantiqueException {
 		if(table.containsKey(idf)) {
-			throw new DoubleDeclarationException(" Double declaration de " + idf);
+			throw new AnalyseSemantiqueException(-1, " Double declaration de la variable " + idf);
 		}
-		Symbole s = new Symbole(type, statut, tailleZone);
+		Symbole s = new Symbole(type, statut, tailleZoneDesVariables);
 		table.put(idf, s);
-		tailleZone += 4;
+		tailleZoneDesVariables += 4;
 	}
 	
-	public void ajouter(String type, String idf) throws DoubleDeclarationException {
+	public void ajouter(String type, String idf) throws AnalyseSemantiqueException {
 		if(table.containsKey(idf)) {
-			throw new DoubleDeclarationException(" Double declaration" + idf);
+			throw new AnalyseSemantiqueException(-1, " Double declaration de la variable " + idf);
 		}
-		Symbole s = new Symbole("privee", type, tailleZone);
+		Symbole s = new Symbole("privee", type, tailleZoneDesVariables);
 		table.put(idf, s);
-		tailleZone += 4;
+		tailleZoneDesVariables += 4;
 	}
 	
-	public Symbole identifier(String e) throws NonDeclarationException {
+	public Symbole identifier(String e) throws AnalyseSemantiqueException {
 		if(!table.containsKey(e)) {
-			throw new NonDeclarationException(e +" n'est pas déclaré"); 
+			throw new AnalyseSemantiqueException(-1, e +" n'est pas déclaré"); 
 		}
 		return table.get(e);
 	}
 	
-	public int getSize() {
-		return table.size();
+	public int getTailleZoneDesVariables() {
+		return this.tailleZoneDesVariables;
 	}
 	
 	private TDS() {
-		this.tailleZone = 0;
+		this.tailleZoneDesVariables = 0;
 		this.table = new HashMap<String,Symbole>();
 		
 	}

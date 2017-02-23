@@ -1,7 +1,6 @@
 package plic.arbre.declaration;
 
-import plic.exceptions.DoubleDeclarationException;
-import plic.tds.Symbole;
+import plic.exceptions.AnalyseSemantiqueException;
 import plic.tds.TDS;
 
 public class DeclarationChamp extends Declaration {
@@ -13,7 +12,7 @@ public class DeclarationChamp extends Declaration {
 		for(Identifiant i : li) {
 			try {
 				TDS.getInstance().ajouter(s, t, i.getNom());
-			} catch (DoubleDeclarationException e) {
+			} catch (AnalyseSemantiqueException e) {
 				e.printStackTrace();
 			}
 		}
@@ -25,7 +24,7 @@ public class DeclarationChamp extends Declaration {
 		for(Identifiant i : li) {
 			try {
 				TDS.getInstance().ajouter(t, i.getNom());
-			} catch (DoubleDeclarationException e) {
+			} catch (AnalyseSemantiqueException e) {
 				e.printStackTrace();
 			}
 		}
