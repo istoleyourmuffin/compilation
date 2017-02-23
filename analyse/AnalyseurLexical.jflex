@@ -36,7 +36,7 @@ csteE = {chiffre}+
 csteB = "vrai" | "faux"
 char = [a-zA-Z]
 charNum = {char} | {chiffre}
-idf = {char}+
+idf = {char}{charNum}*
 statut = "publique" | "privee"
 type = "entier"
 
