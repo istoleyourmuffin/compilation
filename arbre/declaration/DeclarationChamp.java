@@ -13,7 +13,7 @@ public class DeclarationChamp extends Declaration {
 			try {
 				TDS.getInstance().ajouter(s, t, i.getNom());
 			} catch (AnalyseSemantiqueException e) {
-				e.printStackTrace();
+				throw new AnalyseSemantiqueException(getNoLigne(), " Double declaration de la variable " + i.getNom());
 			}
 		}
 		
@@ -25,12 +25,12 @@ public class DeclarationChamp extends Declaration {
 			try {
 				TDS.getInstance().ajouter(t, i.getNom());
 			} catch (AnalyseSemantiqueException e) {
-				e.printStackTrace();
+				throw new AnalyseSemantiqueException(getNoLigne(), " Double declaration de la variable " + i.getNom());
 			}
 		}
 		
 	}
 	
-	/* Pas besoin de toMIPS comme ce sont des déclarations, il faut juste ajouter les variables àla TDS */
+	/* Pas besoin de toMIPS comme ce sont des déclarations, il faut juste ajouter les variables à la TDS */
 
 }
