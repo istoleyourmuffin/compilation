@@ -11,7 +11,7 @@ public class EcrireChaine extends Ecrire {
 
 	/* Ne fonctionne peut-etre pas si deux ecrire sont declares sur la meme ligne */
 	public String toMIPS() {
-		String nom = "ecrireChaine"+getNoLigne();
+		String nom = "ecrireChaine"+getNoLigne()+(int)(Math.random()*10000);
 		StringBuilder sb = new StringBuilder();
 		sb.append("# ----- EcrireChaine ----- \n");
 		sb.append("#On insert la chaine dans les donnees\n");
@@ -24,7 +24,7 @@ public class EcrireChaine extends Ecrire {
 		sb.append("li $v0, 4 # $v0 <- code du print\n");
 		sb.append("la $a0, ");
 		sb.append(nom);
-		sb.append("# $a0 <- adresse de la chaine � ecrire\n");
+		sb.append(" # $a0 <- adresse de la chaine � ecrire\n");
 		sb.append("syscall 	# afficher\n");
 		return sb.toString();
 	}

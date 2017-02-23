@@ -41,8 +41,8 @@ statut = "publique" | "privee"
 type = "entier"
 
 doubleguill = \"\"
-pointguill = . | {doubleguill}
-chaine = \" {pointguill}* \"
+charguill = {doubleguill} | [^\"]
+chaine = \" {charguill}* \"
 
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]

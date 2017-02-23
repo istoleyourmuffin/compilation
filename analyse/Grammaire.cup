@@ -175,7 +175,7 @@ ECRIRE 	::= ECR EXPR:e POINTVIRGULE
 			RESULT = ee ; :}	
 		|
 			ECR CONSTANTECHAINE:c POINTVIRGULE
-		{: 	EcrireChaine ec= new EcrireChaine(c, cleft+1);
+		{: 	EcrireChaine ec= new EcrireChaine(c.replace("\"\"","\\\""), cleft+1);
 			RESULT = ec ; :}	
 		;		
                 
