@@ -23,6 +23,9 @@ public class Plic {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
             arbre.verifier();
+            
+            /* Ne pas faire la suite si il y a une erreur sémantique */
+            
             /* récupération du no du fichier */
             String[] name = fichier.split(".plic"); 
             /* ecriture dans le fichier .mips */

@@ -26,4 +26,8 @@ public class EcrireExpression extends Ecrire {
 		sb.append("syscall 	# afficher\n");
 		return sb.toString();
 	}
+	
+	public void verifier() {
+		expr.verifier();
+	}
 }

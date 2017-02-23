@@ -25,7 +25,7 @@ public class Classe extends ArbreAbstrait {
 
 	@Override
 	public void verifier() throws AnalyseSyntaxiqueException {
-		// TODO Auto-generated method stub
+		listeDeclaration.verifier();
 	}
 	
 }

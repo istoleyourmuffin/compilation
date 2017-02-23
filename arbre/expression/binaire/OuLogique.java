@@ -44,7 +44,7 @@ public class OuLogique extends BinaireLogique {
 		super.verifier();
 		if (!gauche.getType().equals("booleen")
 			|| !droite.getType().equals("booleen")) {
-			throw new AnalyseSemantiqueException(droite.getNoLigne(),"l'expression n'est pas composée de booléens");
+			System.err.println("ERREUR SEMANTIQUE : ligne " + droite.getNoLigne() + " : l'expression n'est pas composée de booléens");
 		}
 	}
 	

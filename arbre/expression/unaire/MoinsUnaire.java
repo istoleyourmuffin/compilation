@@ -43,7 +43,7 @@ public class MoinsUnaire extends Unaire {
 	public void verifier() {
 		super.verifier();
 		if (!expression.getType().equals("entier")) {
-			throw new AnalyseSemantiqueException(expression.getNoLigne(),"l'expression n'est pas un entier");
+			System.err.println("ERREUR SEMANTIQUE : ligne " + expression.getNoLigne() + " : l'expression n'est pas un entier");
 		}
 		
 	}

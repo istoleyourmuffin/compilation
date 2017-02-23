@@ -44,7 +44,7 @@ public class NonLogique extends Unaire {
 	public void verifier() {
 		super.verifier();
 		if (!expression.getType().equals("booleen")) {
-			throw new AnalyseSemantiqueException(expression.getNoLigne(),"l'expression n'est pas un booléen");
+			System.err.println("ERREUR SEMANTIQUE : ligne " + expression.getNoLigne() + " : l'expression n'est pas un booléen");
 		}
 	}
 	

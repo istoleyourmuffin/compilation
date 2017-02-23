@@ -23,9 +23,9 @@ public class Identifiant extends Expression {
 		try {
 			return TDS.getInstance().identifier(identifiant).getType();
 		} catch (AnalyseSemantiqueException e) {
-			throw new AnalyseSemantiqueException(getNoLigne(), identifiant + " n'est pas déclaré");
+			System.err.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : " + identifiant + " n'est pas déclaré");
 		}
-		
+		return "";
 	}
 	
 	@Override
@@ -38,7 +38,7 @@ public class Identifiant extends Expression {
 			sb.append("lw, $v0, -" + decalage + "($s7) \n");
 			sb.append("# Fin du chargement de " + identifiant + "\n");
 		} catch (AnalyseSemantiqueException e) {
-			throw new AnalyseSemantiqueException(getNoLigne(), identifiant + " n'est pas déclaré");
+			System.err.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : " + identifiant + " n'est pas déclaré");
 		}
 		return sb.toString();
 	}

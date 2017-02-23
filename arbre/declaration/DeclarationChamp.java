@@ -13,7 +13,7 @@ public class DeclarationChamp extends Declaration {
 			try {
 				TDS.getInstance().ajouter(s, t, i.getNom());
 			} catch (AnalyseSemantiqueException e) {
-				throw new AnalyseSemantiqueException(getNoLigne(), " Double declaration de la variable " + i.getNom());
+				System.err.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : Double déclaration de la variable " + i.getNom());
 			}
 		}
 		
@@ -25,7 +25,7 @@ public class DeclarationChamp extends Declaration {
 			try {
 				TDS.getInstance().ajouter(t, i.getNom());
 			} catch (AnalyseSemantiqueException e) {
-				throw new AnalyseSemantiqueException(getNoLigne(), " Double declaration de la variable " + i.getNom());
+				System.err.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : Double déclaration de la variable " + i.getNom());
 			}
 		}
 		

@@ -43,7 +43,7 @@ public class Different extends Comparaison {
 		super.verifier();
 		String g = gauche.getType(), d = droite.getType();
 		if (!g.equals(d)) {
-			throw new AnalyseSemantiqueException(droite.getNoLigne(),"l'expression ne peut pas être comparée");
+			System.err.println("ERREUR SEMANTIQUE : ligne " + droite.getNoLigne() + " : l'expression ne peut pas être comparée");
 		}	
 	}
 

@@ -17,9 +17,9 @@ public abstract class BinaireArithmetique extends Binaire {
     
     public void verifier() {
     	super.verifier();
-		if (!gauche.getType().equals("int")
-			|| !droite.getType().equals("int")) {
-			throw new AnalyseSemantiqueException(droite.getNoLigne(),"l'expression n'est pas composée d'entiers");
+		if (!gauche.getType().equals("entier")
+			|| !droite.getType().equals("entier")) {
+			System.err.println("ERREUR SEMANTIQUE : ligne " + droite.getNoLigne() + " : l'expression n'est pas composée d'entiers");
 		}
     }
 }

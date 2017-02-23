@@ -24,12 +24,12 @@ public class Affectation extends DeclarationConstantes {
 		Symbole s = TDS.getInstance().identifier(identifiant);
 		decalage = s.getDeplacement();
 		
-		sb.append("# Affectation de " + expression + " dans " + identifiant);
+		sb.append("# Affectation de " + expression + " dans " + identifiant +"\n");
 		sb.append(expression.toMIPS());
 		sb.append("sw $v0, -" + decalage + "($s7)\n");
-		sb.append("# Fin Affectation dans "  + identifiant);
+		sb.append("# Fin Affectation dans "  + identifiant + "\n");
 		} catch (AnalyseSemantiqueException ae) {
-			throw new AnalyseSemantiqueException(getNoLigne(), identifiant + " n'est pas déclaré");
+			System.err.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : " + identifiant + " n'est pas déclaré");
 		}
 		
 		return sb.toString();
@@ -37,7 +37,7 @@ public class Affectation extends DeclarationConstantes {
 	
 	@Override
 	public void verifier() throws AnalyseSemantiqueException {
-		
+		expression.verifier();
 	}
 
 }

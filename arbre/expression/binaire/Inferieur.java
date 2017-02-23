@@ -43,7 +43,7 @@ public class Inferieur extends Comparaison {
 		super.verifier();
 		if (!gauche.getType().equals("entier")
 			|| !droite.getType().equals("entier")) {
-			throw new AnalyseSemantiqueException(droite.getNoLigne(),"l'expression n'est pas composée d'entiers");
+			System.err.println("ERREUR SEMANTIQUE : ligne " + droite.getNoLigne() + " : l'expression n'est pas composée d'entiers");
 		}	
 	}
 	

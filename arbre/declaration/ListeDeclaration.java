@@ -31,6 +31,8 @@ public class ListeDeclaration extends ArbreAbstrait {
 
 	@Override
 	public void verifier() throws AnalyseSemantiqueException {
-		
+		for(Declaration d : ald) {
+			d.verifier();
+		}
 	}
 }
