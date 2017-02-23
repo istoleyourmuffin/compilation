@@ -9,7 +9,7 @@ package plic.exceptions;
 public abstract class AnalyseException extends RuntimeException {
     
     protected AnalyseException(String m) {
-        super(m) ;
+    	System.err.println(m);
     }
 
 }

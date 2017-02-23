@@ -18,7 +18,7 @@ public class TDS {
 	
 	public void ajouter(String statut, String type, String idf) throws DoubleDeclarationException {
 		if(table.containsKey(idf)) {
-			throw new DoubleDeclarationException("Double declaration");
+			throw new DoubleDeclarationException(" Double declaration de " + idf);
 		}
 		Symbole s = new Symbole(type, statut, tailleZone);
 		table.put(idf, s);
@@ -27,7 +27,7 @@ public class TDS {
 	
 	public void ajouter(String type, String idf) throws DoubleDeclarationException {
 		if(table.containsKey(idf)) {
-			throw new DoubleDeclarationException("Double declaration");
+			throw new DoubleDeclarationException(" Double declaration" + idf);
 		}
 		Symbole s = new Symbole("privee", type, tailleZone);
 		table.put(idf, s);
