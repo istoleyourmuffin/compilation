@@ -20,7 +20,12 @@ public class Identifiant extends Expression {
 
 	@Override
 	public String getType() {
-		return TDS.getInstance().identifier(identifiant).getType();
+		try {
+			return TDS.getInstance().identifier(identifiant).getType();
+		} catch (AnalyseSemantiqueException e) {
+			throw new AnalyseSemantiqueException(getNoLigne(), identifiant + " n'est pas déclaré");
+		}
+		
 	}
 	
 	@Override

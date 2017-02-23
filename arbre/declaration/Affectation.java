@@ -20,6 +20,7 @@ public class Affectation extends DeclarationConstantes {
 	@Override
 	public String toMIPS() throws AnalyseSemantiqueException {
 		StringBuilder sb = new StringBuilder();
+		try {
 		Symbole s = TDS.getInstance().identifier(identifiant);
 		decalage = s.getDeplacement();
 		
@@ -27,6 +28,9 @@ public class Affectation extends DeclarationConstantes {
 		sb.append(expression.toMIPS());
 		sb.append("sw $v0, -" + decalage + "($s7)\n");
 		sb.append("# Fin Affectation dans "  + identifiant);
+		} catch (AnalyseSemantiqueException ae) {
+			throw new AnalyseSemantiqueException(getNoLigne(), identifiant + " n'est pas déclaré");
+		}
 		
 		return sb.toString();
 	}
