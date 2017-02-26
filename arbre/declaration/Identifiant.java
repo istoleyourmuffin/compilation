@@ -35,14 +35,10 @@ public class Identifiant extends Expression {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("# On stocke " + identifiant + " dans $v0 \n");
-		try {
-			Symbole s = TDS.getInstance().identifier(identifiant);
-			String decalage = s.getDeplacement();
-			sb.append("lw, $v0, -" + decalage + "($s7) \n");
-			sb.append("# Fin du chargement de " + identifiant + "\n");
-		} catch (AnalyseSemantiqueException e) {
-			System.err.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : " + identifiant + " n'est pas déclaré");
-		}
+		Symbole s = TDS.getInstance().identifier(identifiant);
+		String decalage = s.getDeplacement();
+		sb.append("lw, $v0, -" + decalage + "($s7) \n");
+		sb.append("# Fin du chargement de " + identifiant + "\n");
 		return sb.toString();
 	}
 
