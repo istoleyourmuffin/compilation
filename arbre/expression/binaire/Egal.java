@@ -1,7 +1,6 @@
 package plic.arbre.expression.binaire;
 
 import plic.arbre.expression.Expression;
-import plic.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -22,7 +21,7 @@ public class Egal extends Comparaison {
     }
 
 	@Override
-	public String toMIPS() throws AnalyseSemantiqueException {
+	public String toMIPS() {
 
 		StringBuilder sb = new StringBuilder();
 		
@@ -41,12 +40,14 @@ public class Egal extends Comparaison {
 		return sb.toString();
 	}
 
-	public void verifier() {
-		super.verifier();
+	public boolean verifier() {
+		boolean valide = super.verifier();
 		String g = gauche.getType(), d = droite.getType();
 		if (!g.equals(d)) {
 			System.err.println("ERREUR SEMANTIQUE : ligne " + droite.getNoLigne() + " : l'expression ne peut pas être comparée");
+			valide = false;
 		}	
+		return valide;
 	}
 
 	public String getType() {

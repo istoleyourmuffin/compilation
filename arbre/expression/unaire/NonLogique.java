@@ -1,7 +1,6 @@
 package plic.arbre.expression.unaire;
 
 import plic.arbre.expression.Expression;
-import plic.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -21,7 +20,7 @@ public class NonLogique extends Unaire {
     }
 
 	@Override
-	public String toMIPS() throws AnalyseSemantiqueException {
+	public String toMIPS() {
 
 		StringBuilder sb = new StringBuilder();
 		
@@ -41,11 +40,13 @@ public class NonLogique extends Unaire {
 	}
 
 	@Override
-	public void verifier() {
-		super.verifier();
+	public boolean verifier() {
+		boolean valide = super.verifier();
 		if (!expression.getType().equals("booleen")) {
 			System.err.println("ERREUR SEMANTIQUE : ligne " + expression.getNoLigne() + " : l'expression n'est pas un booléen");
+			valide = false;
 		}
+		return valide;
 	}
 	
 	public String getType() {

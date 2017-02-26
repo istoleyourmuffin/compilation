@@ -1,7 +1,6 @@
 package plic.arbre.declaration;
 
 import plic.arbre.expression.Expression;
-import plic.exceptions.AnalyseSemantiqueException;
 
 public class EcrireExpression extends Ecrire {
 	
@@ -13,7 +12,7 @@ public class EcrireExpression extends Ecrire {
 	}
 
 	
-	public String toMIPS() throws AnalyseSemantiqueException {
+	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("# ----- EcrireExpression ----- \n");
 		sb.append("#On calcule la valeur de l'expression\n");
@@ -27,7 +26,7 @@ public class EcrireExpression extends Ecrire {
 		return sb.toString();
 	}
 	
-	public void verifier() {
-		expr.verifier();
+	public boolean verifier() {
+		return expr.verifier();
 	}
 }

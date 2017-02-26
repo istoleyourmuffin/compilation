@@ -18,7 +18,7 @@ public class Affectation extends DeclarationConstantes {
 	}
 
 	@Override
-	public String toMIPS() throws AnalyseSemantiqueException {
+	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		try {
 		Symbole s = TDS.getInstance().identifier(identifiant);
@@ -36,8 +36,13 @@ public class Affectation extends DeclarationConstantes {
 	}
 	
 	@Override
-	public void verifier() throws AnalyseSemantiqueException {
-		expression.verifier();
+	public boolean verifier() {
+		boolean valide = true;
+		if (!TDS.getInstance().verifierExistence(identifiant)) {
+			System.out.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : " + identifiant + " n'est pas déclaré");
+			valide = false;
+		}
+		return expression.verifier() && valide;
 	}
 
 }

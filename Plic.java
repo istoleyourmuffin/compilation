@@ -22,19 +22,19 @@ public class Plic {
         try {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
-            arbre.verifier();
+            boolean valide = arbre.verifier();
             
-            /* Ne pas faire la suite si il y a une erreur sémantique */
-            
-            /* récupération du no du fichier */
-            String[] name = fichier.split(".plic"); 
-            /* ecriture dans le fichier .mips */
-            FileWriter fw = new FileWriter(name[0] + ".mips");
-            fw.write(arbre.toMIPS());
-            fw.flush();
-            fw.close();
-            
-            System.out.println("COMPILATION OK");
+            if (valide) {
+	            /* récupération du no du fichier */
+	            String[] name = fichier.split(".plic"); 
+	            /* ecriture dans le fichier .mips */
+	            FileWriter fw = new FileWriter(name[0] + ".mips");
+	            fw.write(arbre.toMIPS());
+	            fw.flush();
+	            fw.close();
+	            
+	            System.out.println("COMPILATION OK");
+            }
         } 
         catch (FileNotFoundException ex) {
             System.err.println("Fichier " + fichier + " inexistant") ;

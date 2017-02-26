@@ -1,7 +1,6 @@
 package plic.arbre.expression.binaire;
 
 import plic.arbre.expression.Expression;
-import plic.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -21,7 +20,7 @@ public class Mult extends BinaireArithmetique {
     }
 
 	@Override
-	public String toMIPS() throws AnalyseSemantiqueException {
+	public String toMIPS() {
 		
 		StringBuilder sb = new StringBuilder();
 		

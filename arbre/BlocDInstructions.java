@@ -1,6 +1,5 @@
 package plic.arbre;
 
-import plic.exceptions.AnalyseSemantiqueException;
 import plic.tds.TDS;
 
 /**
@@ -27,7 +26,7 @@ public class BlocDInstructions extends ArbreAbstrait {
     }
 
 	@Override
-	public String toMIPS() throws AnalyseSemantiqueException {
+	public String toMIPS() {
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -49,9 +48,8 @@ public class BlocDInstructions extends ArbreAbstrait {
 	}
 
 	@Override
-	public void verifier() {
-		classe.verifier();
-		
+	public boolean verifier() {
+		return classe.verifier();	
 	}
 
 }

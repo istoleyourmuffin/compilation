@@ -15,28 +15,23 @@ public class TDS {
 		return instance;
 	}
 	
-	public void ajouter(String statut, String type, String idf) throws AnalyseSemantiqueException {
-		if(table.containsKey(idf)) {
-			throw new AnalyseSemantiqueException(-1, " Double declaration de la variable " + idf);
-		}
-		Symbole s = new Symbole(type, statut, tailleZoneDesVariables);
+	public void ajouter(String statut, String type, String idf) {
+		Symbole s = new Symbole(statut, type, tailleZoneDesVariables);
 		table.put(idf, s);
 		tailleZoneDesVariables += 4;
 	}
 	
-	public void ajouter(String type, String idf) throws AnalyseSemantiqueException {
-		if(table.containsKey(idf)) {
-			throw new AnalyseSemantiqueException(-1, " Double declaration de la variable " + idf);
-		}
+	public void ajouter(String type, String idf) {
 		Symbole s = new Symbole("privee", type, tailleZoneDesVariables);
 		table.put(idf, s);
 		tailleZoneDesVariables += 4;
 	}
 	
-	public Symbole identifier(String e) throws AnalyseSemantiqueException {
-		if(!table.containsKey(e)) {
-			throw new AnalyseSemantiqueException(-1, e +" n'est pas déclaré"); 
-		}
+	public boolean verifierExistence(String e) {
+		return table.containsKey(e);
+	}
+	
+	public Symbole identifier(String e){
 		return table.get(e);
 	}
 	

@@ -26,8 +26,9 @@ public abstract class Binaire extends Expression {
         return "(" + gauche + operateur() + droite + ")" ;
     }
 
-    public void verifier () {
-		gauche.verifier();
-		droite.verifier();
+    public boolean verifier () {
+		boolean valide = gauche.verifier(); 
+		valide = droite.verifier() && valide;
+		return valide;
     }
 }

@@ -1,7 +1,5 @@
 package plic.arbre;
 
-import plic.exceptions.AnalyseSemantiqueException;
-
 /**
  * 3 déc. 2015
  *
@@ -17,10 +15,10 @@ public abstract class ArbreAbstrait {
     }
     
     public int getNoLigne() {
-        return noLigne ;
+        return noLigne;
 }
     
-    public abstract void verifier() throws AnalyseSemantiqueException ;
-    public abstract String toMIPS() throws AnalyseSemantiqueException ; 
+    public abstract boolean verifier();
+    public abstract String toMIPS(); 
 
 }

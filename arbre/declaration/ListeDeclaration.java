@@ -3,7 +3,6 @@ package plic.arbre.declaration;
 import java.util.ArrayList;
 
 import plic.arbre.ArbreAbstrait;
-import plic.exceptions.AnalyseSemantiqueException;
 
 public class ListeDeclaration extends ArbreAbstrait {
 	
@@ -19,7 +18,7 @@ public class ListeDeclaration extends ArbreAbstrait {
 	}
 	
 	@Override
-	public String toMIPS() throws AnalyseSemantiqueException {
+	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		
 		for(Declaration d : ald) {
@@ -30,9 +29,13 @@ public class ListeDeclaration extends ArbreAbstrait {
 	}
 
 	@Override
-	public void verifier() throws AnalyseSemantiqueException {
+	public boolean verifier() {
+		boolean valide = true;
 		for(Declaration d : ald) {
-			d.verifier();
+			if(!d.verifier()) {
+				valide = false;
+			}
 		}
+		return valide;
 	}
 }

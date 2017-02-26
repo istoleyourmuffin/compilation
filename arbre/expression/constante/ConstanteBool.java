@@ -24,7 +24,8 @@ public class ConstanteBool extends Constante {
 		return sb.toString();
 	}
 
-	public void verifier() {
+	public boolean verifier() {
+		return true;
 	}
 
 	public String getType() {

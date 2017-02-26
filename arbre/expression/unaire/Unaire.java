@@ -24,7 +24,7 @@ public abstract class Unaire extends Expression {
         return "(" + operateur() + expression + ")" ;
     }
 
-    public void verifier () {
-		expression.verifier();
+    public boolean verifier () {
+		return expression.verifier();
     }
 }

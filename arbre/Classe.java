@@ -1,8 +1,6 @@
 package plic.arbre;
 
 import plic.arbre.declaration.ListeDeclaration;
-import plic.exceptions.AnalyseSemantiqueException;
-import plic.exceptions.AnalyseSyntaxiqueException;
 
 public class Classe extends ArbreAbstrait {
 	
@@ -16,7 +14,7 @@ public class Classe extends ArbreAbstrait {
 	}
 
 	@Override
-	public String toMIPS() throws AnalyseSemantiqueException {
+	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(listeDeclaration.toMIPS());
 		return sb.toString();
@@ -24,8 +22,8 @@ public class Classe extends ArbreAbstrait {
 	
 
 	@Override
-	public void verifier() throws AnalyseSyntaxiqueException {
-		listeDeclaration.verifier();
+	public boolean verifier() {
+		return listeDeclaration.verifier();
 	}
 	
 }

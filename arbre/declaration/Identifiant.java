@@ -8,10 +8,12 @@ import plic.tds.TDS;
 public class Identifiant extends Expression {
 
 	protected String identifiant;
+	protected boolean valide;
 	
 	public Identifiant(String idf, int n) {
 		super(n);
 		this.identifiant = idf;
+		this.valide = true;
 	}
 	
 	public String getNom() {
@@ -20,16 +22,17 @@ public class Identifiant extends Expression {
 
 	@Override
 	public String getType() {
-		try {
+		if (TDS.getInstance().verifierExistence(identifiant)) {
 			return TDS.getInstance().identifier(identifiant).getType();
-		} catch (AnalyseSemantiqueException e) {
-			System.err.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : " + identifiant + " n'est pas déclaré");
+		} else {
+			System.out.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : " + identifiant + " n'est pas déclaré");
+			valide = false;
 		}
 		return "";
 	}
 	
 	@Override
-	public String toMIPS() throws AnalyseSemantiqueException {
+	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("# On stocke " + identifiant + " dans $v0 \n");
 		try {
@@ -44,8 +47,8 @@ public class Identifiant extends Expression {
 	}
 
 	@Override
-	public void verifier() throws AnalyseSemantiqueException {
-		
+	public boolean verifier() {
+		return valide;
 	}
 
 }
