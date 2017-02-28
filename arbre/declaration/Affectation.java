@@ -23,7 +23,7 @@ public class Affectation extends DeclarationConstantes {
 		Symbole s = TDS.getInstance().identifier(identifiant);
 		decalage = s.getDeplacement();
 		
-		sb.append("# Affectation de " + expression + " dans " + identifiant +"\n");
+		sb.append("# Affectation dans " + identifiant +"\n");
 		sb.append(expression.toMIPS());
 		sb.append("sw $v0, -" + decalage + "($s7)\n");
 		sb.append("# Fin Affectation dans "  + identifiant + "\n");
