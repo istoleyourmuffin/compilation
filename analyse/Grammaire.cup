@@ -116,6 +116,9 @@ SYSTEME ::= CLASSE:c
 			
 CLASSE	::= CLASS:c IDF:i LISTDECLARATION:l FIN
 		{: RESULT = new Classe(l, i, ileft+1); :}
+		|
+			CLASS:c IDF:i FIN
+		{: RESULT = new Classe(i, ileft+1); :}
 		;
 
 LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d

@@ -12,6 +12,12 @@ public class Classe extends ArbreAbstrait {
 		listeDeclaration = ld;
 		identifiant = idf;
 	}
+	
+	public Classe(String idf, int n) {
+		super(n);
+		identifiant = idf;
+		listeDeclaration = new ListeDeclaration(n);
+	}
 
 	@Override
 	public String toMIPS() {
