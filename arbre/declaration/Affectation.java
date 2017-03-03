@@ -5,7 +5,7 @@ import plic.exceptions.AnalyseSemantiqueException;
 import plic.tds.Symbole;
 import plic.tds.TDS;
 
-public class Affectation extends DeclarationConstantes {
+public class Affectation extends Instruction {
 
 	protected String identifiant;
 	protected Expression expression;

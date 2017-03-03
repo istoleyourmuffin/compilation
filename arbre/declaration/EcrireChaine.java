@@ -9,7 +9,6 @@ public class EcrireChaine extends Ecrire {
 		chaine = s;
 	}
 
-	/* Ne fonctionne peut-etre pas si deux ecrire sont declares sur la meme ligne */
 	public String toMIPS() {
 		String nom = "ecrireChaine"+getNoLigne()+(int)(Math.random()*10000);
 		StringBuilder sb = new StringBuilder();
