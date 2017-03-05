@@ -1,4 +1,4 @@
-package plic.arbre.declaration;
+package plic.arbre.instruction;
 
 public class EcrireChaine extends Ecrire {
 
@@ -13,7 +13,7 @@ public class EcrireChaine extends Ecrire {
 		String nom = "ecrireChaine"+getNoLigne()+(int)(Math.random()*10000);
 		StringBuilder sb = new StringBuilder();
 		sb.append("# ----- EcrireChaine ----- \n");
-		sb.append("#On insert la chaine dans les donnees\n");
+		sb.append("#On insere la chaine dans les donnees\n");
 		sb.append(".data \n");
 		sb.append(nom);
 		sb.append(":	.asciiz ");
@@ -26,5 +26,9 @@ public class EcrireChaine extends Ecrire {
 		sb.append(" # $a0 <- adresse de la chaine � ecrire\n");
 		sb.append("syscall 	# afficher\n");
 		return sb.toString();
+	}
+
+	public boolean verifier() {
+		return true;
 	}
 }

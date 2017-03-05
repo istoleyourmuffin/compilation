@@ -37,7 +37,11 @@ public class DeclarationChamp extends Declaration {
 	public boolean verifier() {
 		return valide;
 	}
-	
+
 	/* Pas besoin de toMIPS comme ce sont des déclarations, il faut juste ajouter les variables à la TDS */
+	public String toMIPS() {
+		return null;
+	}
+	
 
 }

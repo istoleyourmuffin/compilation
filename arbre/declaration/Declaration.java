@@ -1,6 +1,8 @@
 package plic.arbre.declaration;
 
-public abstract class Declaration extends ListeDeclaration {
+import plic.arbre.ArbreAbstrait;
+
+public abstract class Declaration extends ArbreAbstrait {
 	
 	public Declaration(int n) {
 		super(n);

@@ -40,6 +40,11 @@ idf = {char}{charNum}*
 statut = "publique" | "privee"
 type = "entier"
 
+si = "si"
+alors = "alors"
+sinon = "sinon"
+fsi = "fsi"
+
 doubleguill = \"\"
 charguill = {doubleguill} | [^\"]
 chaine = \" {charguill}* \"
@@ -50,15 +55,15 @@ commentaireSlashSlash = [/][/].*
 
 %%
 
-"+"                	{ return symbol(CodesLexicaux.PLUS); }
-"-"                	{ return symbol(CodesLexicaux.MOINS); }
-"*"                	{ return symbol(CodesLexicaux.MULT); }
-"/"                	{ return symbol(CodesLexicaux.DIV); }
-","					{ return symbol(CodesLexicaux.VIRGULE); }
-";"					{ return symbol(CodesLexicaux.POINTVIRGULE); }
+"+"                		{ return symbol(CodesLexicaux.PLUS); }
+"-"                		{ return symbol(CodesLexicaux.MOINS); }
+"*"                		{ return symbol(CodesLexicaux.MULT); }
+"/"                		{ return symbol(CodesLexicaux.DIV); }
+","						{ return symbol(CodesLexicaux.VIRGULE); }
+";"						{ return symbol(CodesLexicaux.POINTVIRGULE); }
 
-">"                	{ return symbol(CodesLexicaux.SUP); }
-"<"                	{ return symbol(CodesLexicaux.INF); }
+">"                		{ return symbol(CodesLexicaux.SUP); }
+"<"                		{ return symbol(CodesLexicaux.INF); }
 "=="                    { return symbol(CodesLexicaux.EGALEGAL); }
 "!="                    { return symbol(CodesLexicaux.DIFF); }
 
@@ -66,17 +71,23 @@ commentaireSlashSlash = [/][/].*
 "ou"                	{ return symbol(CodesLexicaux.OU); }
 "non"                	{ return symbol(CodesLexicaux.NON); }
 
-"="                	{ return symbol(CodesLexicaux.EGAL); }
+"="                		{ return symbol(CodesLexicaux.EGAL); }
 
 "classe"				{ return symbol(CodesLexicaux.CLASS); }
 "fin"					{ return symbol(CodesLexicaux.FIN); }
 "ecrire"				{ return symbol(CodesLexicaux.ECR); }
 
-"("                	{ return symbol(CodesLexicaux.PAROUV); }
-")"                	{ return symbol(CodesLexicaux.PARFER); }
+
+"si"					{ return symbol(CodesLexicaux.SI); }
+"alors"					{ return symbol(CodesLexicaux.ALORS); }
+"sinon"					{ return symbol(CodesLexicaux.SINON); }
+"fsi"					{ return symbol(CodesLexicaux.FSI); }
+				
+
+"("                		{ return symbol(CodesLexicaux.PAROUV); }
+")"                		{ return symbol(CodesLexicaux.PARFER); }
 
 {commentaireSlashSlash} {}
-
 
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
@@ -85,6 +96,5 @@ commentaireSlashSlash = [/][/].*
 {type}					{ return symbol(CodesLexicaux.TYPE, yytext()); }
 {idf}  					{ return symbol(CodesLexicaux.IDF, yytext()); }
 {espace}                { }
-
 
 . { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }

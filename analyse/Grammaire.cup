@@ -4,6 +4,7 @@ import java.util.*;
 import plic.arbre.*;
 import plic.arbre.expression.*;
 import plic.arbre.declaration.*;
+import plic.arbre.instruction.*;
 import plic.arbre.expression.binaire.*;
 import plic.arbre.expression.constante.*;
 import plic.arbre.expression.unaire.*;
@@ -36,6 +37,9 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.VIRGULE), ",") ;
         lesTerminaux.put(new Integer(CodesLexicaux.EGAL), "=") ;
         lesTerminaux.put(new Integer(CodesLexicaux.FIN), "fin") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.SI), "si") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.ALORS), "alors") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.SINON), "sinon") ;
         lesTerminaux.put(new Integer(CodesLexicaux.ECR), "ecrire") ;
 
         StringBuffer m = new StringBuffer() ;
@@ -78,9 +82,9 @@ terminal Symbol    PLUS, MOINS, MULT, DIV, VIRGULE, POINTVIRGULE ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF ;
 terminal Symbol	   ET, OU, NON ;
 terminal Symbol    EGAL ;
-terminal Symbol	   CLASS, ENTIER, FIN, ECR ;
+terminal Symbol	   CLASS, FIN, ECR ;
 terminal Symbol    PAROUV, PARFER ;
-terminal String    CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, TYPE, IDF;
+terminal String    CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, TYPE, IDF, SI, ALORS, SINON, FSI;
 
 non terminal ArbreAbstrait SYSTEME;
 non terminal Classe CLASSE;
@@ -93,7 +97,7 @@ non terminal Affectation AFFECT;
 non terminal Expression EXPR;
 non terminal Ecrire ECRIRE;
 non terminal Constante CSTE;
-
+non terminal Condition CONDITION;
 
 precedence left INF, SUP ;
 precedence left EGALEGAL, DIFF;
@@ -164,11 +168,23 @@ DECL_CONST	::= AFFECT:a
 			|
 				ECRIRE:e
 			{: RESULT = e ; :}
+			|
+				CONDITION:c
+			{: RESULT = c ; :}
 			;
 			
 AFFECT		::= IDF:i EGAL EXPR:e POINTVIRGULE
 			{: 	Affectation af = new Affectation(i, e, eleft+1);
 				RESULT = af ; :}
+			;
+
+CONDITION	::= SI EXPR:e ALORS LISTDECLARATION:l FSI
+			{:  Condition cond = new Condition(e, l, eleft+1);
+				RESULT = cond; :}
+			|
+				SI EXPR:e ALORS LISTDECLARATION:l1 SINON LISTDECLARATION:l2 FSI
+			{:  Condition cond = new Condition(e, l1, l2, eleft+1);
+				RESULT = cond; :}
 			;
 		
 ECRIRE 	::= ECR EXPR:e POINTVIRGULE

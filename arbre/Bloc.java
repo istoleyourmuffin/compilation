@@ -3,7 +3,6 @@ package plic.arbre;
 import java.util.ArrayList;
 
 import plic.arbre.declaration.Declaration;
-import plic.arbre.declaration.Instruction;
 
 public class Bloc {
 	

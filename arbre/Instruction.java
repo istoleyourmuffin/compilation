@@ -1,4 +1,6 @@
-package plic.arbre.declaration;
+package plic.arbre;
+
+import plic.arbre.declaration.DeclarationConstantes;
 
 public abstract class Instruction extends DeclarationConstantes {
 

@@ -1,4 +1,4 @@
-package plic.arbre.declaration;
+package plic.arbre.instruction;
 
 import plic.arbre.expression.Expression;
 
