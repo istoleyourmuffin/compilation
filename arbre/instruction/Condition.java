@@ -45,6 +45,7 @@ public class Condition extends Instruction {
 		String sinon = "sinon"+indice;
 		String fsi = "fsi"+indice;
 		StringBuilder sb = new StringBuilder();
+		sb.append(cond.toMIPS());
 		sb.append(si);
 		sb.append(": beqz $v0, ");
 		if(existeSinon) {

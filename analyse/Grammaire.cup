@@ -84,7 +84,8 @@ terminal Symbol	   ET, OU, NON ;
 terminal Symbol    EGAL ;
 terminal Symbol	   CLASS, FIN, ECR ;
 terminal Symbol    PAROUV, PARFER ;
-terminal String    CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, TYPE, IDF, SI, ALORS, SINON, FSI;
+terminal Symbol	   SI, ALORS, SINON, FSI;
+terminal String    CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, TYPE, IDF;
 
 non terminal ArbreAbstrait SYSTEME;
 non terminal Classe CLASSE;
