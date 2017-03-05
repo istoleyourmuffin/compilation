@@ -65,8 +65,7 @@ public class Condition extends Instruction {
 			sb.append(liste2.toMIPS());
 		}
 		sb.append(fsi);
-		sb.append("#Fini");
-		sb.append("\n");
+		sb.append(": \n");
 		
 		return sb.toString();
 	}

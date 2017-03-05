@@ -40,7 +40,7 @@ public class DeclarationChamp extends Declaration {
 
 	/* Pas besoin de toMIPS comme ce sont des déclarations, il faut juste ajouter les variables à la TDS */
 	public String toMIPS() {
-		return null;
+		return "";
 	}
 	
 
