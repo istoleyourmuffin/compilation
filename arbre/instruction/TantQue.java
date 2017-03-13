@@ -11,7 +11,8 @@ public class TantQue extends Iteration {
 	
 	public TantQue(Expression e, ListeInstruction ld, int n) {
 		super(n);
-		// TODO Auto-generated constructor stub
+		this.cond = e;
+		this.liste = ld;
 	}
 
 
@@ -31,6 +32,7 @@ public class TantQue extends Iteration {
 		sb.append(repeter);
 		sb.append(":\n");
 		sb.append(liste.toMIPS());
+		sb.append(cond.toMIPS());
 		sb.append("b ");
 		sb.append(tq);
 		sb.append("\n");
@@ -42,7 +44,13 @@ public class TantQue extends Iteration {
 
 	@Override
 	public boolean verifier() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean valide = cond.verifier();
+		if (!cond.getType().equals("booleen")) {
+			valide = false;
+			System.out.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : l'expression n'est pas composée de booléens");
+		}
+		valide = valide && liste.verifier();
+		
+		return valide;
 	}
 }

@@ -201,7 +201,7 @@ CONDITION	::= SI EXPR:e ALORS LISTINST:l FSI
 			{:  Condition cond = new Condition(e, l1, l2, eleft+1);
 				RESULT = cond; :}
 			;
-			
+	
 ITERATION	::= TANTQUE EXPR:e REPETER LISTINST:l FINTANTQUE
 			{:	Iteration ite = new TantQue(e, l, eleft+1);
 				RESULT = ite; :}
