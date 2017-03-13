@@ -39,7 +39,7 @@ public class Condition extends Instruction {
 	}
 
 	public String toMIPS() {
-		int indice = getNoLigne()+(int)(Math.random()*10000);
+		String indice = getNoLigne()+ "" + (int)(10000 + (Math.random() * (100000 - 10000))); // Nombre aléatoire entre 10000 et 99999
 		String si = "si"+indice;
 		String alors = "alors"+indice;
 		String sinon = "sinon"+indice;

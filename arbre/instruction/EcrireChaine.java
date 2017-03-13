@@ -10,7 +10,8 @@ public class EcrireChaine extends Ecrire {
 	}
 
 	public String toMIPS() {
-		String nom = "ecrireChaine"+getNoLigne()+(int)(Math.random()*10000);
+		String indice = getNoLigne()+ "" + (int)(10000 + (Math.random() * (100000 - 10000))); // Nombre aléatoire entre 10000 et 99999
+		String nom = "ecrireChaine"+ indice;
 		StringBuilder sb = new StringBuilder();
 		sb.append("# ----- EcrireChaine ----- \n");
 		sb.append("#On insere la chaine dans les donnees\n");
