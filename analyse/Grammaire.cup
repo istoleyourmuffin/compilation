@@ -62,7 +62,7 @@ parser code {:
                 m.append(" dernier token lu : " + lesTerminaux.get(new Integer(s.sym))) ;
             }
             else {
-                m.append(" expression non terminée") ;
+                m.append(" expression incorrecte") ;
             }
 
         }
