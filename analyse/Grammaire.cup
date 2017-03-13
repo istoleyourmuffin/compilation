@@ -194,7 +194,7 @@ CONDITION	::= SI EXPR:e ALORS LISTDECLARATION:l FSI
 			;
 			
 ITERATION	::= TANTQUE EXPR:e REPETER LISTDECLARATION:l FINTANTQUE
-			{:	Iteration ite = new Tantque(e, l, eleft+1);
+			{:	Iteration ite = new TantQue(e, l, eleft+1);
 				RESULT = ite; :}
 			;
 		
