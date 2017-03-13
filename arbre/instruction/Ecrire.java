@@ -1,6 +1,6 @@
 package plic.arbre.instruction;
 
-import plic.arbre.Instruction;
+import plic.arbre.declaration.Instruction;
 
 public abstract class Ecrire extends Instruction {
 

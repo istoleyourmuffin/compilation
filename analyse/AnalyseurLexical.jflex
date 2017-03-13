@@ -83,6 +83,9 @@ commentaireSlashSlash = [/][/].*
 "sinon"					{ return symbol(CodesLexicaux.SINON); }
 "fsi"					{ return symbol(CodesLexicaux.FSI); }
 				
+"tantque"				{ return symbol(CodesLexicaux.TANTQUE); }
+"repeter"				{ return symbol(CodesLexicaux.REPETER); }
+"fintantque"			{ return symbol(CodesLexicaux.FINTANTQUE); }
 
 "("                		{ return symbol(CodesLexicaux.PAROUV); }
 ")"                		{ return symbol(CodesLexicaux.PARFER); }

@@ -85,6 +85,7 @@ terminal Symbol    EGAL ;
 terminal Symbol	   CLASS, FIN, ECR ;
 terminal Symbol    PAROUV, PARFER ;
 terminal Symbol	   SI, ALORS, SINON, FSI;
+terminal Symbol	   TANTQUE, REPETER, FINTANTQUE;
 terminal String    CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, TYPE, IDF;
 
 non terminal ArbreAbstrait SYSTEME;
@@ -93,12 +94,13 @@ non terminal ListeDeclaration LISTDECLARATION;
 non terminal Declaration DECLARATION;
 non terminal DeclarationChamp DECL_CHAMP;
 non terminal ListeIdentifiant LISTIDF;
-non terminal DeclarationConstantes DECL_CONST;
+non terminal Instruction INSTRUCTION;
 non terminal Affectation AFFECT;
 non terminal Expression EXPR;
 non terminal Ecrire ECRIRE;
 non terminal Constante CSTE;
 non terminal Condition CONDITION;
+non terminal Iteration ITERATION;
 
 precedence left INF, SUP ;
 precedence left EGALEGAL, DIFF;
@@ -140,8 +142,8 @@ LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d
 DECLARATION ::= DECL_CHAMP:d
 			{: RESULT = d ; :}
 			|
-				DECL_CONST:d
-			{: RESULT = d ; :}
+				INSTRUCTION:i
+			{: RESULT = i ; :}
 			;
 			
 			
@@ -164,7 +166,7 @@ LISTIDF 	::= LISTIDF:li VIRGULE IDF:i
 				RESULT = li ; :}
 			;
 			
-DECL_CONST	::= AFFECT:a
+INSTRUCTION	::= AFFECT:a
 			{: RESULT = a ; :}
 			|
 				ECRIRE:e
@@ -172,6 +174,9 @@ DECL_CONST	::= AFFECT:a
 			|
 				CONDITION:c
 			{: RESULT = c ; :}
+			|
+				ITERATION:i
+			{: RESULT = i ; :}
 			;
 			
 AFFECT		::= IDF:i EGAL EXPR:e POINTVIRGULE
@@ -186,6 +191,11 @@ CONDITION	::= SI EXPR:e ALORS LISTDECLARATION:l FSI
 				SI EXPR:e ALORS LISTDECLARATION:l1 SINON LISTDECLARATION:l2 FSI
 			{:  Condition cond = new Condition(e, l1, l2, eleft+1);
 				RESULT = cond; :}
+			;
+			
+ITERATION	::= TANTQUE EXPR:e REPETER LISTDECLARATION:l FINTANTQUE
+			{:	Iteration ite = new Tantque(e, l, eleft+1);
+				RESULT = ite; :}
 			;
 		
 ECRIRE 	::= ECR EXPR:e POINTVIRGULE
