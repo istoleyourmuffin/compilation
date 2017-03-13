@@ -1,14 +1,15 @@
 package plic.arbre.instruction;
 
 import plic.arbre.declaration.ListeDeclaration;
+import plic.arbre.declaration.ListeInstruction;
 import plic.arbre.expression.Expression;
 
 public class TantQue extends Iteration {
 
 	protected Expression cond;
-	protected ListeDeclaration liste;
+	protected ListeInstruction liste;
 	
-	public TantQue(Expression e, ListeDeclaration ld, int n) {
+	public TantQue(Expression e, ListeInstruction ld, int n) {
 		super(n);
 		// TODO Auto-generated constructor stub
 	}

@@ -94,6 +94,7 @@ non terminal ListeDeclaration LISTDECLARATION;
 non terminal Declaration DECLARATION;
 non terminal DeclarationChamp DECL_CHAMP;
 non terminal ListeIdentifiant LISTIDF;
+non terminal ListeInstruction LISTINST;
 non terminal Instruction INSTRUCTION;
 non terminal Affectation AFFECT;
 non terminal Expression EXPR;
@@ -136,17 +137,15 @@ LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d
 				{:	ListeDeclaration ld = new ListeDeclaration(dleft+1);
 					ld.ajouter(d);
 					RESULT = ld; :}
-				;
-				
+				;	
 				
 DECLARATION ::= DECL_CHAMP:d
 			{: RESULT = d ; :}
 			|
-				INSTRUCTION:i
-			{: RESULT = i ; :}
+				INSTRUCTION:li
+			{: RESULT = li ; :}
 			;
-			
-			
+				
 DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:i  POINTVIRGULE
 			{: 	DeclarationChamp dc = new DeclarationChamp(s,t,i, sleft+1);
 				RESULT = dc ; :}
@@ -165,6 +164,16 @@ LISTIDF 	::= LISTIDF:li VIRGULE IDF:i
 				li.ajouter(new Identifiant(i, ileft+1));
 				RESULT = li ; :}
 			;
+
+LISTINST 	::=  LISTINST:li INSTRUCTION:i
+			{:	 li.ajouter(i); 
+				 RESULT = li; :}
+			|
+				INSTRUCTION:i
+			{:  ListeInstruction li = new ListeInstruction(ileft+1);
+				li.ajouter(i);
+				RESULT = li; :}
+			;	
 			
 INSTRUCTION	::= AFFECT:a
 			{: RESULT = a ; :}
@@ -184,28 +193,28 @@ AFFECT		::= IDF:i EGAL EXPR:e POINTVIRGULE
 				RESULT = af ; :}
 			;
 
-CONDITION	::= SI EXPR:e ALORS LISTDECLARATION:l FSI
+CONDITION	::= SI EXPR:e ALORS LISTINST:l FSI
 			{:  Condition cond = new Condition(e, l, eleft+1);
 				RESULT = cond; :}
 			|
-				SI EXPR:e ALORS LISTDECLARATION:l1 SINON LISTDECLARATION:l2 FSI
+				SI EXPR:e ALORS LISTINST:l1 SINON LISTINST:l2 FSI
 			{:  Condition cond = new Condition(e, l1, l2, eleft+1);
 				RESULT = cond; :}
 			;
 			
-ITERATION	::= TANTQUE EXPR:e REPETER LISTDECLARATION:l FINTANTQUE
-			{:	Iteration ite = new Tantque(e, l, eleft+1);
+ITERATION	::= TANTQUE EXPR:e REPETER LISTINST:l FINTANTQUE
+			{:	Iteration ite = new TantQue(e, l, eleft+1);
 				RESULT = ite; :}
 			;
 		
-ECRIRE 	::= ECR EXPR:e POINTVIRGULE
-		{: 	EcrireExpression ee= new EcrireExpression(e, eleft+1);
-			RESULT = ee ; :}	
-		|
-			ECR CONSTANTECHAINE:c POINTVIRGULE
-		{: 	EcrireChaine ec= new EcrireChaine(c.replace("\"\"","\\\""), cleft+1);
-			RESULT = ec ; :}	
-		;		
+ECRIRE 		::= ECR EXPR:e POINTVIRGULE
+			{: 	EcrireExpression ee= new EcrireExpression(e, eleft+1);
+				RESULT = ee ; :}	
+			|
+				ECR CONSTANTECHAINE:c POINTVIRGULE
+			{: 	EcrireChaine ec= new EcrireChaine(c.replace("\"\"","\\\""), cleft+1);
+				RESULT = ec ; :}	
+			;		
                 
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d

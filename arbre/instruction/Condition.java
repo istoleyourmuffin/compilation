@@ -2,22 +2,23 @@ package plic.arbre.instruction;
 
 import plic.arbre.declaration.Instruction;
 import plic.arbre.declaration.ListeDeclaration;
+import plic.arbre.declaration.ListeInstruction;
 import plic.arbre.expression.Expression;
 
 public class Condition extends Instruction {
 
 	protected Expression cond;
-	protected ListeDeclaration liste1, liste2;
+	protected ListeInstruction liste1, liste2;
 	protected boolean existeSinon;
 	
-	public Condition(Expression c, ListeDeclaration l, int n) {
+	public Condition(Expression c, ListeInstruction l, int n) {
 		super(n);
 		cond = c;
 		liste1 = l;
 		existeSinon = false;
 	}
 	
-	public Condition (Expression c, ListeDeclaration l1, ListeDeclaration l2, int n) {
+	public Condition (Expression c, ListeInstruction l1, ListeInstruction l2, int n) {
 		super(n);
 		cond = c;
 		liste1 = l1;
