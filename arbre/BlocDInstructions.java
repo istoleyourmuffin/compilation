@@ -37,6 +37,16 @@ public class BlocDInstructions extends ArbreAbstrait {
 		sb.append("# réservation de l'espace pour " + size/4 + " variables \n");
 		sb.append("addi $sp, $sp, -" + size + "\n");
 		
+		sb.append("# Mise en place des chaines vrai-faux \n");
+		sb.append(".data \n");
+		sb.append("boolVrai");
+		sb.append(":	.asciiz ");
+		sb.append("\"vrai\"\n");
+		sb.append("boolFaux");
+		sb.append(":	.asciiz ");
+		sb.append("\"faux\"\n");
+		sb.append(".text\n");
+		
 		sb.append(classe.toMIPS());
 		
 		sb.append("end :\n");

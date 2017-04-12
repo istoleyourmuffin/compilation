@@ -27,7 +27,6 @@ public class DeclarationChamp extends Declaration {
 				TDS.getInstance().ajouter(t, i.getNom());
 			} else {
 				System.out.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : Double déclaration de la variable " + i.getNom());
-				System.out.println("passage2");
 				valide = false;
 			}
 		}
