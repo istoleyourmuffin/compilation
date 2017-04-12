@@ -6,31 +6,9 @@ public class DeclarationChamp extends Declaration {
 	
 	protected boolean valide;
 	
-	public DeclarationChamp(String s, String t, ListeIdentifiant li, int n) {
+	public DeclarationChamp(int n, boolean bool) {
 		super(n);
-		valide = true;
-		for(Identifiant i : li) {
-			if (!TDS.getInstance().verifierExistence(i.getNom())) {
-				TDS.getInstance().ajouter(s, t, i.getNom());
-			} else {
-				System.out.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : Double déclaration de la variable " + i.getNom());
-				valide = false;
-			}
-		}
-	}
-	
-	public DeclarationChamp(String t, ListeIdentifiant li, int n) {
-		super(n);
-		valide = true;
-		for(Identifiant i : li) {
-			if (!TDS.getInstance().verifierExistence(i.getNom())) {
-				TDS.getInstance().ajouter(t, i.getNom());
-			} else {
-				System.out.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : Double déclaration de la variable " + i.getNom());
-				valide = false;
-			}
-		}
-		
+		valide = bool;
 	}
 	
 	public boolean verifier() {

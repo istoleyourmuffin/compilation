@@ -8,6 +8,7 @@ import plic.arbre.instruction.*;
 import plic.arbre.expression.binaire.*;
 import plic.arbre.expression.constante.*;
 import plic.arbre.expression.unaire.*;
+import plic.tds.*;
 import plic.exceptions.*;
 
 action code {: 
@@ -146,12 +147,20 @@ DECLARATION ::= DECL_CHAMP:d
 			{: RESULT = li ; :}
 			;
 				
-DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:i  POINTVIRGULE
-			{: 	DeclarationChamp dc = new DeclarationChamp(s,t,i, sleft+1);
+DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:li  POINTVIRGULE
+			{: 	boolean valide = true;			
+				for(Identifiant i : li) {
+					valide = valide && TDS.getInstance().ajouter(s, t, i.getNom(), sleft+1);
+				}
+				DeclarationChamp dc = new DeclarationChamp(sleft+1, valide);
 				RESULT = dc ; :}
 			|
-				TYPE:t LISTIDF:i POINTVIRGULE
-			{:	DeclarationChamp dc = new DeclarationChamp(t, i, tleft+1);
+				TYPE:t LISTIDF:li POINTVIRGULE
+			{:	boolean valide = true;	
+				for(Identifiant i : li) {
+					valide = valide && TDS.getInstance().ajouter(t, i.getNom(), tleft+1);
+				}
+				DeclarationChamp dc = new DeclarationChamp(tleft+1, valide);
 				RESULT = dc ; :}
 			;
 			

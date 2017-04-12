@@ -7,7 +7,7 @@ import plic.exceptions.AnalyseSemantiqueException;
 public class TDS {
 	
 	private static TDS instance = new TDS();
-	protected HashMap<String,Symbole> table;
+	protected HashMap<Entree,Symbole> table;
 	protected int tailleZoneDesVariables; // Pour savoir ou se trouve la variable la plus haute dans la "pile" S7
 	
 	
@@ -15,24 +15,38 @@ public class TDS {
 		return instance;
 	}
 	
-	public void ajouter(String statut, String type, String idf) {
+	public boolean ajouter(String statut, String type, String idf, int n) {
+		Entree e = new EntreeVar(idf);
+		if (table.containsKey(e)){
+			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Double déclaration de la variable " + e.getNom());
+			return false;
+		}
 		Symbole s = new Symbole(statut, type, tailleZoneDesVariables);
-		table.put(idf, s);
+		table.put(e, s);
 		tailleZoneDesVariables += 4;
+		return true;
 	}
 	
-	public void ajouter(String type, String idf) {
+	public boolean ajouter(String type, String idf, int n) {
+		Entree e = new EntreeVar(idf);
+		if (table.containsKey(e)){
+			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Double déclaration de la variable " + e.getNom());
+			return false;
+		}
 		Symbole s = new Symbole("privee", type, tailleZoneDesVariables);
-		table.put(idf, s);
+		table.put(e, s);
 		tailleZoneDesVariables += 4;
+		return true;
 	}
 	
 	public boolean verifierExistence(String e) {
-		return table.containsKey(e);
+		Entree cle = new EntreeVar(e);
+		return table.containsKey(cle);
 	}
 	
 	public Symbole identifier(String e){
-		return table.get(e);
+		Entree cle = new EntreeVar(e);
+		return table.get(cle);
 	}
 	
 	public int getTailleZoneDesVariables() {
@@ -41,7 +55,7 @@ public class TDS {
 	
 	private TDS() {
 		this.tailleZoneDesVariables = 0;
-		this.table = new HashMap<String,Symbole>();
+		this.table = new HashMap<Entree,Symbole>();
 		
 	}
 
