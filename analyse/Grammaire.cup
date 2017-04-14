@@ -37,6 +37,7 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.CLASS), "classe") ;
         lesTerminaux.put(new Integer(CodesLexicaux.VIRGULE), ",") ;
         lesTerminaux.put(new Integer(CodesLexicaux.EGAL), "=") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.DEBUT), "debut") ;
         lesTerminaux.put(new Integer(CodesLexicaux.FIN), "fin") ;
         lesTerminaux.put(new Integer(CodesLexicaux.SI), "si") ;
         lesTerminaux.put(new Integer(CodesLexicaux.ALORS), "alors") ;
@@ -83,7 +84,7 @@ terminal Symbol    PLUS, MOINS, MULT, DIV, VIRGULE, POINTVIRGULE ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF ;
 terminal Symbol	   ET, OU, NON ;
 terminal Symbol    EGAL ;
-terminal Symbol	   CLASS, FIN, ECR ;
+terminal Symbol	   CLASS, DEBUT, FIN, ECR ;
 terminal Symbol    PAROUV, PARFER ;
 terminal Symbol	   SI, ALORS, SINON, FSI;
 terminal Symbol	   TANTQUE, REPETER, FINTANTQUE;
@@ -94,6 +95,9 @@ non terminal Classe CLASSE;
 non terminal ListeDeclaration LISTDECLARATION;
 non terminal Declaration DECLARATION;
 non terminal DeclarationChamp DECL_CHAMP;
+non terminal DeclarationConst DECL_CONST;
+non terminal ListeVar LISTVAR;
+non terminal DeclarationVar DECL_VAR;
 non terminal ListeIdentifiant LISTIDF;
 non terminal ListeInstruction LISTINST;
 non terminal Instruction INSTRUCTION;
@@ -119,12 +123,13 @@ start with SYSTEME ;
 
 SYSTEME ::= CLASSE:c
 		{: BlocDInstructions arbre = new BlocDInstructions(cleft+1) ;
-                   arbre.ajouter(c) ;
-                   RESULT = arbre ; :}
+           arbre.ajouter(c) ;
+           RESULT = arbre ; :}
 		;
 			
 CLASSE	::= CLASS:c IDF:i LISTDECLARATION:l FIN
-		{: RESULT = new Classe(l, i, ileft+1); :}
+		{: RESULT = new Classe(l, i, ileft+1);
+		   TDS.getInstance().setEnvironnement("publique", "classe", i) ; :}
 		|
 			CLASS:c IDF:i FIN
 		{: RESULT = new Classe(i, ileft+1); :}
@@ -143,11 +148,11 @@ LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d
 DECLARATION ::= DECL_CHAMP:d
 			{: RESULT = d ; :}
 			|
-				INSTRUCTION:li
-			{: RESULT = li ; :}
+				DECL_CONST:d
+			{: RESULT = d ; :}
 			;
 				
-DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:li  POINTVIRGULE
+DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:li POINTVIRGULE
 			{: 	boolean valide = true;			
 				for(Identifiant i : li) {
 					valide = valide && TDS.getInstance().ajouter(s, t, i.getNom(), sleft+1);
@@ -174,9 +179,31 @@ LISTIDF 	::= LISTIDF:li VIRGULE IDF:i
 				RESULT = li ; :}
 			;
 
-LISTINST 	::=  LISTINST:li INSTRUCTION:i
-			{:	 li.ajouter(i); 
-				 RESULT = li; :}
+DECL_CONST	::= STATUT:s IDF:i PAROUV PARFER DEBUT LISTVAR:lv LISTINST:li FIN
+			{:  DeclarationConst cons = new DeclarationConst(i, li, sleft+1) ;
+				RESULT = cons ; :}
+			|
+				STATUT:s IDF:i DEBUT LISTINST:li FIN
+			{:	DeclarationConst cons = new DeclarationConst(i, li, sleft+1) ;
+				RESULT = cons ; :}
+			;
+			
+LISTVAR 	::= LISTVAR:lv DECL_VAR:d
+			{:	lv.ajouter(d) ;
+				RESULT = lv ; :}
+			|	DECL_VAR:d
+			{:	ListeVar lv = new ListeVar(dleft+1) ;
+				lv.ajouter(d) ; :}
+			;
+
+DECL_VAR 	::= TYPE:t LISTIDF:li POINTVIRGULE
+			{:	DeclarationVar dv = new DeclarationVar(tleft+1) ;
+				RESULT = dv ; :}
+			;
+
+LISTINST 	::= LISTINST:li INSTRUCTION:i
+			{:	li.ajouter(i); 
+				RESULT = li; :}
 			|
 				INSTRUCTION:i
 			{:  ListeInstruction li = new ListeInstruction(ileft+1);
@@ -270,10 +297,10 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         |
                 PAROUV  EXPR:e  PARFER
                 {: RESULT = e ; :}
-                ;
+		;
 
 CSTE    ::=     CONSTANTEINT:e 
                 {: RESULT = new ConstanteEntiere(e, eleft+1) ; :}
         |       CONSTANTEBOOL:e 
                 {: RESULT = new ConstanteBool(e, eleft+1) ; :}
-;
+		;
