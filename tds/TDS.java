@@ -40,11 +40,8 @@ public class TDS {
 	
 	public boolean ajouter(String type, String idf, int n) {
 		Entree e;
-		if(type.equals("const")){
-			e = new EntreeConst(idf);
-		}else{
-			e = new EntreeVar(idf);
-		}
+		e = type.equals("const") ? new EntreeConst(idf) : new EntreeVar(idf);
+		
 		if (table.containsKey(e) && idf.equals(table.get(e).getType())){
 			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Double déclaration de l'identifiant " + e.getNom());
 			return false;
