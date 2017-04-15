@@ -7,7 +7,6 @@ import plic.exceptions.AnalyseSemantiqueException;
 public class TDS {
 	
 	private static TDS instance = new TDS();
-	protected HashMap<Entree,Symbole> table;
 	protected int tailleZoneDesVariables; // Pour savoir ou se trouve la variable la plus haute dans la "pile" S7
 	protected Entree entreeEnvironnement;
 	protected Symbole symboleEnvironnement;
@@ -21,7 +20,7 @@ public class TDS {
 	
 	public void setEnvironnement(String statut, String type, String idf){
 		entreeEnvironnement = new EntreeClass(idf);
-		Symbole s = new Symbole(statut, type, tailleZoneDesVariables);
+		Symbole s = new Symbole(statut, type, tailleZoneDesVariables); // A quoi ça sert ?
 	}
 	
 	public String getEnvironnement(){
@@ -43,7 +42,7 @@ public class TDS {
 	
 	public boolean ajouter(String type, String idf, int n) {
 		Entree e = type.equals("const") ? new EntreeConst(idf) : new EntreeVar(idf); // idf = (condition) ? valeur si vrai : valeur si faux;
-		if (bloc.getTable().containsKey(e) && idf.equals(table.get(e).getType())){
+		if (bloc.getTable().containsKey(e) && idf.equals(bloc.getTable().get(e).getType())){
 			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Double déclaration de l'identifiant " + e.getNom());
 			return false;
 		}
@@ -83,7 +82,6 @@ public class TDS {
 	
 	private TDS() {
 		this.tailleZoneDesVariables = 12;
-		this.table = new HashMap<Entree,Symbole>();
 		this.bloc = new TDSLocale();
 	}
 
