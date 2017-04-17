@@ -9,7 +9,7 @@ public class TDS {
 	private static TDS instance = new TDS();
 	protected int tailleZoneDesVariables; // Pour savoir ou se trouve la variable la plus haute dans la "pile" S7
 	protected TDSLocale bloc; // bloc courant
-	protected int numBloc; // numero du bloc courant
+	protected int numBloc = 0; // numero du bloc courant
 	
 	
 	public static TDS getInstance() {
@@ -23,7 +23,6 @@ public class TDS {
 			return false;
 		}
 		Symbole s = new Symbole(statut, type, tailleZoneDesVariables);
-		//table.put(e, s);
 		bloc.ajouter(e, s);
 		tailleZoneDesVariables += 4;
 		return true;
@@ -38,7 +37,6 @@ public class TDS {
 		Symbole s = type.equals("const") ? new Symbole("publique", type, tailleZoneDesVariables)
 										 : new Symbole("privee", type, tailleZoneDesVariables);
 		tailleZoneDesVariables += 4;
-		//table.put(e, s);
 		bloc.ajouter(e, s);
 		return true;
 	}

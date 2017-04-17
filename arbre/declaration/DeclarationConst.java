@@ -19,7 +19,11 @@ public class DeclarationConst extends Declaration {
 	}
 
 	public String toMIPS() {
-		return liste.toMIPS();
+		StringBuilder sb = new StringBuilder();
+		sb.append(TDS.getInstance().toMipsEntree());
+		sb.append(liste.toMIPS());
+		sb.append(TDS.getInstance().toMipsSortie());
+		return sb.toString();
 	}
 
 }
