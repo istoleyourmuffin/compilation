@@ -1,7 +1,5 @@
 package plic.arbre.declaration;
 
-import plic.tds.TDS;
-
 public class DeclarationChamp extends Declaration {
 	
 	protected boolean valide;

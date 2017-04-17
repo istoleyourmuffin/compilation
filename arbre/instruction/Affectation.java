@@ -2,7 +2,6 @@ package plic.arbre.instruction;
 
 import plic.arbre.declaration.Instruction;
 import plic.arbre.expression.Expression;
-import plic.exceptions.AnalyseSemantiqueException;
 import plic.tds.Symbole;
 import plic.tds.TDS;
 

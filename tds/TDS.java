@@ -1,9 +1,5 @@
 package plic.tds;
 
-import java.util.HashMap;
-
-import plic.exceptions.AnalyseSemantiqueException;
-
 public class TDS {
 	
 	private static TDS instance = new TDS();
@@ -42,7 +38,7 @@ public class TDS {
 	
 	public boolean verifierExistence(String e) {
 		Entree cle = new EntreeVar(e);
-		return getBloc().verifierExistence(e);
+		return getBloc().verifierExistence(cle);
 	}
 	
 	public Symbole identifier(String e){

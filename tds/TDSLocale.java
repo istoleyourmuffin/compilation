@@ -2,7 +2,6 @@ package plic.tds;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class TDSLocale {
 	
@@ -66,9 +65,8 @@ public class TDSLocale {
 		return sb.toString();
 	}
 	
-	public boolean verifierExistence(String e) {
-		Entree cle = new EntreeVar(e);
-		return table.containsKey(cle);
+	public boolean verifierExistence(Entree e) {
+		return table.containsKey(e);
 	}
 	
 	public Symbole identifier(Entree e) {
@@ -87,7 +85,6 @@ public class TDSLocale {
 
 	public TDSLocale getFils(int numBloc) {
 		TDSLocale res = null;
-		int i = 0;
 		for(TDSLocale temp: fils){
 			if(temp.getNumBloc() == numBloc){
 				res = temp;

@@ -1,6 +1,5 @@
 package plic.arbre.instruction;
 
-import plic.arbre.declaration.ListeDeclaration;
 import plic.arbre.declaration.ListeInstruction;
 import plic.arbre.expression.Expression;
 
