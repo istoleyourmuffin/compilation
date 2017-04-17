@@ -8,23 +8,12 @@ public class TDS {
 	
 	private static TDS instance = new TDS();
 	protected int tailleZoneDesVariables; // Pour savoir ou se trouve la variable la plus haute dans la "pile" S7
-	protected Entree entreeEnvironnement;
-	protected Symbole symboleEnvironnement;
 	protected TDSLocale bloc; // bloc courant
 	protected int numBloc; // numero du bloc courant
 	
 	
 	public static TDS getInstance() {
 		return instance;
-	}
-	
-	public void setEnvironnement(String statut, String type, String idf){
-		entreeEnvironnement = new EntreeClass(idf);
-		Symbole s = new Symbole(statut, type, tailleZoneDesVariables); // A quoi ça sert ?
-	}
-	
-	public String getEnvironnement(){
-		return entreeEnvironnement.getNom();
 	}
 	
 	public boolean ajouter(String statut, String type, String idf, int n) {

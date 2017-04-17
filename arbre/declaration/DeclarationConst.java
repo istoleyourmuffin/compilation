@@ -14,7 +14,7 @@ public class DeclarationConst extends Declaration {
 	}
 
 	public boolean verifier() {
-		boolean valide = identifiant.equals(TDS.getInstance().getEnvironnement());
+		boolean valide = true;//boolean valide = identifiant.equals(TDS.getInstance().getEnvironnement());
 		return liste.verifier() && valide;
 	}
 

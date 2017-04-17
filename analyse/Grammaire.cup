@@ -137,11 +137,10 @@ LISTCLASSE ::= LISTCLASSE:lc CLASSE:c
 		;
 			
 CLASSE	::= CLASS:c IDF:i LISTDECLARATION:l FIN
-		{: RESULT = new Classe(l, i, ileft+1);
-		   TDS.getInstance().setEnvironnement("publique", "classe", i) ; :}
+		{: RESULT = new Classe(l, i, ileft+1) ; :}
 		|
 			CLASS:c IDF:i FIN
-		{: RESULT = new Classe(i, ileft+1); :}
+		{: RESULT = new Classe(i, ileft+1) ; :}
 		;
 
 LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d
@@ -164,17 +163,17 @@ DECLARATION ::= DECL_CHAMP:d
 DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:li POINTVIRGULE
 			{: 	boolean valide = true;			
 				for(Identifiant i : li) {
-					valide = valide && TDS.getInstance().ajouter(s, t, i.getNom(), sleft+1);
+					valide = TDS.getInstance().ajouter(s, t, i.getNom(), sleft+1) && valide ;
 				}
-				DeclarationChamp dc = new DeclarationChamp(sleft+1, valide);
+				DeclarationChamp dc = new DeclarationChamp(sleft+1, valide) ;
 				RESULT = dc ; :}
 			|
 				TYPE:t LISTIDF:li POINTVIRGULE
 			{:	boolean valide = true;	
 				for(Identifiant i : li) {
-					valide = valide && TDS.getInstance().ajouter(t, i.getNom(), tleft+1);
+					valide = TDS.getInstance().ajouter(t, i.getNom(), tleft+1) && valide ;
 				}
-				DeclarationChamp dc = new DeclarationChamp(tleft+1, valide);
+				DeclarationChamp dc = new DeclarationChamp(tleft+1, valide) ;
 				RESULT = dc ; :}
 			;
 			
@@ -189,11 +188,11 @@ LISTIDF 	::= LISTIDF:li VIRGULE IDF:i
 			;
 
 DECL_CONST	::= STATUT:s IDF:i PAROUV PARFER DEBUT LISTVAR:lv LISTINST:li FIN
-			{:  DeclarationConst cons = new DeclarationConst(i, li, sleft+1) ;
-				RESULT = cons ; :}
-			|
-				STATUT:s IDF:i DEBUT LISTINST:li FIN
-			{:	DeclarationConst cons = new DeclarationConst(i, li, sleft+1) ;
+			{:  TDS tds = TDS.getInstance() ;
+				tds.ajouter(s, "const", i, sleft+1) ;
+				tds.entreeBloc() ;
+				DeclarationConst cons = new DeclarationConst(i, li, sleft+1) ;
+				tds.sortieBloc() ;
 				RESULT = cons ; :}
 			;
 			
