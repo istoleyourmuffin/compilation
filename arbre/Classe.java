@@ -1,6 +1,7 @@
 package plic.arbre;
 
 import plic.arbre.declaration.ListeDeclaration;
+import plic.tds.TDS;
 
 public class Classe extends ArbreAbstrait {
 	
@@ -22,7 +23,11 @@ public class Classe extends ArbreAbstrait {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
+		TDS.getInstance().entreeBloc();
+		sb.append(TDS.getInstance().toMipsEntree());
 		sb.append(listeDeclaration.toMIPS());
+		sb.append(TDS.getInstance().toMipsSortie());
+		TDS.getInstance().sortieBloc();
 		return sb.toString();
 	}
 	

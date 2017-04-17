@@ -76,6 +76,14 @@ public class TDS {
 		this.bloc = bloc.getPere();
 	}
 	
+	public String toMipsEntree() {
+		return bloc.toMipsEntree();
+	}
+	
+	public String toMipsSortie() {
+		return bloc.toMipsSortie();
+	}
+	
 	public TDSLocale getBloc() {
 		return this.bloc;
 	}

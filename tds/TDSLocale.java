@@ -7,7 +7,6 @@ public class TDSLocale {
 	
 	protected TDSLocale pere; //Pointe vers le pere
 	protected ArrayList<TDSLocale> fils; //Liste des fils 
-	protected int numFils; //Pour savoir sur quel fils on pointe
 	protected int numBloc; //Numéro du bloc
 	protected HashMap<Entree,Symbole> table; 
 	protected int tailleZoneDesVariables;
@@ -15,7 +14,6 @@ public class TDSLocale {
 	public TDSLocale () {
 		this.pere = null;
 		this.fils = new ArrayList<TDSLocale>();
-		this.numFils = 0; // Pour savoir dans quel fils on est. Pas encore utilisé
 		this.numBloc = 0; // Notre numéro de bloc
 		this.table = new HashMap<Entree,Symbole>(); // table locale
 		this.tailleZoneDesVariables = 12; //Taille zone des varaibles locale
@@ -38,9 +36,37 @@ public class TDSLocale {
 		table.put(e, s);
 		tailleZoneDesVariables += 4;
 	}
+	
+	public String toMipsEntree() {
+		StringBuilder sb = new StringBuilder();
+		System.out.println("Entrée dans bloc " + numBloc);
+		sb.append("# Entrée dans bloc " + numBloc + "\n");
+		sb.append("sw $s7, $sp \n");
+		sb.append("# Initialisation de la base des variables \n");
+		sb.append("move $s7,$sp \n");
+		sb.append("# Réservation de l'espace pour " + tailleZoneDesVariables/4 + " variables \n");
+		sb.append("addi $sp, $sp, -" + tailleZoneDesVariables + "\n");
+		sb.append("# On rentre le num de bloc à sa place\n");
+		sb.append("li $v0, " + numBloc + "\n");
+		sb.append("sw $v0, -8($s7)\n\n");
+		
+		return sb.toString();
+	}
+	
+	public String toMipsSortie() {
+		StringBuilder sb = new StringBuilder();
+		System.out.println("Sortie du bloc " + numBloc);
+		sb.append("# Sortie du bloc " + numBloc + "\n");
+		sb.append("# Ajustement sommet de la pile \n");
+		sb.append("move $sp, $s7\n");
+		sb.append("# Ajustement de la base des variables \n");
+		sb.append("lw $s7, ($sp)\n");
+		
+		return sb.toString();
+	}
+	
 
 	public TDSLocale getPere() {
-		this.numFils = 0;
 		return this.pere;
 	}
 	
