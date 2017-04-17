@@ -2,6 +2,7 @@ package plic.tds;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class TDSLocale {
 	
@@ -11,10 +12,10 @@ public class TDSLocale {
 	protected HashMap<Entree,Symbole> table; 
 	protected int tailleZoneDesVariables;
 	
-	public TDSLocale () {
+	public TDSLocale (int num) {
 		this.pere = null;
 		this.fils = new ArrayList<TDSLocale>();
-		this.numBloc = 0; // Notre numéro de bloc
+		this.numBloc = num; // Notre numéro de bloc
 		this.table = new HashMap<Entree,Symbole>(); // table locale
 		this.tailleZoneDesVariables = 12; //Taille zone des varaibles locale
 	}
@@ -39,9 +40,9 @@ public class TDSLocale {
 	
 	public String toMipsEntree() {
 		StringBuilder sb = new StringBuilder();
-		System.out.println("Entrée dans bloc " + numBloc);
+		System.out.println("toMipsEntree du bloc " + numBloc);
 		sb.append("# Entrée dans bloc " + numBloc + "\n");
-		sb.append("sw $s7, $sp \n");
+		sb.append("sw $s7, 0($sp) \n");
 		sb.append("# Initialisation de la base des variables \n");
 		sb.append("move $s7,$sp \n");
 		sb.append("# Réservation de l'espace pour " + tailleZoneDesVariables/4 + " variables \n");
@@ -55,7 +56,7 @@ public class TDSLocale {
 	
 	public String toMipsSortie() {
 		StringBuilder sb = new StringBuilder();
-		System.out.println("Sortie du bloc " + numBloc);
+		System.out.println("toMipsSortie du bloc " + numBloc);
 		sb.append("# Sortie du bloc " + numBloc + "\n");
 		sb.append("# Ajustement sommet de la pile \n");
 		sb.append("move $sp, $s7\n");
@@ -63,6 +64,11 @@ public class TDSLocale {
 		sb.append("lw $s7, ($sp)\n");
 		
 		return sb.toString();
+	}
+	
+	public boolean verifierExistence(String e) {
+		Entree cle = new EntreeVar(e);
+		return table.containsKey(cle);
 	}
 	
 	public Symbole identifier(Entree e) {
@@ -74,13 +80,28 @@ public class TDSLocale {
 			return null;
 		}
 	}
-	
 
 	public TDSLocale getPere() {
 		return this.pere;
+	}
+
+	public TDSLocale getFils(int numBloc) {
+		TDSLocale res = null;
+		int i = 0;
+		for(TDSLocale temp: fils){
+			if(temp.getNumBloc() == numBloc){
+				res = temp;
+			}
+		}
+		return res;
+	}
+	
+	public int getNumBloc() {
+		return this.numBloc;
 	}
 	
 	public HashMap<Entree,Symbole> getTable() {
 		return this.table;
 	}
+
 }

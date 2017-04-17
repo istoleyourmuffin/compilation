@@ -128,10 +128,10 @@ SYSTEME ::= CLASSE:c
 		;
 			
 CLASSE	::= CLASS:c IDF:i LISTDECLARATION:l FIN
-		{: RESULT = new Classe(l, i, ileft+1) ; :}
+		{: RESULT = new Classe(TDS.getInstance().getNumBloc(), l, ileft+1) ; :}
 		|
 			CLASS:c IDF:i FIN
-		{: RESULT = new Classe(i, ileft+1) ; :}
+		{: RESULT = new Classe(TDS.getInstance().getNumBloc(), ileft+1) ; :}
 		;
 
 LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d
@@ -139,9 +139,9 @@ LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d
 					RESULT = ld ; :}
 				|
 					DECLARATION:d
-				{:	ListeDeclaration ld = new ListeDeclaration(dleft+1);
-					ld.ajouter(d);
-					RESULT = ld; :}
+				{:	ListeDeclaration ld = new ListeDeclaration(dleft+1) ;
+					ld.ajouter(d) ;
+					RESULT = ld ; :}
 				;	
 				
 DECLARATION ::= DECL_CHAMP:d
@@ -180,18 +180,16 @@ LISTIDF 	::= LISTIDF:li VIRGULE IDF:i
 
 DECL_CONST	::= STATUT:s IDF:i PAROUV PARFER DEBUT LISTVAR:lv LISTINST:li FIN
 			{:  TDS tds = TDS.getInstance() ;
-				tds.ajouter(s, "const", i, sleft+1) ;
-				tds.entreeBloc() ;
-				DeclarationConst cons = new DeclarationConst(i, li, sleft+1) ;
+				DeclarationConst cons = new DeclarationConst(tds.getNumBloc(), li, sleft+1) ;
 				tds.sortieBloc() ;
+				tds.ajouter(s, "const", i, sleft+1) ;
 				RESULT = cons ; :}
 			|	
 				STATUT:s IDF:i PAROUV PARFER DEBUT LISTINST:li FIN
 			{:  TDS tds = TDS.getInstance() ;
-				tds.ajouter(s, "const", i, sleft+1) ;
-				tds.entreeBloc() ;
-				DeclarationConst cons = new DeclarationConst(i, li, sleft+1) ;
+				DeclarationConst cons = new DeclarationConst(tds.getNumBloc(), li, sleft+1) ;
 				tds.sortieBloc() ;
+				tds.ajouter(s, "const", i, sleft+1) ;
 				RESULT = cons ; :}
 			;
 			
@@ -205,7 +203,13 @@ LISTVAR 	::= LISTVAR:lv DECL_VAR:d
 			;
 
 DECL_VAR 	::= TYPE:t LISTIDF:li POINTVIRGULE
-			{:	DeclarationVar dv = new DeclarationVar(tleft+1) ;
+			{:	TDS tds = TDS.getInstance() ;
+				tds.entreeBloc() ;
+				boolean valide = true ;
+				for(Identifiant i : li) {
+					valide = tds.ajouter(t, i.getNom(), tleft+1) && valide ;
+				}
+				DeclarationVar dv = new DeclarationVar(tleft+1, valide) ;
 				RESULT = dv ; :}
 			;
 

@@ -8,9 +8,8 @@ public class TDS {
 	
 	private static TDS instance = new TDS();
 	protected int tailleZoneDesVariables; // Pour savoir ou se trouve la variable la plus haute dans la "pile" S7
-	protected TDSLocale bloc; // bloc courant
-	protected int numBloc = 0; // numero du bloc courant
-	
+	protected TDSLocale bloc; // bloc courant	
+	protected int dernierBloc;
 	
 	public static TDS getInstance() {
 		return instance;
@@ -43,12 +42,12 @@ public class TDS {
 	
 	public boolean verifierExistence(String e) {
 		Entree cle = new EntreeVar(e);
-		return this.bloc.getTable().containsKey(cle);
+		return getBloc().verifierExistence(e);
 	}
 	
 	public Symbole identifier(String e){
 		Entree cle = new EntreeVar(e);
-		return this.bloc.identifier(cle);
+		return getBloc().identifier(cle);
 	}
 	
 	public int getTailleZoneDesVariables() {
@@ -56,28 +55,45 @@ public class TDS {
 	}
 	
 	public void entreeBloc() {
-		this.bloc = bloc.ajouterFils(numBloc++);
+		this.dernierBloc += 1;
+		this.bloc = getBloc().ajouterFils(getDernierBloc());
+		System.out.println("Entrée dans bloc " + getNumBloc());
+	}
+	
+	public void entreeBloc(int numBloc){
+		this.bloc = getBloc().getFils(numBloc);
+		System.out.println("Entrée dans bloc " + getNumBloc());
 	}
 	
 	public void sortieBloc() {
-		this.bloc = bloc.getPere();
+		System.out.println("Sortie du bloc " + getNumBloc());
+		this.bloc = getBloc().getPere();
 	}
 	
 	public String toMipsEntree() {
-		return bloc.toMipsEntree();
+		return getBloc().toMipsEntree();
 	}
 	
 	public String toMipsSortie() {
-		return bloc.toMipsSortie();
+		return getBloc().toMipsSortie();
 	}
 	
 	public TDSLocale getBloc() {
 		return this.bloc;
 	}
 	
+	public int getNumBloc() {
+		return getBloc().getNumBloc();
+	}
+	
+	public int getDernierBloc() {
+		return this.dernierBloc;
+	}
+	
 	private TDS() {
 		this.tailleZoneDesVariables = 12;
-		this.bloc = new TDSLocale();
+		this.bloc = new TDSLocale(0);
+		this.dernierBloc = 0;
 	}
 
 }

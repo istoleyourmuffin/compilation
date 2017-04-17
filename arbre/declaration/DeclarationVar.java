@@ -1,13 +1,16 @@
 package plic.arbre.declaration;
 
 public class DeclarationVar extends Declaration {
-
-	public DeclarationVar(int n) {
+	
+	protected boolean valide;
+	
+	public DeclarationVar(int n, boolean bool) {
 		super(n);
+		valide = bool;
 	}
 
 	public boolean verifier() {
-		return true; //a completer ?
+		return valide;
 	}
 
 	public String toMIPS() {

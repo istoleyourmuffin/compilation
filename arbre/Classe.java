@@ -6,28 +6,25 @@ import plic.tds.TDS;
 public class Classe extends ArbreAbstrait {
 	
 	protected ListeDeclaration listeDeclaration;
-	protected String identifiant;
+	protected int numBloc;
 	
-	public Classe(ListeDeclaration ld, String idf, int n) {
+	public Classe(int num, ListeDeclaration ld, int n) {
 		super(n);
 		listeDeclaration = ld;
-		identifiant = idf;
+		numBloc = num;
 	}
 	
-	public Classe(String idf, int n) {
+	public Classe(int num, int n) {
 		super(n);
-		identifiant = idf;
 		listeDeclaration = new ListeDeclaration(n);
+		numBloc = num;
 	}
 
-	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
-		TDS.getInstance().entreeBloc();
 		sb.append(TDS.getInstance().toMipsEntree());
 		sb.append(listeDeclaration.toMIPS());
 		sb.append(TDS.getInstance().toMipsSortie());
-		TDS.getInstance().sortieBloc();
 		return sb.toString();
 	}
 	

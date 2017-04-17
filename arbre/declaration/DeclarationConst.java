@@ -4,25 +4,32 @@ import plic.tds.TDS;
 
 public class DeclarationConst extends Declaration {
 
-	String identifiant;
 	ListeInstruction liste;
+	int numBloc;
 	
-	public DeclarationConst(String idf, ListeInstruction li, int n) {
+	public DeclarationConst(int num, ListeInstruction li, int n) {
 		super(n);
-		identifiant = idf;
 		liste = li;
+		numBloc = num;
+	}
+	
+	public int getNumBloc(){
+		return numBloc;
 	}
 
 	public boolean verifier() {
-		boolean valide = true;//boolean valide = identifiant.equals(TDS.getInstance().getEnvironnement());
+		boolean valide = true;//boolean valide = identifiant.equals(TDS.getInstance().getEnvironnement()); -> nom constructeur = nom classe
 		return liste.verifier() && valide;
 	}
 
 	public String toMIPS() {
+		TDS tds = TDS.getInstance();
+		tds.entreeBloc(numBloc);
 		StringBuilder sb = new StringBuilder();
-		sb.append(TDS.getInstance().toMipsEntree());
+		sb.append(tds.toMipsEntree());
 		sb.append(liste.toMIPS());
-		sb.append(TDS.getInstance().toMipsSortie());
+		sb.append(tds.toMipsSortie());
+		tds.sortieBloc();
 		return sb.toString();
 	}
 

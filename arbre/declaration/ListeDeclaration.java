@@ -3,6 +3,7 @@ package plic.arbre.declaration;
 import java.util.ArrayList;
 
 import plic.arbre.ArbreAbstrait;
+import plic.tds.TDS;
 
 public class ListeDeclaration extends ArbreAbstrait {
 	
@@ -30,8 +31,14 @@ public class ListeDeclaration extends ArbreAbstrait {
 	public boolean verifier() {
 		boolean valide = true;
 		for(Declaration d : ald) {
+			if(d instanceof DeclarationConst){
+				TDS.getInstance().entreeBloc(((DeclarationConst) d).getNumBloc());
+			}
 			if(!d.verifier()) {
 				valide = false;
+			}
+			if(d instanceof DeclarationConst){
+				TDS.getInstance().sortieBloc();
 			}
 		}
 		return valide;
