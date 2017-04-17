@@ -65,6 +65,16 @@ public class TDSLocale {
 		return sb.toString();
 	}
 	
+	public Symbole identifier(Entree e) {
+		if(table.containsKey(e)) {
+			return table.get(e);
+		} else if(pere != null) {
+			return pere.identifier(e);
+		} else {
+			return null;
+		}
+	}
+	
 
 	public TDSLocale getPere() {
 		return this.pere;

@@ -50,7 +50,7 @@ public class TDS {
 	
 	public Symbole identifier(String e){
 		Entree cle = new EntreeVar(e);
-		return this.bloc.getTable().get(cle);
+		return this.bloc.identifier(cle);
 	}
 	
 	public int getTailleZoneDesVariables() {
@@ -58,7 +58,7 @@ public class TDS {
 	}
 	
 	public void entreeBloc() {
-		this.bloc = bloc.ajouterFils(++numBloc);
+		this.bloc = bloc.ajouterFils(numBloc++);
 	}
 	
 	public void sortieBloc() {
