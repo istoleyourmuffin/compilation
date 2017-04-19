@@ -18,7 +18,7 @@ public class TDSLocale {
 		this.table = new HashMap<Entree,Symbole>(); // table locale
 		this.tailleZoneDesVariables = 12; //Taille zone des varaibles locale
 	}
-	
+
 	private TDSLocale(TDSLocale pere, int num) {
 		this.pere = pere;
 		this.numBloc = num;
@@ -66,7 +66,10 @@ public class TDSLocale {
 	}
 	
 	public boolean verifierExistence(Entree e) {
-		return table.containsKey(e);
+		if(getPere() == null) {
+			return table.containsKey(e) ;
+		}
+		return table.containsKey(e) || getPere().verifierExistence(e);
 	}
 	
 	public Symbole identifier(Entree e) {
