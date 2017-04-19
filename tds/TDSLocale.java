@@ -16,7 +16,7 @@ public class TDSLocale {
 		this.fils = new ArrayList<TDSLocale>();
 		this.numBloc = num; // Notre numéro de bloc
 		this.table = new HashMap<Entree,Symbole>(); // table locale
-		this.tailleZoneDesVariables = 12; //Taille zone des varaibles locale
+		this.tailleZoneDesVariables = 12; //Taille zone des variables locales
 	}
 
 	private TDSLocale(TDSLocale pere, int num) {

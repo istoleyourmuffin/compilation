@@ -91,6 +91,7 @@ terminal Symbol	   TANTQUE, REPETER, FINTANTQUE;
 terminal String    CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, TYPE, IDF;
 
 non terminal ArbreAbstrait SYSTEME;
+non terminal BlocDInstructions LISTCLASS;
 non terminal Classe CLASSE;
 non terminal ListeDeclaration LISTDECLARATION;
 non terminal Declaration DECLARATION;
@@ -121,18 +122,25 @@ precedence left EGAL ;
  
 start with SYSTEME ;
 
-SYSTEME ::= CLASSE:c
-		{: BlocDInstructions arbre = new BlocDInstructions(cleft+1) ;
-           arbre.ajouter(c) ;
-           RESULT = arbre ; :}
-		;
+SYSTEME 	::= LISTCLASS:lc
+			{: RESULT = lc; :}
+			;
+	
+LISTCLASS 	::= LISTCLASS:lc CLASSE:c
+			{: 	lc.ajouter(c); :}
+			|
+				CLASSE:c
+			{: BlocDInstructions lc = new BlocDInstructions(cleft+1) ;
+	           lc.ajouter(c) ;
+	           RESULT = lc ; :}
+			;
 			
-CLASSE	::= CLASS:c IDF:i LISTDECLARATION:l FIN
-		{: RESULT = new Classe(TDS.getInstance().getNumBloc(), l, ileft+1) ; :}
-		|
-			CLASS:c IDF:i FIN
-		{: RESULT = new Classe(TDS.getInstance().getNumBloc(), ileft+1) ; :}
-		;
+CLASSE		::= CLASS:c IDF:i LISTDECLARATION:l FIN
+			{: 	RESULT = new Classe(TDS.getInstance().getNumBloc(), l, ileft+1) ; :}
+			|
+				CLASS:c IDF:i FIN
+			{: RESULT = new Classe(TDS.getInstance().getNumBloc(), ileft+1) ; :}
+			;
 
 LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d
 				{: 	ld.ajouter(d); 
