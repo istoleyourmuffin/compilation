@@ -6,11 +6,13 @@ public class TDS {
 	protected int tailleZoneDesVariables; // Pour savoir ou se trouve la variable la plus haute dans la "pile" S7
 	protected TDSLocale bloc; // bloc courant	
 	protected int dernierBloc;
+	protected boolean changerBloc;
+	protected boolean classeExistante;
 	
 	public static TDS getInstance() {
 		return instance;
 	}
-	
+
 	public boolean ajouter(String statut, String type, String idf, int n) {
 		Entree e = new EntreeVar(idf);
 		if (bloc.getTable().containsKey(e)){
@@ -53,6 +55,8 @@ public class TDS {
 	public void entreeBloc() {
 		this.dernierBloc += 1;
 		this.bloc = getBloc().ajouterFils(getDernierBloc());
+		this.setChangementBloc(false);
+		this.setClasseExistante(true);
 		System.out.println("Entrée dans bloc " + getNumBloc());
 	}
 	
@@ -86,10 +90,27 @@ public class TDS {
 		return this.dernierBloc;
 	}
 	
+	public boolean getChangementBloc() {
+		return this.changerBloc;
+	}
+	
+	public void setChangementBloc(boolean changement) {
+		this.changerBloc = changement;
+	}
+	
+	public boolean isClasseExistante() {
+		return this.classeExistante;
+	}
+	
+	public void setClasseExistante(boolean changement) {
+		this.classeExistante = changement;
+	}
+
 	private TDS() {
 		this.tailleZoneDesVariables = 12;
 		this.bloc = new TDSLocale(0);
 		this.dernierBloc = 0;
+		this.classeExistante = false;
 	}
 
 }

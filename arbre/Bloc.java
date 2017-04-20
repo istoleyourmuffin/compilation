@@ -7,7 +7,7 @@ import plic.arbre.declaration.Instruction;
 public class Bloc {
 	
 	protected ArrayList<Instruction> ali;
-	
+
 	public Bloc() {
 		ali = new ArrayList<Instruction>();
 	}

@@ -123,23 +123,28 @@ precedence left EGAL ;
 start with SYSTEME ;
 
 SYSTEME 	::= LISTCLASS:lc
-			{: RESULT = lc; :}
+			{:  RESULT = lc ; :}
 			;
 	
 LISTCLASS 	::= LISTCLASS:lc CLASSE:c
-			{: 	lc.ajouter(c); :}
+			{: 	lc.ajouter(c); 
+				RESULT = lc ; :}
 			|
 				CLASSE:c
-			{: BlocDInstructions lc = new BlocDInstructions(cleft+1) ;
-	           lc.ajouter(c) ;
-	           RESULT = lc ; :}
+			{:  BlocDInstructions lc = new BlocDInstructions(cleft+1) ;
+	            lc.ajouter(c) ;
+	            RESULT = lc ; :}
 			;
 			
 CLASSE		::= CLASS:c IDF:i LISTDECLARATION:l FIN
-			{: 	RESULT = new Classe(TDS.getInstance().getNumBloc(), l, ileft+1) ; :}
+			{: 	TDS tds = TDS.getInstance() ;
+				Classe cl =  new Classe(tds.getNumBloc(), l, ileft+1) ; 
+				tds.sortieBloc() ; //On sort du bloc de la classe car elle est entierement declaree
+				tds.setClasseExistante(false) ;
+				RESULT = cl ; :}
 			|
 				CLASS:c IDF:i FIN
-			{: RESULT = new Classe(TDS.getInstance().getNumBloc(), ileft+1) ; :}
+			{:  RESULT = new Classe(TDS.getInstance().getNumBloc(), ileft+1) ; //Classe vide, pas de TDS locale :}
 			;
 
 LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d
@@ -160,9 +165,13 @@ DECLARATION ::= DECL_CHAMP:d
 			;
 				
 DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:li POINTVIRGULE
-			{: 	boolean valide = true;			
+			{: 	TDS tds = TDS.getInstance() ;
+				if(!tds.isClasseExistante()){
+					tds.entreeBloc() ; //On entre dans l'environnement de la classe
+				}
+				boolean valide = true;			
 				for(Identifiant i : li) {
-					valide = TDS.getInstance().ajouter(s, t, i.getNom(), sleft+1) && valide ;
+					valide = tds.ajouter(s, t, i.getNom(), sleft+1) && valide ;
 				}
 				DeclarationChamp dc = new DeclarationChamp(sleft+1, valide) ;
 				RESULT = dc ; :}
@@ -188,15 +197,22 @@ LISTIDF 	::= LISTIDF:li VIRGULE IDF:i
 
 DECL_CONST	::= STATUT:s IDF:i PAROUV PARFER DEBUT LISTVAR:lv LISTINST:li FIN
 			{:  TDS tds = TDS.getInstance() ;
+				tds.entreeBloc(tds.getDernierBloc()); //la declaration de variables a deja cree un nouveau bloc
 				DeclarationConst cons = new DeclarationConst(tds.getNumBloc(), li, sleft+1) ;
 				tds.sortieBloc() ;
+				tds.setChangementBloc(true) ;
 				tds.ajouter(s, "const", i, sleft+1) ;
 				RESULT = cons ; :}
 			|	
 				STATUT:s IDF:i PAROUV PARFER DEBUT LISTINST:li FIN
 			{:  TDS tds = TDS.getInstance() ;
+				if(!tds.isClasseExistante()){
+					tds.entreeBloc(); //On entre dans l'environnement de la classe
+				}
+				tds.entreeBloc(); //pas encore de bloc cree 
 				DeclarationConst cons = new DeclarationConst(tds.getNumBloc(), li, sleft+1) ;
 				tds.sortieBloc() ;
+				tds.setChangementBloc(true) ;
 				tds.ajouter(s, "const", i, sleft+1) ;
 				RESULT = cons ; :}
 			;
@@ -207,17 +223,26 @@ LISTVAR 	::= LISTVAR:lv DECL_VAR:d
 			|	
 				DECL_VAR:d
 			{:	ListeVar lv = new ListeVar(dleft+1) ;
-				lv.ajouter(d) ; :}
+				lv.ajouter(d) ;
+				RESULT = lv ; :}
 			;
 
 DECL_VAR 	::= TYPE:t LISTIDF:li POINTVIRGULE
 			{:	TDS tds = TDS.getInstance() ;
-				tds.entreeBloc() ;
+				if(!tds.isClasseExistante()){
+					tds.entreeBloc(); //On entre dans l'environnement de la classe
+					tds.entreeBloc(); //On entre dans l'environnement du constructeur
+				} else if (tds.getChangementBloc()) { //Si on est pas encore dans le bloc constructeur
+					tds.entreeBloc() ;
+				} else {
+					tds.entreeBloc(tds.getDernierBloc()) ;
+				}
 				boolean valide = true ;
 				for(Identifiant i : li) {
 					valide = tds.ajouter(t, i.getNom(), tleft+1) && valide ;
 				}
 				DeclarationVar dv = new DeclarationVar(tleft+1, valide) ;
+				tds.sortieBloc() ;
 				RESULT = dv ; :}
 			;
 

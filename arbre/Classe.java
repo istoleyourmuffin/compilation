@@ -23,7 +23,9 @@ public class Classe extends ArbreAbstrait {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(TDS.getInstance().toMipsEntree());
+		TDS.getInstance().entreeBloc(numBloc);
 		sb.append(listeDeclaration.toMIPS());
+		TDS.getInstance().sortieBloc();
 		sb.append(TDS.getInstance().toMipsSortie());
 		return sb.toString();
 	}
@@ -31,7 +33,10 @@ public class Classe extends ArbreAbstrait {
 
 	@Override
 	public boolean verifier() {
-		return listeDeclaration.verifier();
+		TDS.getInstance().entreeBloc(numBloc);
+		boolean valide = listeDeclaration.verifier();
+		TDS.getInstance().sortieBloc();
+		return valide;
 	}
 	
 }

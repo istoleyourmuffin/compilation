@@ -22,7 +22,10 @@ public class Plic {
         try {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
-            boolean valide = arbre.verifier();
+            System.out.println("Debut de la verification\n");
+            boolean valide = false;
+            if(arbre != null)
+            	valide = arbre.verifier();
             
             if (valide) {
 	            /* récupération du no du fichier */
