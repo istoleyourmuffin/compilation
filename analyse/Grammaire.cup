@@ -141,10 +141,12 @@ CLASSE		::= CLASS:c IDF:i LISTDECLARATION:l FIN
 				Classe cl =  new Classe(tds.getNumBloc(), l, ileft+1) ; 
 				tds.sortieBloc() ; //On sort du bloc de la classe car elle est entierement declaree
 				tds.setClasseExistante(false) ;
+				tds.ajouter("publique", "classe", i, ileft+1) ;
 				RESULT = cl ; :}
 			|
 				CLASS:c IDF:i FIN
-			{:  RESULT = new Classe(TDS.getInstance().getNumBloc(), ileft+1) ; //Classe vide, pas de TDS locale :}
+			{:  TDS.getInstance().ajouter("publique", "classe", i, ileft+1) ;
+				RESULT = new Classe(TDS.getInstance().getNumBloc(), ileft+1) ; //Classe vide, pas de TDS locale :}
 			;
 
 LISTDECLARATION ::= LISTDECLARATION:ld DECLARATION:d

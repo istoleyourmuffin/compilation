@@ -9,6 +9,7 @@ import plic.analyse.AnalyseurLexical;
 import plic.analyse.AnalyseurSyntaxique;
 import plic.arbre.ArbreAbstrait;
 import plic.exceptions.AnalyseException;
+import plic.tds.TDS;
 
 /**
  * 24 mars 2015 
@@ -18,15 +19,17 @@ import plic.exceptions.AnalyseException;
 
 public class Plic {
 	
-    public Plic(String fichier) {
+    public Plic(String fichier, String classeRacine) {
         try {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
             System.out.println("Debut de la verification\n");
-            boolean valide = false;
-            if(arbre != null)
-            	valide = arbre.verifier();
-            
+            boolean valide = TDS.getInstance().verifierExistence(classeRacine);
+            if (!valide) {
+            	System.out.println("ERREUR: classe racine non trouvee");
+            }
+            valide = arbre.verifier() && valide;
+            		
             if (valide) {
 	            /* récupération du no du fichier */
 	            String[] name = fichier.split(".plic"); 
@@ -51,12 +54,12 @@ public class Plic {
     }
 
     public static void main(String[] args) {
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.err.println("Nombre incorrect d'arguments") ;
-            System.err.println("\tjava -jar plic.jar <fichierSource.plic>") ;
+            System.err.println("\tjava -jar plic.jar <fichierSource.plic> <classeRacine>") ;
             System.exit(1) ;
         }
-        new Plic(args[0]) ;
+        new Plic(args[0], args[1]) ;
     }
     
 }
