@@ -23,14 +23,6 @@ public class TDS {
 			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Double déclaration de la variable " + e.getNom());
 			return false;
 		}
-		if(type.equals("const")) {
-			System.out.println("IDENTIFIANT : " + idf);
-			System.out.println("NOM CLASSE TROUVÉ : " + bloc.getNomClasse());
-			if(!bloc.getNomClasse().equals(idf)) {
-				System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Le constructeur doit avoir le meme nom que la classe correspondante " + e.getNom());
-				return false;
-			}
-		}
 		Symbole s = new Symbole(statut, type, tailleZoneDesVariables);
 		bloc.ajouter(e, s);
 		tailleZoneDesVariables += 4;
@@ -43,16 +35,20 @@ public class TDS {
 			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Double déclaration de l'identifiant " + e.getNom());
 			return false;
 		}
-		if(type.equals("const")) {
-			if(!bloc.getNomClasse().equals(idf)) {
-				System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Le constructeur doit avoir le meme nom que la classe correspondante " + e.getNom());
-				return false;
-			}
-		}
 		Symbole s = type.equals("const") ? new Symbole("publique", type, tailleZoneDesVariables)
 										 : new Symbole("privee", type, tailleZoneDesVariables);
 		tailleZoneDesVariables += 4;
 		bloc.ajouter(e, s);
+		return true;
+	}
+	
+	public boolean verifConst(String idf, int n) {
+		System.out.println("IDENTIFIANT CONST  : " + idf);
+		System.out.println("IDENTIFIANT CLASSE : " + bloc.getNomClasse());
+		if(!bloc.getNomClasse().equals(idf)) {
+			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Le constructeur doit avoir le meme nom que la classe correspondante");
+			return false;
+		}
 		return true;
 	}
 	

@@ -200,7 +200,7 @@ LISTIDF 	::= LISTIDF:li VIRGULE IDF:i
 DECL_CONST	::= STATUT:s IDF:i PAROUV PARFER DEBUT LISTVAR:lv LISTINST:li FIN
 			{:  TDS tds = TDS.getInstance() ;
 				tds.entreeBloc(tds.getDernierBloc()); //la declaration de variables a deja cree un nouveau bloc
-				DeclarationConst cons = new DeclarationConst(tds.getNumBloc(), li, sleft+1) ;
+				DeclarationConst cons = new DeclarationConst(i, tds.getNumBloc(), li, sleft+1) ;
 				tds.sortieBloc() ;
 				tds.setChangementBloc(true) ;
 				tds.ajouter(s, "const", i, sleft+1) ;
@@ -212,7 +212,7 @@ DECL_CONST	::= STATUT:s IDF:i PAROUV PARFER DEBUT LISTVAR:lv LISTINST:li FIN
 					tds.entreeBloc(); //On entre dans l'environnement de la classe
 				}
 				tds.entreeBloc(); //pas encore de bloc cree 
-				DeclarationConst cons = new DeclarationConst(tds.getNumBloc(), li, sleft+1) ;
+				DeclarationConst cons = new DeclarationConst(i, tds.getNumBloc(), li, sleft+1) ;
 				tds.sortieBloc() ;
 				tds.setChangementBloc(true) ;
 				tds.ajouter(s, "const", i, sleft+1) ;

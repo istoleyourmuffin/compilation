@@ -6,11 +6,13 @@ public class DeclarationConst extends Declaration {
 
 	ListeInstruction liste;
 	int numBloc;
+	String idf;
 	
-	public DeclarationConst(int num, ListeInstruction li, int n) {
+	public DeclarationConst(String i, int num, ListeInstruction li, int n) {
 		super(n);
 		liste = li;
 		numBloc = num;
+		idf = i;
 	}
 	
 	public int getNumBloc(){
@@ -18,7 +20,7 @@ public class DeclarationConst extends Declaration {
 	}
 
 	public boolean verifier() {
-		boolean valide = true;
+		boolean valide = TDS.getInstance().verifConst(idf, liste.getNoLigne());
 		return liste.verifier() && valide;
 	}
 
