@@ -70,7 +70,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 	public boolean verifier() {
 		boolean valide = true;
 		for(ArbreAbstrait c : alclasse) {
-    		valide = valide && c.verifier();
+    		valide = c.verifier() && valide;
     	}
 		return valide;	
 	}

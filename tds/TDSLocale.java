@@ -9,6 +9,7 @@ public class TDSLocale {
 	protected TDSLocale pere; //Pointe vers le pere
 	protected ArrayList<TDSLocale> fils; //Liste des fils 
 	protected int numBloc; //Numéro du bloc
+	protected String nomBloc;
 	protected HashMap<Entree,Symbole> table; 
 	protected int tailleZoneDesVariables;
 	
@@ -97,15 +98,23 @@ public class TDSLocale {
 		return res;
 	}
 	
+	public String getNomBloc() {
+		return this.nomBloc;
+	}
+	
+	public void setNomBloc(String nom) {
+		this.nomBloc = nom;
+	}
+	
 	public int getNumBloc() {
 		return this.numBloc;
 	}
-	
+
 	public HashMap<Entree,Symbole> getTable() {
 		return this.table;
 	}
 
-	public String getNomClasse() {
+	/*public String getNomClasse() {
 		HashMap<Entree,Symbole> tablePere = this.getPere().getTable();
 		for(Entry<Entree, Symbole> entry : tablePere.entrySet()) {
 		    Entree cle = entry.getKey();
@@ -115,6 +124,6 @@ public class TDSLocale {
 		    }
 		}
 		return "";
-	}
+	}*/
 
 }

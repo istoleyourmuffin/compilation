@@ -14,6 +14,7 @@ public class TDS {
 	}
 
 	public boolean ajouter(String statut, String type, String idf, int n) {
+		System.out.println(idf+" de type "+type+" ajouté au bloc "+getNumBloc());
 		Entree e;
 		if(type.equals("const")) e = new EntreeConst(idf);
 		else if(type.equals("classe")) e = new EntreeClass(idf);
@@ -30,6 +31,7 @@ public class TDS {
 	}
 	
 	public boolean ajouter(String type, String idf, int n) {
+		System.out.println(idf+" de type "+type+" ajouté au bloc "+getNumBloc());
 		Entree e = type.equals("const") ? new EntreeConst(idf) : new EntreeVar(idf); // idf = (condition) ? valeur si vrai : valeur si faux;
 		if (bloc.getTable().containsKey(e) && idf.equals(bloc.getTable().get(e).getType())){
 			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Double dÃ©claration de l'identifiant " + e.getNom());
@@ -43,9 +45,10 @@ public class TDS {
 	}
 	
 	public boolean verifConst(String idf, int n) {
+		String nomClasse = this.getBloc().getPere().getNomBloc();
 		System.out.println("IDENTIFIANT CONST  : " + idf);
-		System.out.println("IDENTIFIANT CLASSE : " + bloc.getNomClasse());
-		if(!bloc.getNomClasse().equals(idf)) {
+		System.out.println("IDENTIFIANT CLASSE : " + nomClasse);
+		if(!nomClasse.equals(idf)) {
 			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Le constructeur doit avoir le meme nom que la classe correspondante");
 			return false;
 		}
@@ -53,7 +56,7 @@ public class TDS {
 	}
 	
 	public boolean verifierExistence(String e) {
-		Entree cle = new EntreeClass(e);
+		Entree cle = new Entree(e);
 		return getBloc().verifierExistence(cle);
 	}
 	
@@ -91,6 +94,14 @@ public class TDS {
 	
 	public TDSLocale getBloc() {
 		return this.bloc;
+	}
+	
+	public void setNomBloc(String nom){
+		getBloc().setNomBloc(nom);
+	}
+	
+	public String getNomBloc(){
+		return getBloc().getNomBloc();
 	}
 	
 	public int getNumBloc() {

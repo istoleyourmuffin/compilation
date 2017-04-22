@@ -1,6 +1,6 @@
 package plic.tds;
 
-public abstract class Entree {
+public class Entree {
 	
 	protected String nom;
 	
@@ -21,7 +21,7 @@ public abstract class Entree {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Entree))
 			return false;
 		Entree other = (Entree) obj;
 		if (getNom() == null) {
@@ -32,7 +32,4 @@ public abstract class Entree {
 		return true;
 	}
 	
-	
-	
-
 }
