@@ -13,6 +13,7 @@ import plic.tds.TDS;
 public class BlocDInstructions extends ArbreAbstrait {
     
     protected ArrayList<ArbreAbstrait> alclasse ;
+    protected String classeRacine;
     
     public BlocDInstructions(int n) {
         super(n) ;
