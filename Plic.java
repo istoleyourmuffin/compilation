@@ -23,8 +23,7 @@ public class Plic {
         try {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
-            System.out.println("Debut de la verification\n");
-            boolean valide = TDS.getInstance().verifierExistence(classeRacine);
+            boolean valide = TDS.getInstance().verifierClasse(classeRacine);
             if (!valide) {
             	System.out.println("ERREUR: classe racine non trouvee");
             }

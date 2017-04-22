@@ -21,7 +21,7 @@ public class Entree {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Entree))
+		if (getClass() != obj.getClass())
 			return false;
 		Entree other = (Entree) obj;
 		if (getNom() == null) {

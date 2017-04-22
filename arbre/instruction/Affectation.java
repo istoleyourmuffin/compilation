@@ -34,7 +34,7 @@ public class Affectation extends Instruction {
 	@Override
 	public boolean verifier() {
 		boolean valide = true;
-		if (!TDS.getInstance().verifierExistence(identifiant)) {
+		if (!TDS.getInstance().verifierVar(identifiant)) {
 			System.out.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : " + identifiant + " n'est pas déclaré");
 			valide = false;
 		}
