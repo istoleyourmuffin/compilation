@@ -139,6 +139,7 @@ LISTCLASS 	::= LISTCLASS:lc CLASSE:c
 CLASSE		::= CLASS:c IDF:i LISTDECLARATION:l FIN
 			{: 	TDS tds = TDS.getInstance() ;
 				Classe cl =  new Classe(tds.getNumBloc(), l, ileft+1) ; 
+				tds.setNomBloc(i) ; //On ajoute a la TDS le nom de la classe
 				tds.sortieBloc() ; //On sort du bloc de la classe car elle est entierement declaree
 				tds.setClasseExistante(false) ;
 				tds.ajouter("publique", "classe", i, ileft+1) ;
@@ -170,6 +171,7 @@ DECL_CHAMP  ::= STATUT:s TYPE:t LISTIDF:li POINTVIRGULE
 			{: 	TDS tds = TDS.getInstance() ;
 				if(!tds.isClasseExistante()){
 					tds.entreeBloc() ; //On entre dans l'environnement de la classe
+					tds.setChangementBloc(true); //pour autant, on n'est pas encore dans un bloc de fonction/constructeur
 				}
 				boolean valide = true;			
 				for(Identifiant i : li) {
@@ -199,11 +201,12 @@ LISTIDF 	::= LISTIDF:li VIRGULE IDF:i
 
 DECL_CONST	::= STATUT:s IDF:i PAROUV PARFER DEBUT LISTVAR:lv LISTINST:li FIN
 			{:  TDS tds = TDS.getInstance() ;
+				boolean valide = tds.ajouter(s, "const", i, sleft+1) ;
 				tds.entreeBloc(tds.getDernierBloc()); //la declaration de variables a deja cree un nouveau bloc
-				DeclarationConst cons = new DeclarationConst(i, tds.getNumBloc(), li, sleft+1) ;
+				DeclarationConst cons = new DeclarationConst(i, tds.getNumBloc(), valide, li, sleft+1) ;
+				tds.setNomBloc(i) ; //On ajoute le nom du constructeur a la TDS
 				tds.sortieBloc() ;
 				tds.setChangementBloc(true) ;
-				tds.ajouter(s, "const", i, sleft+1) ;
 				RESULT = cons ; :}
 			|	
 				STATUT:s IDF:i PAROUV PARFER DEBUT LISTINST:li FIN
@@ -211,11 +214,12 @@ DECL_CONST	::= STATUT:s IDF:i PAROUV PARFER DEBUT LISTVAR:lv LISTINST:li FIN
 				if(!tds.isClasseExistante()){
 					tds.entreeBloc(); //On entre dans l'environnement de la classe
 				}
+				boolean valide = tds.ajouter(s, "const", i, sleft+1) ;
 				tds.entreeBloc(); //pas encore de bloc cree 
-				DeclarationConst cons = new DeclarationConst(i, tds.getNumBloc(), li, sleft+1) ;
+				tds.setNomBloc(i) ;
+				DeclarationConst cons = new DeclarationConst(i, tds.getNumBloc(), valide, li, sleft+1) ;
 				tds.sortieBloc() ;
 				tds.setChangementBloc(true) ;
-				tds.ajouter(s, "const", i, sleft+1) ;
 				RESULT = cons ; :}
 			;
 			
@@ -237,6 +241,7 @@ DECL_VAR 	::= TYPE:t LISTIDF:li POINTVIRGULE
 				} else if (tds.getChangementBloc()) { //Si on est pas encore dans le bloc constructeur
 					tds.entreeBloc() ;
 				} else {
+					System.out.println(tds.getDernierBloc()+"<-");
 					tds.entreeBloc(tds.getDernierBloc()) ;
 				}
 				boolean valide = true ;

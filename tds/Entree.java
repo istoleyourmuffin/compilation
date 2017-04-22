@@ -1,6 +1,6 @@
 package plic.tds;
 
-public abstract class Entree {
+public class Entree {
 	
 	protected String nom;
 	
@@ -32,7 +32,4 @@ public abstract class Entree {
 		return true;
 	}
 	
-	
-	
-
 }

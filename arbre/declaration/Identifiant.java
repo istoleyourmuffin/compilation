@@ -21,7 +21,7 @@ public class Identifiant extends Expression {
 
 	@Override
 	public String getType() {
-		if (TDS.getInstance().verifierExistence(identifiant)) {
+		if (TDS.getInstance().verifierVar(identifiant)) {
 			return TDS.getInstance().identifier(identifiant).getType();
 		} else {
 			System.out.println("ERREUR SEMANTIQUE : ligne " + getNoLigne() + " : " + identifiant + " n'est pas déclaré");

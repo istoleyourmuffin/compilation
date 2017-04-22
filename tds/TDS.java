@@ -19,7 +19,7 @@ public class TDS {
 		else if(type.equals("classe")) e = new EntreeClass(idf);
 		else e = new EntreeVar(idf);
 		
-		if (bloc.getTable().containsKey(e)){
+		if (bloc.getTable().containsKey(e) && type.equals(bloc.identifier(e).getType())){
 			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Double déclaration de la variable " + e.getNom());
 			return false;
 		}
@@ -31,7 +31,7 @@ public class TDS {
 	
 	public boolean ajouter(String type, String idf, int n) {
 		Entree e = type.equals("const") ? new EntreeConst(idf) : new EntreeVar(idf); // idf = (condition) ? valeur si vrai : valeur si faux;
-		if (bloc.getTable().containsKey(e) && idf.equals(bloc.getTable().get(e).getType())){
+		if (bloc.getTable().containsKey(e) && type.equals(bloc.identifier(e).getType())){
 			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Double déclaration de l'identifiant " + e.getNom());
 			return false;
 		}
@@ -43,22 +43,26 @@ public class TDS {
 	}
 	
 	public boolean verifConst(String idf, int n) {
-		System.out.println("IDENTIFIANT CONST  : " + idf);
-		System.out.println("IDENTIFIANT CLASSE : " + bloc.getNomClasse());
-		if(!bloc.getNomClasse().equals(idf)) {
+		String nomClasse = this.getBloc().getPere().getNomBloc();
+		if(!nomClasse.equals(idf)) {
 			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Le constructeur doit avoir le meme nom que la classe correspondante");
 			return false;
 		}
 		return true;
 	}
 	
-	public boolean verifierExistence(String e) {
-		Entree cle = new EntreeVar(e);
+	public boolean verifierVar(String e) {
+		EntreeVar cle = new EntreeVar(e);
+		return getBloc().verifierExistence(cle);
+	}
+	
+	public boolean verifierClasse(String e) {
+		EntreeClass cle = new EntreeClass(e);
 		return getBloc().verifierExistence(cle);
 	}
 	
 	public Symbole identifier(String e){
-		Entree cle = new EntreeVar(e);
+		EntreeVar cle = new EntreeVar(e);
 		return getBloc().identifier(cle);
 	}
 	
@@ -91,6 +95,14 @@ public class TDS {
 	
 	public TDSLocale getBloc() {
 		return this.bloc;
+	}
+	
+	public void setNomBloc(String nom){
+		getBloc().setNomBloc(nom);
+	}
+	
+	public String getNomBloc(){
+		return getBloc().getNomBloc();
 	}
 	
 	public int getNumBloc() {
