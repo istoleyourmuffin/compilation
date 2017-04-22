@@ -53,7 +53,7 @@ public class TDS {
 	}
 	
 	public boolean verifierExistence(String e) {
-		Entree cle = new EntreeClass(e);
+		Entree cle = new EntreeVar(e);
 		return getBloc().verifierExistence(cle);
 	}
 	
