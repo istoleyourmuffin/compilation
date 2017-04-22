@@ -2,6 +2,7 @@ package plic.tds;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class TDSLocale {
 	
@@ -102,6 +103,19 @@ public class TDSLocale {
 	
 	public HashMap<Entree,Symbole> getTable() {
 		return this.table;
+	}
+
+	public String getNomClasse() {
+		HashMap<Entree,Symbole> tablePere = this.getPere().getTable();
+		for(Entry<Entree, Symbole> entry : tablePere.entrySet()) {
+		    Entree cle = entry.getKey();
+		    Symbole s = entry.getValue();
+		    System.out.println(cle.getNom() + " dans getNomClass");
+		    if(s.getType().equals("classe")) {
+		    	return cle.getNom();
+		    }
+		}
+		return "";
 	}
 
 }

@@ -18,7 +18,7 @@ public class DeclarationConst extends Declaration {
 	}
 
 	public boolean verifier() {
-		boolean valide = true;//boolean valide = identifiant.equals(TDS.getInstance().getEnvironnement()); -> nom constructeur = nom classe
+		boolean valide = true;
 		return liste.verifier() && valide;
 	}
 

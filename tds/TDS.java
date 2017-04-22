@@ -14,10 +14,22 @@ public class TDS {
 	}
 
 	public boolean ajouter(String statut, String type, String idf, int n) {
-		Entree e = new EntreeVar(idf);
+		Entree e;
+		if(type.equals("const")) e = new EntreeConst(idf);
+		else if(type.equals("classe")) e = new EntreeClass(idf);
+		else e = new EntreeVar(idf);
+		
 		if (bloc.getTable().containsKey(e)){
 			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Double déclaration de la variable " + e.getNom());
 			return false;
+		}
+		if(type.equals("const")) {
+			System.out.println("IDENTIFIANT : " + idf);
+			System.out.println("NOM CLASSE TROUVÉ : " + bloc.getNomClasse());
+			if(!bloc.getNomClasse().equals(idf)) {
+				System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Le constructeur doit avoir le meme nom que la classe correspondante " + e.getNom());
+				return false;
+			}
 		}
 		Symbole s = new Symbole(statut, type, tailleZoneDesVariables);
 		bloc.ajouter(e, s);
@@ -31,6 +43,12 @@ public class TDS {
 			System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Double déclaration de l'identifiant " + e.getNom());
 			return false;
 		}
+		if(type.equals("const")) {
+			if(!bloc.getNomClasse().equals(idf)) {
+				System.out.println("ERREUR SEMANTIQUE : ligne " + n + " : Le constructeur doit avoir le meme nom que la classe correspondante " + e.getNom());
+				return false;
+			}
+		}
 		Symbole s = type.equals("const") ? new Symbole("publique", type, tailleZoneDesVariables)
 										 : new Symbole("privee", type, tailleZoneDesVariables);
 		tailleZoneDesVariables += 4;
@@ -39,7 +57,7 @@ public class TDS {
 	}
 	
 	public boolean verifierExistence(String e) {
-		Entree cle = new EntreeVar(e);
+		Entree cle = new EntreeClass(e);
 		return getBloc().verifierExistence(cle);
 	}
 	
@@ -57,16 +75,13 @@ public class TDS {
 		this.bloc = getBloc().ajouterFils(getDernierBloc());
 		this.setChangementBloc(false);
 		this.setClasseExistante(true);
-		System.out.println("Entrée dans bloc " + getNumBloc());
 	}
 	
 	public void entreeBloc(int numBloc){
 		this.bloc = getBloc().getFils(numBloc);
-		System.out.println("Entrée dans bloc " + getNumBloc());
 	}
 	
 	public void sortieBloc() {
-		System.out.println("Sortie du bloc " + getNumBloc());
 		this.bloc = getBloc().getPere();
 	}
 	
