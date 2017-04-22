@@ -110,7 +110,6 @@ public class TDSLocale {
 		for(Entry<Entree, Symbole> entry : tablePere.entrySet()) {
 		    Entree cle = entry.getKey();
 		    Symbole s = entry.getValue();
-		    System.out.println(cle.getNom() + " dans getNomClass");
 		    if(s.getType().equals("classe")) {
 		    	return cle.getNom();
 		    }
