@@ -56,7 +56,10 @@ public class BlocDInstructions extends ArbreAbstrait {
 		sb.append(".text\n");
 		
 		for(ArbreAbstrait c : alclasse) {
-    		sb.append(c.toMIPS());
+			Classe tmp = (Classe) c;
+			if(tmp.getIdentifiant().equals(classeRacine)) {
+				sb.append(c.toMIPS());
+			}
     	}
 		
 		sb.append("end :\n");
@@ -74,6 +77,10 @@ public class BlocDInstructions extends ArbreAbstrait {
     		valide = c.verifier() && valide;
     	}
 		return valide;	
+	}
+
+	public void setClasseRacine(String cr) {
+		classeRacine = cr;
 	}
 
 }

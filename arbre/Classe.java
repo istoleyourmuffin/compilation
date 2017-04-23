@@ -7,11 +7,13 @@ public class Classe extends ArbreAbstrait {
 	
 	protected ListeDeclaration listeDeclaration;
 	protected int numBloc;
+	protected String idf;
 	
-	public Classe(int num, ListeDeclaration ld, int n) {
+	public Classe(String i, int num, ListeDeclaration ld, int n) {
 		super(n);
 		listeDeclaration = ld;
 		numBloc = num;
+		idf = i;
 	}
 	
 	public Classe(int num, int n) {
@@ -30,6 +32,9 @@ public class Classe extends ArbreAbstrait {
 		return sb.toString();
 	}
 	
+	public String getIdentifiant() {
+		return idf;
+	}
 
 	@Override
 	public boolean verifier() {

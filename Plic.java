@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import plic.analyse.AnalyseurLexical;
 import plic.analyse.AnalyseurSyntaxique;
 import plic.arbre.ArbreAbstrait;
+import plic.arbre.BlocDInstructions;
 import plic.exceptions.AnalyseException;
 import plic.tds.TDS;
 
@@ -27,14 +28,17 @@ public class Plic {
             if (!valide) {
             	System.out.println("ERREUR: classe racine non trouvee");
             }
-            valide = arbre.verifier() && valide;
-            		
+
+            BlocDInstructions arbreBis = (BlocDInstructions) arbre;
+            arbreBis.setClasseRacine(classeRacine);
+            valide = arbreBis.verifier() && valide;
+            
             if (valide) {
 	            /* récupération du no du fichier */
 	            String[] name = fichier.split(".plic"); 
 	            /* ecriture dans le fichier .mips */
 	            FileWriter fw = new FileWriter(name[0] + ".mips");
-	            fw.write(arbre.toMIPS());
+	            fw.write(arbreBis.toMIPS());
 	            fw.flush();
 	            fw.close();
 	            

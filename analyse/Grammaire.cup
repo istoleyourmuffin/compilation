@@ -138,7 +138,7 @@ LISTCLASS 	::= LISTCLASS:lc CLASSE:c
 			
 CLASSE		::= CLASS:c IDF:i LISTDECLARATION:l FIN
 			{: 	TDS tds = TDS.getInstance() ;
-				Classe cl =  new Classe(tds.getNumBloc(), l, ileft+1) ; 
+				Classe cl =  new Classe(i, tds.getNumBloc(), l, ileft+1) ; 
 				tds.setNomBloc(i) ; //On ajoute a la TDS le nom de la classe
 				tds.sortieBloc() ; //On sort du bloc de la classe car elle est entierement declaree
 				tds.setClasseExistante(false) ;
