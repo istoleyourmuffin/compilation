@@ -42,8 +42,7 @@ public class EcrireExpression extends Ecrire {
 			sb.append("li $v0, 4 # $v0 <- code du print\n");			
 		} else {
 			sb.append("#On transfere la valeur de $v0 vers $a0\n");
-			sb.append("sw $v0, 0($sp)\n");
-			sb.append("lw $a0, ($sp)\n");
+			sb.append("move $a0, $v0\n");
 			sb.append("#On affiche le resultat de l'expression\n");
 			sb.append("li $v0, 1\n");
 		}
