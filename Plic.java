@@ -29,16 +29,16 @@ public class Plic {
             	System.out.println("ERREUR: classe racine non trouvee");
             }
 
-            BlocDInstructions arbreBis = (BlocDInstructions) arbre;
-            arbreBis.setClasseRacine(classeRacine);
-            valide = arbreBis.verifier() && valide;
+            //BlocDInstructions arbreBis = (BlocDInstructions) arbre;
+            //arbreBis.setClasseRacine(classeRacine);
+            valide = arbre.verifier() && valide;
             
             if (valide) {
 	            /* récupération du no du fichier */
 	            String[] name = fichier.split(".plic"); 
 	            /* ecriture dans le fichier .mips */
 	            FileWriter fw = new FileWriter(name[0] + ".mips");
-	            fw.write(arbreBis.toMIPS());
+	            fw.write(arbre.toMIPS());
 	            fw.flush();
 	            fw.close();
 	            

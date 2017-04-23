@@ -56,10 +56,10 @@ public class BlocDInstructions extends ArbreAbstrait {
 		sb.append(".text\n");
 		
 		for(ArbreAbstrait c : alclasse) {
-			Classe tmp = (Classe) c;
-			if(tmp.getIdentifiant().equals(classeRacine)) {
+			//Classe tmp = (Classe) c;
+			//if(tmp.getIdentifiant().equals(classeRacine)) {
 				sb.append(c.toMIPS());
-			}
+			//}
     	}
 		
 		sb.append("end :\n");
