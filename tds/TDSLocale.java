@@ -41,7 +41,6 @@ public class TDSLocale {
 	
 	public String toMipsEntree() {
 		StringBuilder sb = new StringBuilder();
-		System.out.println("toMipsEntree du bloc " + numBloc);
 		sb.append("# Entrée dans bloc " + numBloc + "\n");
 		sb.append("sw $s7, 0($sp) \n");
 		sb.append("# Initialisation de la base des variables \n");
@@ -57,12 +56,11 @@ public class TDSLocale {
 	
 	public String toMipsSortie() {
 		StringBuilder sb = new StringBuilder();
-		System.out.println("toMipsSortie du bloc " + numBloc);
 		sb.append("# Sortie du bloc " + numBloc + "\n");
 		sb.append("# Ajustement sommet de la pile \n");
 		sb.append("move $sp, $s7\n");
 		sb.append("# Ajustement de la base des variables \n");
-		sb.append("lw $s7, ($sp)\n");
+		sb.append("sw $s7, ($sp)\n");
 		
 		return sb.toString();
 	}
@@ -113,17 +111,5 @@ public class TDSLocale {
 	public HashMap<Entree,Symbole> getTable() {
 		return this.table;
 	}
-
-	/*public String getNomClasse() {
-		HashMap<Entree,Symbole> tablePere = this.getPere().getTable();
-		for(Entry<Entree, Symbole> entry : tablePere.entrySet()) {
-		    Entree cle = entry.getKey();
-		    Symbole s = entry.getValue();
-		    if(s.getType().equals("classe")) {
-		    	return cle.getNom();
-		    }
-		}
-		return "";
-	}*/
 
 }
