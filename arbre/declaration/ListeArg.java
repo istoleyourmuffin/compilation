@@ -2,21 +2,18 @@ package plic.arbre.declaration;
 
 import java.util.ArrayList;
 
-public class ListeVar extends Declaration {
+public class ListeArg extends Declaration {
+
+	protected ArrayList<DeclarationArg> ala;
 	
-	protected ArrayList<DeclarationVar> alv;
-	public ListeVar(int n) {
+	public ListeArg(int n) {
 		super(n);
-		alv = new ArrayList<>();
+		ala = new ArrayList<DeclarationArg>();
 	}
 
-	public void ajouter(DeclarationVar dv){
-		alv.add(dv);
-	}	
-	
 	public boolean verifier() {
 		boolean valide = true;
-		for(DeclarationVar d : alv) {
+		for(DeclarationArg d : ala) {
 			if(!d.verifier()) {
 				valide = false;
 			}
@@ -26,6 +23,10 @@ public class ListeVar extends Declaration {
 
 	public String toMIPS() {
 		return "";
+	}
+
+	public void ajouter(DeclarationArg d) {
+		ala.add(d);
 	}
 
 }
